@@ -21,7 +21,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const [cookies, setCookies] = useCookies(["access_token"]);
+  const [, setCookies] = useCookies(["access_token", "username"]);
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
 
