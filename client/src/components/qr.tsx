@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Qr = ({ id }: { id: string }) => {
   const [qrCodeImage, setQrCodeImage] = useState("");
@@ -29,13 +30,19 @@ const Qr = ({ id }: { id: string }) => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <Image
-        width={160}
-        height={160}
-        src={`data:image/png;base64,${qrCodeImage}`}
-        alt={id}
-      />
-      <p className="mt-5">face-share.vercel.app/{id}</p>
+      <div>
+        {qrCodeImage ? (
+          <Image
+            width={160}
+            height={160}
+            src={`data:image/png;base64,${qrCodeImage}`}
+            alt={id}
+          />
+        ) : (
+          <Skeleton className="w-40 h-40" />
+        )}
+      </div>
+      <p className="mt-5 text-nowrap">face-share.vercel.app/{id}</p>
     </div>
   );
 };

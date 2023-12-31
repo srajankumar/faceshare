@@ -57,3 +57,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+.hero {
+  background-image: url("/bg.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* Add other background properties as needed */
+}
