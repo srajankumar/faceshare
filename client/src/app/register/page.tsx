@@ -17,7 +17,7 @@ export default function Login() {
       <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div className="relative hidden h-full flex-col bg-muted text-white lg:flex dark:border-r">
           <img
-            src="/login.jpg"
+            src="/register.jpg"
             className="relative bg-black object-cover w-full h-full z-20"
             // layout="fill"
             alt=""

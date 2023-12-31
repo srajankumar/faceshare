@@ -41,4 +41,11 @@ router.post("/login", async (req, res) => {
   res.json({ token, userID: user._id });
 });
 
+router.get("/check-username/:username", async (req, res) => {
+  const { username } = req.params;
+  const user = await UserModel.findOne({ username });
+
+  res.json({ exists: !!user });
+});
+
 export { router as userRouter };
