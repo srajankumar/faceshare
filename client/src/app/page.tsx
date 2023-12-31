@@ -9,7 +9,7 @@ export default function Home() {
     <div>
       <Navbar />
       <Hero />
-      {/* <Mockup /> */}
+      <Mockup />
       <Footer />
     </div>
   );
