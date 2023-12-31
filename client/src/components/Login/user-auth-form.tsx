@@ -31,24 +31,35 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         password,
       });
 
-      setCookies("access_token", response.data.token);
-      setCookies("username", username);
+      if (!response.data.token) {
+        toast({
+          title: "Login Failed",
+          description:
+            "The entered username or password is incorrect. Please try again.",
+          variant: "destructive",
+        });
 
-      window.localStorage.setItem("userID", response.data.userID);
+        setUsername("");
+        setPassword("");
+      } else {
+        setCookies("access_token", response.data.token);
+        setCookies("username", username);
 
-      toast({
-        title: "Login Successful",
-      });
+        window.localStorage.setItem("userID", response.data.userID);
 
-      setUsername("");
-      setPassword("");
-      setError(null);
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 1000);
+        toast({
+          title: "Login Successful",
+        });
+
+        setUsername("");
+        setPassword("");
+        setError(null);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      }
     } catch (err) {
       console.error(err);
-
       setError("An error occurred. Please try again.");
       toast({
         title: "Login Failed",
