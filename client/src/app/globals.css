@@ -59,8 +59,27 @@
 }
 
 .hero {
-  background-image: url("/bg.svg");
+  background-image: url("/cc.svg");
   background-size: cover;
   background-repeat: no-repeat;
-  /* Add other background properties as needed */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #4b515b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5c636e;
 }

@@ -16,12 +16,14 @@ export default function Login() {
     <>
       <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div className="relative hidden h-full flex-col bg-muted text-white lg:flex dark:border-r">
-          <img
+          <Image
+            quality={100}
+            priority
             src="/register.jpg"
             className="relative bg-black object-cover w-full h-full z-20"
-            // layout="fill"
+            layout="fill"
             alt=""
-          ></img>
+          ></Image>
         </div>
         <div className="lg:p-8">
           <div className="mx-auto flex flex-col justify-center space-y-6 w-[350px]">
