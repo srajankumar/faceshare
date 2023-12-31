@@ -2,6 +2,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+import { useCookies } from "react-cookie";
+
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
@@ -19,61 +21,41 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [cookies, setCookies] = useCookies(["access_token"]);
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
-
-  async function checkUsernameAvailability(username: string): Promise<boolean> {
-    try {
-      const response = await axios.get(
-        `${server}/auth/check-username/${username}`
-      );
-      return !response.data.exists;
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     setIsLoading(true);
 
     try {
-      const isUsernameAvailable = await checkUsernameAvailability(username);
-
-      if (!isUsernameAvailable) {
-        setError("Username already exists. Please choose a different one.");
-        toast({
-          title: "Registration Failed",
-          description:
-            "Username already exists. Please choose a different one.",
-        });
-        return;
-      }
-
-      await axios.post(`${server}/auth/register`, {
+      const responce = await axios.post(`${server}/auth/register`, {
         username,
         password,
       });
 
+      setCookies("access_token", responce.data.token);
+
+      window.localStorage.setItem("userID", responce.data.userID);
+
       toast({
-        title: "Registration Completed",
-        description: "Login to continue",
+        title: "Login Successful",
       });
 
       setUsername("");
       setPassword("");
       setError(null);
       setTimeout(() => {
-        window.location.href = "/login";
+        window.location.href = "/";
       }, 1000);
     } catch (err) {
       console.error(err);
 
-      setError("An error occurred during registration. Please try again.");
+      setError("An error occurred. Please try again.");
       toast({
-        title: "Registration Failed",
-        description: "An error occurred during registration. Please try again.",
+        title: "Login Failed",
+        description: "An error occurred. Please try again.",
       });
     } finally {
       setIsLoading(false);

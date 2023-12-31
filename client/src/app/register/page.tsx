@@ -34,23 +34,15 @@ export default function Login() {
               </p>
             </div>
             <UserAuthForm />
-            {/* <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{" "}
+            <p className="px-8 text-center text-sm text-muted-foreground">
+              Already have an account?{" "}
               <Link
-                href="/terms"
+                href="/login"
                 className="underline underline-offset-4 hover:text-primary"
               >
-                Terms of Service
+                Login
               </Link>{" "}
-              and{" "}
-              <Link
-                href="/privacy"
-                className="underline underline-offset-4 hover:text-primary"
-              >
-                Privacy Policy
-              </Link>
-              .
-            </p> */}
+            </p>
           </div>
         </div>
       </div>
