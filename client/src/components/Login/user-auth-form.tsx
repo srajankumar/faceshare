@@ -1,9 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-
 import { useCookies } from "react-cookie";
-
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
@@ -23,21 +21,20 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [, setCookies] = useCookies(["access_token", "username"]);
 
-  const server = process.env.NEXT_PUBLIC_SERVER_URL;
-
-  async function onSubmit(event: React.FormEvent) {
+  const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
 
     try {
-      const responce = await axios.post(`${server}/auth/register`, {
+      const response = await axios.post(`${server}/auth/login`, {
         username,
         password,
       });
 
-      setCookies("access_token", responce.data.token);
+      setCookies("access_token", response.data.token);
+      setCookies("username", username);
 
-      window.localStorage.setItem("userID", responce.data.userID);
+      window.localStorage.setItem("userID", response.data.userID);
 
       toast({
         title: "Login Successful",
@@ -56,11 +53,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       toast({
         title: "Login Failed",
         description: "An error occurred. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>

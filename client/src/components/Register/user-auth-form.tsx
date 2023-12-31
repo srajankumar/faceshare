@@ -47,6 +47,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           title: "Registration Failed",
           description:
             "Username already exists. Please choose a different one.",
+          variant: "destructive",
         });
         return;
       }
@@ -74,6 +75,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       toast({
         title: "Registration Failed",
         description: "An error occurred during registration. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
