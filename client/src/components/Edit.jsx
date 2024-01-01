@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
+import { useGetUserID } from "../hooks/useGetUserID";
+
+const userID = useGetUserID();
 
 const ProfilePage = () => {
   const [profiles, setProfiles] = useState([]);
@@ -52,12 +55,15 @@ const ProfilePage = () => {
         <div>
           <h2>All Profiles</h2>
           <ul>
-            {profiles.map((profile) => (
-              <li key={profile._id}>
-                {profile.name} - {profile.bio}
-                <button onClick={() => handleEditClick(profile)}>Edit</button>
-              </li>
-            ))}
+            {profiles
+              .filter((profile) => profile.userOwner === userID)
+              .map((profile) => (
+                <li key={profile._id}>
+                  {profile._id}
+                  {profile.name} - {profile.bio}
+                  <button onClick={() => handleEditClick(profile)}>Edit</button>
+                </li>
+              ))}
           </ul>
         </div>
         <div>
