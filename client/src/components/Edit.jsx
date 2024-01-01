@@ -5,11 +5,11 @@ import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { useGetUserID } from "../hooks/useGetUserID";
 
-const userID = useGetUserID();
-
 const ProfilePage = () => {
   const [profiles, setProfiles] = useState([]);
   const [selectedProfile, setSelectedProfile] = useState(null);
+
+  const userID = useGetUserID();
 
   useEffect(() => {
     const fetchProfiles = async () => {

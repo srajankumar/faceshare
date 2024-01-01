@@ -1,7 +1,4 @@
 import Hero from "@/components/Home/Hero";
-import Image from "next/image";
-import Link from "next/link";
-import Mockup from "@/components/Home/Mockup";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Home/Navbar";
 export default function Home() {
@@ -9,7 +6,6 @@ export default function Home() {
     <div>
       <Navbar />
       <Hero />
-      {/* <Mockup /> */}
       <Footer />
     </div>
   );
