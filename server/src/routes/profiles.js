@@ -58,4 +58,27 @@ router.get("/savedProfiles", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const profileID = req.params.id;
+  const updatedData = req.body;
+
+  try {
+    // Find the existing profile by ID
+    const existingProfile = await ProfileModel.findById(profileID);
+
+    if (!existingProfile) {
+      return res.status(404).json({ error: "Profile not found" });
+    }
+
+    // Update the profile data with the new data
+    Object.assign(existingProfile, updatedData);
+
+    // Save the updated profile
+    const updatedProfile = await existingProfile.save();
+
+    res.json(updatedProfile);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 export { router as profilesRouter };

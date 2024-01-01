@@ -1,76 +1,98 @@
 "use client";
-import { useState } from "react";
+// ProfilePage.js
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useGetUserID } from "../hooks/useGetUserID";
 import { Input } from "@/components/ui/input";
-const Edit = () => {
-  const userID = useGetUserID();
 
-  const [profile, setProfile] = useState({
-    name: "",
-    bio: "",
-    imageUrl: "",
-    links: [],
-    userOwner: userID,
-  });
+const ProfilePage = () => {
+  const [profiles, setProfiles] = useState([]);
+  const [selectedProfile, setSelectedProfile] = useState(null);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setProfile({ ...profile, [name]: value });
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/profiles");
+        setProfiles(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchProfiles();
+  }, []);
+
+  const handleEditClick = (profile) => {
+    setSelectedProfile(profile);
   };
 
-  const handleLinkChange = (event, index) => {
-    const { value } = event.target;
-    const links = profile.links;
-    links[index] = value;
-    setProfile({ ...profile, links });
-  };
-
-  const addLink = () => {
-    setProfile({ ...profile, links: [...profile.links, ""] });
-  };
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
+  const handleSave = async () => {
     try {
-      await axios.post("http://localhost:3001/profiles", profile);
-      alert("Profile added");
+      await axios.put(
+        `http://localhost:3001/profiles/${selectedProfile._id}`,
+        selectedProfile
+      );
+      alert("Profile updated");
     } catch (err) {
       console.error(err);
     }
   };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setSelectedProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
-      <form onSubmit={onSubmit} className="flex flex-col w-96 space-y-4">
-        <label htmlFor="name">Name</label>
-        <Input type="text" id="name" name="name" onChange={handleChange} />
-        <label htmlFor="bio">Bio</label>
-        <Input type="text" name="bio" id="bio" onChange={handleChange} />
-        <label htmlFor="imageUrl">Image URL</label>
-        <Input
-          type="text"
-          name="imageUrl"
-          id="imageUrl"
-          onChange={handleChange}
-        />
-        <label htmlFor="links">Links</label>
-        <button type="button" onClick={addLink}>
-          Add links
-        </button>
-        {profile.links.map((link, index) => (
-          <Input
-            key={index}
-            type="text"
-            name="links"
-            value={link}
-            onChange={(event) => handleLinkChange(event, index)}
-          ></Input>
-        ))}
-        <button type="submit">Submit</button>
-      </form>
+      <h1>Profile Page</h1>
+      <div className="flex">
+        <div>
+          <h2>All Profiles</h2>
+          <ul>
+            {profiles.map((profile) => (
+              <li key={profile._id}>
+                {profile.name} - {profile.bio}
+                <button onClick={() => handleEditClick(profile)}>Edit</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          {selectedProfile && (
+            <div>
+              <h2>Edit Profile</h2>
+              <form
+                onSubmit={handleSave}
+                className="flex flex-col w-96 space-y-4"
+              >
+                <label htmlFor="name">Name</label>
+                <Input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={selectedProfile.name}
+                  onChange={handleChange}
+                />
+                <label htmlFor="bio">Bio</label>
+                <Input
+                  type="text"
+                  name="bio"
+                  id="bio"
+                  value={selectedProfile.bio}
+                  onChange={handleChange}
+                />
+                {/* Add other profile fields here */}
+                <button type="submit">Save</button>
+              </form>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Edit;
+export default ProfilePage;
