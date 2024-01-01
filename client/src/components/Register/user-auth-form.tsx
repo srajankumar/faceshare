@@ -21,7 +21,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [error, setError] = useState<string | null>(null);
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
-
   async function checkUsernameAvailability(username: string): Promise<boolean> {
     try {
       const response = await axios.get(
@@ -30,7 +29,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       return !response.data.exists;
     } catch (error) {
       console.error(error);
-      return false;
+      return true;
     }
   }
 

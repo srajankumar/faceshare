@@ -38,9 +38,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             "The entered username or password is incorrect. Please try again.",
           variant: "destructive",
         });
-
-        setUsername("");
-        setPassword("");
       } else {
         setCookies("access_token", response.data.token);
         setCookies("username", username);
@@ -55,7 +52,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         setPassword("");
         setError(null);
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/home";
         }, 1000);
       }
     } catch (err) {

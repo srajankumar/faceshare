@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Mockup from "@/components/Home/Mockup";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Home/Navbar";
 export default function Home() {
   return (
     <div>
       <Navbar />
       <Hero />
-      <Mockup />
+      {/* <Mockup /> */}
       <Footer />
     </div>
   );
