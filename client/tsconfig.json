@@ -27,7 +27,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/Edit.jsx",
     "src/app/add-profile/page.tsx"
   ],
   "exclude": ["node_modules"]

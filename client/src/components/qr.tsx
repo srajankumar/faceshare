@@ -10,7 +10,7 @@ const Qr = ({ id }: { id: string }) => {
     const generateQRCode = async () => {
       try {
         const response = await axios.get(
-          `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://face-share.vercel.app/${id}&color=fff&bgcolor=121212`,
+          `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://faceshare.vercel.app/${id}&color=fff&bgcolor=121212`,
           {
             responseType: "arraybuffer", // Ensure binary data is correctly received
           }
@@ -42,7 +42,7 @@ const Qr = ({ id }: { id: string }) => {
           <Skeleton className="w-40 h-40" />
         )}
       </div>
-      <p className="mt-5 text-nowrap">face-share.vercel.app/{id}</p>
+      <p className="mt-5 text-nowrap">faceshare.vercel.app/{id}</p>
     </div>
   );
 };

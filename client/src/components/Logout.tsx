@@ -12,7 +12,11 @@ const Logout = () => {
     window.location.href = "/";
   };
   return (
-    <Button onClick={logout} variant={"destructive"}>
+    <Button
+      className="fixed right-5 top-5"
+      onClick={logout}
+      variant={"destructive"}
+    >
       Logout
     </Button>
   );
