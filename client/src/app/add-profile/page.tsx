@@ -3,6 +3,7 @@
 import * as React from "react";
 import axios from "axios";
 import { useGetUserID } from "@/hooks/useGetUserID";
+import { useGetUsername } from "@/hooks/useGetUsername";
 import { useState, useEffect, ChangeEvent } from "react";
 
 import { Plus, Minus } from "lucide-react";
@@ -12,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 
 import {
   Carousel,
@@ -28,16 +30,20 @@ interface Profile {
   imageUrl: string;
   links: string[];
   userOwner: string | null;
+  username: string | null;
 }
 
 const Edit = () => {
   const userID = useGetUserID();
+  const username = useGetUsername();
   const [profiles, setProfiles] = useState([]);
   const [existingProfile, setExistingProfile] = useState<Profile | null>(null);
 
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
+
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -79,6 +85,7 @@ const Edit = () => {
     imageUrl: "",
     links: [],
     userOwner: userID,
+    username: username,
   });
 
   const handleChange = (event: { target: { name: any; value: any } }) => {
@@ -111,10 +118,20 @@ const Edit = () => {
     event.preventDefault();
     try {
       await axios.post("http://localhost:3001/profiles", profile);
-      alert("Profile added");
-      setExistingProfile(profile);
+      toast({
+        title: "Profile Added!",
+      });
+
+      setTimeout(() => {
+        setExistingProfile(profile);
+      }, 1000);
     } catch (err) {
       console.error(err);
+      toast({
+        title: "Oops! Failed to add profile details",
+        description: "Please try again.",
+        variant: "destructive",
+      });
     }
   };
 

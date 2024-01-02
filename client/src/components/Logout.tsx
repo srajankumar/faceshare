@@ -8,18 +8,13 @@ const Logout = () => {
     setCookies("access_token", "");
     setCookies("username", "");
     window.localStorage.removeItem("userID");
+    window.localStorage.removeItem("username");
     window.location.href = "/";
   };
   return (
-    <>
-      {!cookies.access_token ? (
-        <div>login</div>
-      ) : (
-        <Button onClick={logout} variant={"destructive"}>
-          Logout
-        </Button>
-      )}
-    </>
+    <Button onClick={logout} variant={"destructive"}>
+      Logout
+    </Button>
   );
 };
 

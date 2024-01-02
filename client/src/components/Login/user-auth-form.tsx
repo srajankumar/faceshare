@@ -43,6 +43,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         setCookies("username", username);
 
         window.localStorage.setItem("userID", response.data.userID);
+        window.localStorage.setItem("username", username);
 
         toast({
           title: "Login Successful",
