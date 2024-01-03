@@ -238,12 +238,6 @@ const ProfilePage: React.FC = () => {
                           </div>
                         </div> */}
                       <div className="flex mt-4 space-x-4 w-full">
-                        <Button
-                          className="w-full rounded-full"
-                          onClick={() => handleEditClick(profile)}
-                        >
-                          <Pencil />
-                        </Button>
                         <AlertDialog>
                           <AlertDialogTrigger className="w-full">
                             <Button className="w-full rounded-full">
@@ -255,6 +249,12 @@ const ProfilePage: React.FC = () => {
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                           </AlertDialogContent>
                         </AlertDialog>
+                        <Button
+                          className="rounded-full"
+                          onClick={() => handleEditClick(profile)}
+                        >
+                          <Pencil className="w-5 h-5" />
+                        </Button>
                       </div>
                     </div>
                   </div>

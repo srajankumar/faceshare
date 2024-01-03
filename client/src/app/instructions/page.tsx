@@ -25,6 +25,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import Link from "next/link";
 
 interface Profile {
   name: string;
@@ -163,84 +164,58 @@ const Edit = () => {
 
   return (
     <div>
-      <div className="flex flex-col w-full min-h-screen py-40 items-center">
-        {existingProfile ? (
-          redirect()
-        ) : (
-          <form onSubmit={onSubmit}>
-            <div>
-              <h1 className="text-2xl font-bold">Add your profile</h1>
-              <div className="sm:w-96 w-60 rounded-full h-1 mt-3 mb-10 bg-gradient-to-r to-background from-[#8ebec0] mr-20 via-[#f8914c]" />
-            </div>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  onChange={handleChange}
-                  placeholder="Full Name"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Bio</Label>
-                <Textarea
-                  name="bio"
-                  id="bio"
-                  onChange={handleChange}
-                  placeholder="Some cool bio"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Image URL</Label>
-                <Input
-                  name="imageUrl"
-                  id="imageUrl"
-                  onChange={handleChange}
-                  placeholder="Your cool face"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Links</Label>
-                <div className="flex flex-col space-y-4">
-                  <div className="space-y-3">
-                    {profile.links.map((link, index) => (
-                      <div key={index} className="relative">
-                        <Input
-                          key={index}
-                          type="text"
-                          name="links"
-                          placeholder={`Link ${index + 1}`}
-                          value={link}
-                          onChange={(event) => handleLinkChange(event, index)}
-                        ></Input>
-                        <Button
-                          variant={"destructive"}
-                          className="w-6 h-6 p-2 absolute top-2 right-2 rounded-full"
-                          type="button"
-                          onClick={() => removeLink(index)}
-                        >
-                          <Minus className="w-10 h-10" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  <Button
-                    className="w-8 h-8 p-2 mr-4 rounded-full"
-                    type="button"
-                    onClick={addLink}
-                  >
-                    <Plus className="w-10 h-10" />
-                  </Button>
-                </div>
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Button>Submit</Button>
-              </div>
-            </div>
-          </form>
-        )}
-      </div>
+      {existingProfile ? (
+        redirect()
+      ) : (
+        <div className="flex flex-col w-full min-h-screen justify-center items-center">
+          <Carousel
+            setApi={setApi}
+            className="w-full sm:max-w-md max-w-[19rem]"
+          >
+            <CarouselContent>
+              <CarouselItem>
+                <Card>
+                  <CardContent className="flex h-[30rem] items-center justify-center p-6">
+                    <span className="text-4xl font-semibold">Get Started!</span>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+              <CarouselItem>
+                <Card>
+                  <CardContent className="flex h-[30rem] items-center justify-center p-6">
+                    <span className="text-4xl font-semibold">
+                      Instruction 1
+                    </span>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+              <CarouselItem>
+                <Card>
+                  <CardContent className="flex h-[30rem] items-center justify-center p-6">
+                    <span className="text-4xl font-semibold">
+                      Instruction 2
+                    </span>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+              <CarouselItem>
+                <Card>
+                  <CardContent className="flex flex-col h-[30rem] items-center justify-center p-6">
+                    <Link href="/add-profile">
+                      <Button>Get Started!</Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+          <div className="py-2 text-center text-sm text-muted-foreground">
+            Slide {current} of {count}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

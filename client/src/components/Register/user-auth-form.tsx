@@ -55,7 +55,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
       toast({
         title: "Registration Completed",
-        description: "Login to continue",
+        description: "Redirecting to login page.",
       });
 
       setUsername("");

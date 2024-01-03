@@ -52,7 +52,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         setPassword("");
         setError(null);
         setTimeout(() => {
-          window.location.href = "/add-profile";
+          window.location.href = "/instructions";
         }, 1000);
       }
     } catch (err) {
