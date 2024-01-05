@@ -45,6 +45,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             "Username already exists. Please choose a different one.",
           variant: "destructive",
         });
+        setIsLoading(false);
         return;
       }
 
@@ -56,6 +57,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       toast({
         title: "Registration Completed",
         description: "Redirecting to login page.",
+        variant: "success",
       });
 
       setUsername("");
@@ -66,14 +68,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       }, 1000);
     } catch (err) {
       console.error(err);
-
       setError("An error occurred during registration. Please try again.");
       toast({
         title: "Registration Failed",
         description: "An error occurred during registration. Please try again.",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
     }
   }

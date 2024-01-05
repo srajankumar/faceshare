@@ -42,6 +42,7 @@ const Edit = () => {
   const [profiles, setProfiles] = useState([]);
   const [existingProfile, setExistingProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
@@ -202,7 +203,26 @@ const Edit = () => {
                 <Card>
                   <CardContent className="flex flex-col h-[30rem] items-center justify-center p-6">
                     <Link href="/add-profile">
-                      <Button>Get Started!</Button>
+                      <Button disabled={isLoading}>
+                        {" "}
+                        {isLoading && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="mr-2 h-4 w-4 animate-spin"
+                          >
+                            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                          </svg>
+                        )}{" "}
+                        Get Started!
+                      </Button>
                     </Link>
                   </CardContent>
                 </Card>

@@ -16,8 +16,9 @@ export default function Loading() {
         if (response.ok && isMounted) {
           setLoading(false);
           toast({
-            title: "Connected!",
+            title: "Server connected!",
             description: "The app is now successfully connected to the server.",
+            variant: "success",
           });
         } else {
           console.error("Failed to fetch data from the server");

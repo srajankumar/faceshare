@@ -37,15 +37,16 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             "The entered username or password is incorrect. Please try again.",
           variant: "destructive",
         });
+        setIsLoading(false);
       } else {
         setCookies("access_token", response.data.token);
         setCookies("username", username);
 
         window.localStorage.setItem("userID", response.data.userID);
         window.localStorage.setItem("username", username);
-
         toast({
           title: "Login Successful",
+          variant: "success",
         });
 
         setUsername("");
@@ -63,7 +64,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         description: "An error occurred. Please try again.",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
     }
   };

@@ -13,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 
 import { QrCode, Pencil, Save } from "lucide-react";
-import Image from "next/image";
 import Qr from "@/components/qr";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -232,11 +231,7 @@ const ProfilePage: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="flex flex-col w-full">
-                          <div className="mt-3 w-full border-2 hover:border-white transition-all duration-300 bg-primary/10 px-5 py-2 rounded-lg">
-                            {"Portfolio ->"}
-                          </div>
-                        </div> */}
+
                       <div className="flex mt-4 space-x-4 w-full">
                         <AlertDialog>
                           <AlertDialogTrigger className="w-full">
@@ -313,44 +308,17 @@ const ProfilePage: React.FC = () => {
                               </div>
                             ))}
                           </div>
-
-                          {/* <AlertDialog>
-                            <AlertDialogTrigger>
-                              <QrCode className="hover:scale-110 transition-all duration-300 m-3" />
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <Qr id={profile.username} />
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            </AlertDialogContent>
-                          </AlertDialog> */}
-                          <Button type="submit">Save</Button>
+                          <Button
+                            className="sm:w-[28rem] w-[22rem]"
+                            type="submit"
+                          >
+                            Save
+                          </Button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </form>
-                {/* <form
-                onSubmit={handleSave}
-                className="flex flex-col w-96 space-y-4"
-              >
-                <label htmlFor="name">Name</label>
-                <Input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={selectedProfile.name}
-                  onChange={handleChange}
-                />
-                <label htmlFor="bio">Bio</label>
-                <Input
-                  type="text"
-                  name="bio"
-                  id="bio"
-                  value={selectedProfile.bio}
-                  onChange={handleChange}
-                />
-                <button type="submit">Save</button>
-              </form> */}
               </div>
             )}
           </div>
