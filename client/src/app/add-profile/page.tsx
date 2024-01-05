@@ -9,12 +9,10 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { Plus, Minus } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import {
@@ -106,22 +104,15 @@ const Edit = () => {
     index: number
   ) => {
     const { value } = event.target;
-    const urlRegex = /^[^ "]*\.*$/;
+
+    const urlRegex = /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/\S*)?$/;
 
     const links = profile.links;
-    links[index] = value;
+    links[index] = value.trim();
     const areAllLinksValid = links.every((link) => urlRegex.test(link));
 
     setProfile({ ...profile, links });
     setIsValidLinks(areAllLinksValid);
-
-    if (!areAllLinksValid) {
-      toast({
-        title: "Not a valid link",
-        description: "Please enter a valid link.",
-        variant: "destructive",
-      });
-    }
   };
 
   const addLink = () => {
@@ -138,10 +129,42 @@ const Edit = () => {
   const onSubmit = async (event: { preventDefault: () => void }) => {
     setIsLoading(true);
     event.preventDefault();
+
+    const areAllLinksValid = profile.links.every((link) =>
+      /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/\S*)?$/.test(link.trim())
+    );
+
+    if (!areAllLinksValid) {
+      toast({
+        title: "Invalid links",
+        description: "Please make sure all links are valid.",
+        variant: "destructive",
+      });
+
+      // Find the first invalid link and set focus
+      const firstInvalidIndex = profile.links.findIndex(
+        (link) =>
+          !/^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/\S*)?$/.test(link.trim())
+      );
+
+      if (firstInvalidIndex !== -1) {
+        const invalidInput = document.querySelector(
+          `#link${firstInvalidIndex}`
+        );
+        if (invalidInput instanceof HTMLInputElement) {
+          invalidInput.focus();
+        }
+      }
+
+      setIsLoading(false);
+      return;
+    }
+
     try {
       await axios.post(`${serverUrl}/profiles`, profile);
       toast({
         title: "Profile Added!",
+        variant: "success",
       });
 
       setTimeout(() => {
@@ -154,7 +177,6 @@ const Edit = () => {
         description: "Please try again.",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
     }
   };
@@ -168,11 +190,10 @@ const Edit = () => {
     event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Prevent default behavior (e.g., form submission)
+      event.preventDefault();
       const form = event.currentTarget.form;
       const index = Array.from(form!.elements).indexOf(event.currentTarget);
 
-      // Move to the next input field or submit if it's the last one
       const nextElement = form!.elements[index + 1];
       if (nextElement) {
         (nextElement as HTMLElement).focus();
@@ -256,6 +277,14 @@ const Edit = () => {
                           value={link}
                           disabled={isLoading}
                           onChange={(event) => handleLinkChange(event, index)}
+                          className={`${
+                            !isValidLinks &&
+                            !/^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/\S*)?$/.test(
+                              link.trim()
+                            )
+                              ? "border-destructive"
+                              : ""
+                          }`}
                         ></Input>
                         <Button
                           variant={"destructive"}
@@ -268,6 +297,7 @@ const Edit = () => {
                       </div>
                     ))}
                   </div>
+
                   <Button
                     className="w-8 h-8 p-2 mr-4 rounded-full"
                     type="button"
