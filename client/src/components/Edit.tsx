@@ -147,7 +147,15 @@ const ProfilePage: React.FC = () => {
   }, []);
 
   const handleEditClick = (profile: Profile) => {
-    setSelectedProfile(profile);
+    // Initialize empty fields based on existing fields
+    const emptyFields = {
+      name: "",
+      bio: "",
+      links: Array(profile.links.length).fill(""),
+    };
+
+    // Set the selected profile state
+    setSelectedProfile({ ...emptyFields, ...profile });
   };
 
   const handleSave = async () => {
@@ -272,6 +280,7 @@ const ProfilePage: React.FC = () => {
                           value={selectedProfile.bio}
                           onChange={handleChange}
                           className="sm:w-[28rem] w-[22rem]"
+                          placeholder="Some cool bio"
                         />
                       </p>
                       <div className="flex w-full justify-end items-center max-w-md">
@@ -283,13 +292,9 @@ const ProfilePage: React.FC = () => {
                           value={selectedProfile.name}
                           onChange={handleChange}
                           className="sm:w-60 w-40"
+                          placeholder="Full Name"
                         />
                       </div>
-                      {/* <div className="flex flex-col w-full">
-                      <div className="mt-3 w-full border-2 hover:border-white transition-all duration-300 bg-primary/10 px-5 py-2 rounded-lg">
-                        {"Portfolio ->"}
-                      </div>
-                    </div> */}
                       <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
                         <div className="flex flex-wrap flex-col">
                           <div className="flex justify-center items-center flex-col mb-2">
@@ -298,7 +303,7 @@ const ProfilePage: React.FC = () => {
                                 {getIconForUrl(link)}
                                 <Input
                                   type="text"
-                                  name={`links[${index}]`} // Modify the name attribute here
+                                  name={`links[${index}]`}
                                   value={link}
                                   onChange={(event) =>
                                     handleChangeLink(event, index)
