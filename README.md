@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/assets/faceshare-cover.png" alt="banner-image"/>
+  <img src="/assets/cover.png" alt="banner-image"/>
 </div>
 
 ## About

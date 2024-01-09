@@ -26,6 +26,7 @@ interface Profile {
   bio: string;
   username: string;
   links: string[];
+  imageUrl: string;
 }
 
 const getIconForUrl = (url: string) => {
@@ -200,6 +201,17 @@ const ProfilePage: React.FC = () => {
     }));
   };
 
+  const addHttpPrefix = (link: string): string => {
+    if (
+      !link.startsWith("https://") &&
+      !link.startsWith("http://") &&
+      link.trim() !== ""
+    ) {
+      return `https://${link.trim()}`;
+    }
+    return link.trim();
+  };
+
   return (
     <div>
       {!loading ? (
@@ -211,8 +223,8 @@ const ProfilePage: React.FC = () => {
                 <div key={profile._id}>
                   <div className="flex flex-col justify-center items-center min-h-screen">
                     <Avatar className="w-40 h-40">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarImage src={profile.imageUrl} />
+                      <AvatarFallback>{profile.username}</AvatarFallback>
                     </Avatar>
                     <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
                       <p className="sm:max-w-md my-3 text-center">
@@ -228,7 +240,7 @@ const ProfilePage: React.FC = () => {
                             {profile.links.map((link, index) => (
                               <div key={index}>
                                 <Link
-                                  href={link}
+                                  href={addHttpPrefix(link)}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
@@ -269,8 +281,10 @@ const ProfilePage: React.FC = () => {
                 <form onSubmit={handleSave}>
                   <div className="flex my-5 md:my-10 flex-col justify-center items-center min-h-screen">
                     <Avatar className="w-40 h-40">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarImage src={selectedProfile.imageUrl} />
+                      <AvatarFallback>
+                        {selectedProfile.username}
+                      </AvatarFallback>
                     </Avatar>
                     <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
                       <p className="sm:max-w-md my-3 text-center">

@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
+    --background: 0 0% 0%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -27,7 +27,7 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 0 0% 0%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -57,12 +57,12 @@
     @apply bg-background text-foreground;
   }
 }
-
+/* 
 .hero {
   background-image: url("/cc.svg");
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {

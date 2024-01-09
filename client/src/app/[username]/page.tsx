@@ -22,6 +22,7 @@ interface Profile {
   bio: string;
   username: string;
   links: string[];
+  imageUrl: string;
 }
 
 const getIconForUrl = (url: string) => {
@@ -182,20 +183,31 @@ export default function Username({ params }: { params: { username: string } }) {
     );
   }
 
+  const addHttpPrefix = (link: string): string => {
+    if (
+      !link.startsWith("https://") &&
+      !link.startsWith("http://") &&
+      link.trim() !== ""
+    ) {
+      return `https://${link.trim()}`;
+    }
+    return link.trim();
+  };
+
   return (
     <div>
       {profileData && (
         <>
           <div className="flex flex-col justify-center items-center min-h-screen">
             <Avatar className="w-40 h-40">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src={profileData.imageUrl} />
+              <AvatarFallback>{profileData.username}</AvatarFallback>
             </Avatar>
             <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
               <p className="sm:max-w-md my-3 text-center">{profileData.bio}</p>
               <div className="flex w-full justify-end items-center max-w-md">
                 <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
-                <div className="text-xl">{profileData.name}</div>
+                <div className="md:text-xl text-lg">{profileData.name}</div>
               </div>
               <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
                 <div className="flex flex-col">
@@ -204,7 +216,7 @@ export default function Username({ params }: { params: { username: string } }) {
                       (link: string, index: React.Key | null | undefined) => (
                         <div key={index}>
                           <Link
-                            href={link}
+                            href={addHttpPrefix(link)}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
