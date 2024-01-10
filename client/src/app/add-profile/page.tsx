@@ -393,24 +393,9 @@ const Edit = () => {
                     onKeyPress={handleKeyPress}
                   />
                 </div>
-                {/* <div className="flex flex-col space-y-1.5">
-             <Label htmlFor="name">Image URL</Label>
-             <Input
-               name="imageUrl"
-               id="imageUrl"
-               onChange={handleChange}
-               placeholder="Your cool face"
-               disabled={isLoading}
-               onKeyPress={handleKeyPress}
-             />
-           </div> */}
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="name">Image</Label>
                   <div className="flex pt-2 space-x-10 justify-center items-center">
-                    {/* <Avatar className="w-40 h-40">
-                      <AvatarImage src={image || undefined} alt="@shadcn" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar> */}
                     <Input
                       accept="image/*"
                       type="file"
@@ -453,7 +438,6 @@ const Edit = () => {
                         </div>
                       ))}
                     </div>
-
                     <Button
                       className="w-8 h-8 p-2 mr-4 rounded-full"
                       type="button"

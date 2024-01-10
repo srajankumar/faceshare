@@ -18,6 +18,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { useGetUserID } from "../../hooks/useGetUserID";
+import { Label } from "../ui/label";
 
 interface Profile {
   userOwner: string | null;
@@ -359,44 +360,52 @@ const ProfilePage: React.FC = () => {
                               </div>
                             ))}
                           </div>
+                          <div className="flex flex-col space-y-1.5">
+                            <div className="flex flex-col space-y-4">
+                              <div className="space-y-3">
+                                {additionalLinks.map((link, index) => (
+                                  <div key={index} className="relative">
+                                    <Input
+                                      type="text"
+                                      name="additionalLinks"
+                                      placeholder={`Additional Link ${
+                                        index + 1
+                                      }`}
+                                      value={link}
+                                      onChange={(event) =>
+                                        handleAdditionalLinkChange(event, index)
+                                      }
+                                    />
+                                    <Button
+                                      variant={"destructive"}
+                                      className="w-6 h-6 p-2 absolute top-2 right-2 rounded-full"
+                                      type="button"
+                                      onClick={() =>
+                                        removeAdditionalLink(index)
+                                      }
+                                    >
+                                      <Minus className="w-10 h-10" />
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="flex pb-4 justify-center items-center">
+                                <Label htmlFor="name">Add more links</Label>
+                                <Button
+                                  className="w-8 h-8 p-2 ml-4 rounded-full"
+                                  type="button"
+                                  onClick={addAdditionalLink}
+                                >
+                                  <Plus className="w-10 h-10" />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
                           <Button
                             className="sm:w-[28rem] w-[22rem]"
                             type="submit"
                           >
                             Save
-                          </Button>
-                        </div>
-                        <div className="flex flex-col">
-                          <div className="flex flex-col space-y-4">
-                            {additionalLinks.map((link, index) => (
-                              <div key={index} className="relative">
-                                <Input
-                                  type="text"
-                                  name="additionalLinks"
-                                  placeholder={`Additional Link ${index + 1}`}
-                                  value={link}
-                                  onChange={(event) =>
-                                    handleAdditionalLinkChange(event, index)
-                                  }
-                                />
-                                <Button
-                                  variant={"destructive"}
-                                  className="w-6 h-6 p-2 absolute top-2 right-2 rounded-full"
-                                  type="button"
-                                  onClick={() => removeAdditionalLink(index)}
-                                >
-                                  <Minus className="w-10 h-10" />
-                                </Button>
-                              </div>
-                            ))}
-                          </div>
-
-                          <Button
-                            className="w-8 h-8 p-2 mr-4 rounded-full"
-                            type="button"
-                            onClick={addAdditionalLink}
-                          >
-                            <Plus className="w-10 h-10" />
                           </Button>
                         </div>
                       </div>
