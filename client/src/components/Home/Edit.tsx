@@ -7,17 +7,17 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 import Link from "next/link";
 
-import { QrCode, Pencil, Save } from "lucide-react";
+import { QrCode, Pencil, Save, Plus, Minus } from "lucide-react";
 import Qr from "@/components/qr";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
-import { useGetUserID } from "../hooks/useGetUserID";
+import { useGetUserID } from "../../hooks/useGetUserID";
 
 interface Profile {
   userOwner: string | null;
@@ -127,10 +127,30 @@ const ProfilePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+  const [additionalLinks, setAdditionalLinks] = useState<string[]>([]);
 
   const userID = useGetUserID();
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
+
+  const handleAdditionalLinkChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const newLinks = [...additionalLinks];
+    newLinks[index] = event.target.value;
+    setAdditionalLinks(newLinks);
+  };
+
+  const addAdditionalLink = () => {
+    setAdditionalLinks([...additionalLinks, ""]);
+  };
+
+  const removeAdditionalLink = (index: number) => {
+    const newLinks = [...additionalLinks];
+    newLinks.splice(index, 1);
+    setAdditionalLinks(newLinks);
+  };
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -162,10 +182,21 @@ const ProfilePage: React.FC = () => {
   const handleSave = async () => {
     try {
       if (selectedProfile) {
+        // Remove empty links
+        const filteredLinks = selectedProfile.links.filter(
+          (link) => link.trim() !== ""
+        );
+
+        const updatedProfile = {
+          ...selectedProfile,
+          links: [...filteredLinks, ...additionalLinks],
+        };
+
         await axios.put(
           `${server}/profiles/${selectedProfile._id}`,
-          selectedProfile
+          updatedProfile
         );
+
         alert("Profile updated");
       }
     } catch (err) {
@@ -219,6 +250,7 @@ const ProfilePage: React.FC = () => {
           {!selectedProfile &&
             profiles
               .filter((profile) => profile.userOwner === userID)
+              .slice(0, 1)
               .map((profile) => (
                 <div key={profile._id}>
                   <div className="flex flex-col justify-center items-center min-h-screen">
@@ -332,6 +364,39 @@ const ProfilePage: React.FC = () => {
                             type="submit"
                           >
                             Save
+                          </Button>
+                        </div>
+                        <div className="flex flex-col">
+                          <div className="flex flex-col space-y-4">
+                            {additionalLinks.map((link, index) => (
+                              <div key={index} className="relative">
+                                <Input
+                                  type="text"
+                                  name="additionalLinks"
+                                  placeholder={`Additional Link ${index + 1}`}
+                                  value={link}
+                                  onChange={(event) =>
+                                    handleAdditionalLinkChange(event, index)
+                                  }
+                                />
+                                <Button
+                                  variant={"destructive"}
+                                  className="w-6 h-6 p-2 absolute top-2 right-2 rounded-full"
+                                  type="button"
+                                  onClick={() => removeAdditionalLink(index)}
+                                >
+                                  <Minus className="w-10 h-10" />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+
+                          <Button
+                            className="w-8 h-8 p-2 mr-4 rounded-full"
+                            type="button"
+                            onClick={addAdditionalLink}
+                          >
+                            <Plus className="w-10 h-10" />
                           </Button>
                         </div>
                       </div>
