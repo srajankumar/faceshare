@@ -105,7 +105,10 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
           {Array(3)
             .fill(null)
             .map((_, index) => (
-              <div className="m-5 hover:scale-[102%] hover:rotate-1 transition-all duration-200">
+              <div
+                key={index}
+                className="m-5 hover:scale-[102%] hover:rotate-1 transition-all duration-200"
+              >
                 <div className="flex border rounded-2xl h-40 md:w-80 w-full flex-col justify-center items-center">
                   <Skeleton className="rounded-full w-20 h-20"></Skeleton>
                   <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
