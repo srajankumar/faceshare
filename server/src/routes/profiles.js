@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     const response = await ProfileModel.find({});
     res.json(response);
   } catch (err) {
-    res.json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -20,41 +20,7 @@ router.post("/", async (req, res) => {
     const response = await profile.save();
     res.json(response);
   } catch (err) {
-    res.json(err);
-  }
-});
-
-router.put("/", async (req, res) => {
-  try {
-    const profile = await ProfileModel.findById(req.body.profileID);
-    const user = await UserModel.findById(req.body.userID);
-    user.savedProfiles.push(profile);
-    await user.save();
-    res.json({ savedProfiles: user.savedProfiles });
-  } catch (err) {
-    res.json(err);
-  }
-});
-
-router.get("/savedProfiles/ids", async (req, res) => {
-  try {
-    const user = await UserModel.findById(req.body.userID);
-    res.json({ savedProfiles: user?.savedProfiles });
-  } catch (err) {
-    res.json(err);
-  }
-});
-
-router.get("/savedProfiles", async (req, res) => {
-  try {
-    const user = await UserModel.findById(req.body.userID);
-
-    const savedProfiles = await ProfileModel.find({
-      _id: { $in: user.savedProfiles },
-    });
-    res.json({ savedProfiles });
-  } catch (err) {
-    res.json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -81,4 +47,49 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.put("/", async (req, res) => {
+  try {
+    const profile = await ProfileModel.findById(req.body.profileID);
+    const user = await UserModel.findById(req.body.userID);
+
+    if (!profile || !user) {
+      return res.status(404).json({ error: "Profile or User not found" });
+    }
+
+    user.savedProfiles.push(profile);
+    await user.save();
+
+    res.json({ savedProfiles: user.savedProfiles });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/savedProfiles/ids", async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.body.userID);
+    res.json({ savedProfiles: user?.savedProfiles });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/savedProfiles", async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.body.userID);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const savedProfiles = await ProfileModel.find({
+      _id: { $in: user.savedProfiles },
+    });
+    res.json({ savedProfiles });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 export { router as profilesRouter };

@@ -183,14 +183,15 @@ const ProfilePage: React.FC = () => {
   const handleSave = async () => {
     try {
       if (selectedProfile) {
-        // Remove empty links
         const filteredLinks = selectedProfile.links.filter(
           (link) => link.trim() !== ""
         );
 
+        const allLinks = [...filteredLinks, ...additionalLinks];
+
         const updatedProfile = {
           ...selectedProfile,
-          links: [...filteredLinks, ...additionalLinks],
+          links: allLinks.map(addHttpPrefix), // Make sure to add HTTP prefix to new links
         };
 
         await axios.put(
@@ -367,7 +368,7 @@ const ProfilePage: React.FC = () => {
                                   <div key={index} className="relative">
                                     <Input
                                       type="text"
-                                      name="additionalLinks"
+                                      name={`additionalLinks[${index}]`}
                                       placeholder={`Additional Link ${
                                         index + 1
                                       }`}
