@@ -5,7 +5,22 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Logout from "../Logout";
-import { Star, StarIcon } from "lucide-react";
+import { Star, AlignRight, Home, Search, LogOut, Github } from "lucide-react";
+
+import { useCookies } from "react-cookie";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 interface GitHubStarButtonProps {
   owner: string;
@@ -40,9 +55,19 @@ const GitHubStarButton: React.FC<GitHubStarButtonProps> = ({ owner, repo }) => {
 };
 
 function Navbar() {
+  const [cookies, setCookies] = useCookies(["access_token", "username"]);
+
+  const logout = () => {
+    setCookies("access_token", "");
+    setCookies("username", "");
+    window.localStorage.removeItem("userID");
+    window.localStorage.removeItem("username");
+    window.location.href = "/";
+  };
+
   return (
     <nav className="fixed w-full z-50 backdrop-blur-md flex items-center py-4 px-8">
-      <div className="flex lg:container items-center w-full justify-between">
+      <div className="hidden md:flex lg:container items-center w-full justify-between">
         <div className="flex items-center gap-x-3">
           <Link className="flex mr-3 items-center space-x-1" href="/home">
             <Image
@@ -54,12 +79,15 @@ function Navbar() {
             ></Image>
             <p className="font-semibold">Face Share</p>{" "}
           </Link>
-          <Link
-            href="/search"
-            className="hover:text-blue-300 transition-all duration-200 text-sm"
-          >
-            Search
-          </Link>
+          <div className="flex gap-5">
+            <Link
+              href="/search"
+              className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
+            >
+              <Search className="w-5 h-5" />
+              <p>Search</p>
+            </Link>
+          </div>
         </div>
         <div className="flex gap-x-3">
           <Link
@@ -70,6 +98,78 @@ function Navbar() {
           </Link>
           <Logout />
         </div>
+      </div>
+      <div className="flex md:hidden justify-between items-center w-full">
+        <Link className="flex mr-3 items-center space-x-1" href="/home">
+          <Image
+            src="/globe.png"
+            alt="icon"
+            width={500}
+            height={500}
+            className="w-10 h-10"
+          ></Image>
+          <p className="font-semibold">Face Share</p>{" "}
+        </Link>
+        <Sheet>
+          <SheetTrigger asChild>
+            <AlignRight className="w-8 h-8 focus:rotate-90" />
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              {/* <SheetTitle>Edit profile</SheetTitle>
+              <SheetDescription>
+                Make changes to your profile here. Click save when you're done.
+              </SheetDescription> */}
+              <div className="flex my-5 justify-center items-center space-x-1">
+                <Image
+                  src="/globe.png"
+                  alt="icon"
+                  width={500}
+                  height={500}
+                  className="w-16 h-16"
+                ></Image>
+                <p className="font-semibold text-2xl">Face Share</p>{" "}
+              </div>
+            </SheetHeader>
+            <div className="grid gap-5 py-4">
+              <Link
+                href="/home"
+                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+              >
+                <Home className="w-7 h-7" />
+                <p>Home</p>
+              </Link>
+              <Link
+                href="/search"
+                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+              >
+                <Search className="w-7 h-7" />
+                <p>Search</p>
+              </Link>
+              <Link
+                href="https://github.com/srajankumar/faceshare/stargazers"
+                target="_blank"
+                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+              >
+                <Github className="w-7 h-7" />
+                <p>Star on GitHub</p>
+              </Link>
+              <Button
+                variant={"destructive"}
+                onClick={logout}
+                className="text-primary/70 py-6 hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+              >
+                <LogOut className="w-7 h-7" />
+                <p>Logout</p>
+              </Button>
+            </div>
+            {/* <SheetFooter>
+              <SheetClose asChild>
+                <Button type="submit">Save changes</Button>
+              </SheetClose>
+            </SheetFooter> */}
+          </SheetContent>
+        </Sheet>
       </div>
     </nav>
   );

@@ -347,7 +347,10 @@ const ProfilePage: React.FC = () => {
                         <div className="flex flex-wrap flex-col">
                           <div className="flex justify-center items-center flex-col mb-2">
                             {selectedProfile.links.map((link, index) => (
-                              <div key={index} className="flex items-center">
+                              <div
+                                key={index}
+                                className="flex relative items-center"
+                              >
                                 {getIconForUrl(link)}
                                 <Input
                                   type="text"
@@ -358,25 +361,78 @@ const ProfilePage: React.FC = () => {
                                   }
                                   className="ml-2 sm:w-96 w-72"
                                 />
+                                <Button
+                                  variant={"destructive"}
+                                  className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
+                                  type="button"
+                                  onClick={() => {
+                                    const newLinks = [...selectedProfile.links];
+                                    newLinks.splice(index, 1);
+                                    setSelectedProfile((prevProfile) => ({
+                                      ...(prevProfile as Profile),
+                                      links: newLinks,
+                                    }));
+                                  }}
+                                >
+                                  <Minus className="w-10 h-10" />
+                                </Button>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="flex justify-center items-center flex-col mb-2">
+                            {additionalLinks.map((link, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center relative"
+                              >
+                                {getIconForUrl(link)}
+                                <Input
+                                  type="text"
+                                  name={`additionalLinks[${index}]`}
+                                  placeholder={`Link ${index + 1}`}
+                                  value={link}
+                                  onChange={(event) =>
+                                    handleAdditionalLinkChange(event, index)
+                                  }
+                                  className="ml-2 sm:w-96 w-72"
+                                />
+                                <Button
+                                  variant={"destructive"}
+                                  className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
+                                  type="button"
+                                  onClick={() => removeAdditionalLink(index)}
+                                >
+                                  <Minus className="w-10 h-10" />
+                                </Button>
                               </div>
                             ))}
                           </div>
                           <div className="flex flex-col space-y-1.5">
                             <div className="flex flex-col space-y-4">
-                              <div className="space-y-3">
+                              {/* <div className="flex justify-center items-center flex-col mb-2">
                                 {additionalLinks.map((link, index) => (
-                                  <div key={index} className="relative">
-                                    <Input
-                                      type="text"
-                                      name={`additionalLinks[${index}]`}
-                                      placeholder={`Additional Link ${
-                                        index + 1
-                                      }`}
-                                      value={link}
-                                      onChange={(event) =>
-                                        handleAdditionalLinkChange(event, index)
-                                      }
-                                    />
+                                  <div
+                                    key={index}
+                                    className="flex items-center"
+                                  >
+                                    <div>
+                                      {getIconForUrl(link)}
+                                      <Input
+                                        type="text"
+                                        name={`additionalLinks[${index}]`}
+                                        placeholder={`Additional Link ${
+                                          index + 1
+                                        }`}
+                                        value={link}
+                                        onChange={(event) =>
+                                          handleAdditionalLinkChange(
+                                            event,
+                                            index
+                                          )
+                                        }
+                                        className="ml-2 sm:w-96 w-72"
+                                      />
+                                    </div>
                                     <Button
                                       variant={"destructive"}
                                       className="w-6 h-6 p-2 absolute top-2 right-2 rounded-full"
@@ -389,7 +445,7 @@ const ProfilePage: React.FC = () => {
                                     </Button>
                                   </div>
                                 ))}
-                              </div>
+                              </div> */}
                               <div className="flex pb-4 justify-center items-center">
                                 <Label htmlFor="name">Add more links</Label>
                                 <Button
