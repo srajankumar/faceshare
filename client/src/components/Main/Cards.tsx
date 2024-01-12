@@ -7,7 +7,8 @@ const Cards = () => {
         <img src="/home/add.png" alt="" />
       </div>
       <p className="max-w-2xl md:pt-10 leading-[2.5rem] text-2xl sm:text-3xl text-center">
-        Your all-in-one solution for effortless connection and exploration.
+        Your all-in-one solution to showcase all your important links in one
+        place.
       </p>
     </div>
   );

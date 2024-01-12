@@ -154,14 +154,13 @@ function Navbar() {
                 <Github className="w-7 h-7" />
                 <p>Star on GitHub</p>
               </Link>
-              <Button
-                variant={"destructive"}
+              <div
                 onClick={logout}
-                className="text-primary/70 py-6 hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+                className="text-primary/70 absolute bottom-0 right-0 m-5 bg-red-900 hover:bg-red-950 w-[87%] hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 text-lg"
               >
                 <LogOut className="w-7 h-7" />
                 <p>Logout</p>
-              </Button>
+              </div>
             </div>
             {/* <SheetFooter>
               <SheetClose asChild>

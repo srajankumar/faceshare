@@ -6,7 +6,7 @@ const Share = () => {
           <img
             src="/home/qr.png"
             alt="Product screenshot"
-            className="xl:px-40 lg:px-[25%] px-20 w-[57rem]"
+            className="xl:px-40 px-[25%] w-[57rem]"
             width={500}
             height={500}
           />

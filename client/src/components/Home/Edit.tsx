@@ -409,43 +409,6 @@ const ProfilePage: React.FC = () => {
                           </div>
                           <div className="flex flex-col space-y-1.5">
                             <div className="flex flex-col space-y-4">
-                              {/* <div className="flex justify-center items-center flex-col mb-2">
-                                {additionalLinks.map((link, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex items-center"
-                                  >
-                                    <div>
-                                      {getIconForUrl(link)}
-                                      <Input
-                                        type="text"
-                                        name={`additionalLinks[${index}]`}
-                                        placeholder={`Additional Link ${
-                                          index + 1
-                                        }`}
-                                        value={link}
-                                        onChange={(event) =>
-                                          handleAdditionalLinkChange(
-                                            event,
-                                            index
-                                          )
-                                        }
-                                        className="ml-2 sm:w-96 w-72"
-                                      />
-                                    </div>
-                                    <Button
-                                      variant={"destructive"}
-                                      className="w-6 h-6 p-2 absolute top-2 right-2 rounded-full"
-                                      type="button"
-                                      onClick={() =>
-                                        removeAdditionalLink(index)
-                                      }
-                                    >
-                                      <Minus className="w-10 h-10" />
-                                    </Button>
-                                  </div>
-                                ))}
-                              </div> */}
                               <div className="flex pb-4 justify-center items-center">
                                 <Label htmlFor="name">Add more links</Label>
                                 <Button

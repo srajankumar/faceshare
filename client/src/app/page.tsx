@@ -15,9 +15,10 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Cards />
-      {/* <Create /> */}
+      <Create />
       <Share />
       <Find />
+      <Footer />
     </div>
   );
 }
