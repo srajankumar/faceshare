@@ -1,7 +1,7 @@
 "use client";
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Admin/Navbar";
-import ProfilesGrid from "@/components/Search/ProfilesGrid";
+import ProfilesGrid from "@/components/Faces/ProfilesGrid";
+import Footer from "@/components/Footer";
 
 const All = () => {
   return (

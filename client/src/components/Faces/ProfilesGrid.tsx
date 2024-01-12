@@ -64,10 +64,10 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
   return (
     <div className="flex flex-col items-center p-8 min-h-screen">
       <h1 className="md:text-5xl text-4xl md:mb-20 mb-10 md:mt-32 mt-24 sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text">
-        Discover a World of Faces
+        Your Vault of Saved Faces
       </h1>
 
-      <div className="flex w-full md:mb-20 mb-10 max-w-xl">
+      {/* <div className="flex w-full md:mb-20 mb-10 max-w-xl">
         <Input
           type="text"
           placeholder="Search by username"
@@ -75,7 +75,7 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="py-2 px-5 border rounded-md"
         />
-      </div>
+      </div> */}
       {!loading ? (
         <div className="w-full justify-center items-center max-w-7xl md:flex flex-wrap">
           {filteredSearchProfiles.map((profile) => (

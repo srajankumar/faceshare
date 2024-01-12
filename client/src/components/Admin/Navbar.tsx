@@ -5,7 +5,15 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Logout from "../Logout";
-import { Star, AlignRight, Home, Search, LogOut, Github } from "lucide-react";
+import {
+  Star,
+  AlignRight,
+  Home,
+  Search,
+  LogOut,
+  Github,
+  User,
+} from "lucide-react";
 
 import { useCookies } from "react-cookie";
 
@@ -69,7 +77,7 @@ function Navbar() {
     <nav className="fixed w-full z-50 backdrop-blur-md flex items-center py-4 px-8">
       <div className="hidden md:flex lg:container items-center w-full justify-between">
         <div className="flex items-center gap-x-3">
-          <Link className="flex mr-3 items-center space-x-1" href="/home">
+          <Link className="flex mr-3 items-center space-x-1" href="/admin">
             <Image
               src="/globe.png"
               alt="icon"
@@ -87,6 +95,13 @@ function Navbar() {
               <Search className="w-5 h-5" />
               <p>Search</p>
             </Link>
+            <Link
+              href="/faces"
+              className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
+            >
+              <User className="w-5 h-5" />
+              <p>Faces</p>
+            </Link>
           </div>
         </div>
         <div className="flex gap-x-3">
@@ -100,7 +115,7 @@ function Navbar() {
         </div>
       </div>
       <div className="flex md:hidden justify-between items-center w-full">
-        <Link className="flex mr-3 items-center space-x-1" href="/home">
+        <Link className="flex mr-3 items-center space-x-1" href="/admin">
           <Image
             src="/globe.png"
             alt="icon"
@@ -133,7 +148,7 @@ function Navbar() {
             </SheetHeader>
             <div className="grid gap-5 py-4">
               <Link
-                href="/home"
+                href="/admin"
                 className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
               >
                 <Home className="w-7 h-7" />
@@ -145,6 +160,13 @@ function Navbar() {
               >
                 <Search className="w-7 h-7" />
                 <p>Search</p>
+              </Link>
+              <Link
+                href="/faces"
+                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+              >
+                <User className="w-5 h-5" />
+                <p>Faces</p>
               </Link>
               <Link
                 href="https://github.com/srajankumar/faceshare/stargazers"

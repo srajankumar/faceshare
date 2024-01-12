@@ -1,9 +1,57 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
 import { UserAuthForm } from "@/components/Register/user-auth-form";
 
+import axios from "axios";
+import { useGetUserID } from "@/hooks/useGetUserID";
+import { useState, useEffect, ChangeEvent } from "react";
+
+interface Profile {
+  name: string;
+  bio: string;
+  imageUrl: string;
+  links: string[];
+  userOwner: string | null;
+  username: string | null;
+}
+
 export default function Login() {
+  const [existingProfile, setExistingProfile] = useState<Profile | null>(null);
+  const [profiles, setProfiles] = useState([]);
+  const userID = useGetUserID();
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      try {
+        const response = await axios.get(`${serverUrl}/profiles`);
+        setProfiles(response.data);
+
+        const existingProfile = response.data.find(
+          (profile: { userOwner: string | null }) =>
+            profile.userOwner === userID
+        );
+
+        setExistingProfile(existingProfile);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchProfiles();
+  }, [userID]);
+
+  const redirect = () => {
+    window.location.href = "/admin";
+    return null;
+  };
+
+  if (existingProfile) {
+    redirect();
+  }
+
   return (
     <>
       <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">

@@ -308,7 +308,7 @@ const Edit = () => {
   };
 
   const redirect = () => {
-    window.location.href = "/home";
+    window.location.href = "/admin";
     return null;
   };
 
