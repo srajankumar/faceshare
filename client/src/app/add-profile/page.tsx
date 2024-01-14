@@ -17,6 +17,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+
+import {
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -361,10 +372,10 @@ const Edit = () => {
         {existingProfile ? (
           redirect()
         ) : (
-          <div className="container relative min-h-screen items-center justify-center flex flex-col lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+          <div className="container relative min-h-screen items-center flex flex-col lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <form
               onSubmit={onSubmit}
-              className="xl:px-40 lg:px-20 lg:py-36 pt-36 pb-20"
+              className="xl:px-40 lg:px-20 lg:py-36 py-36"
             >
               <div>
                 <h1 className="text-2xl font-bold">Add your profile</h1>
@@ -471,7 +482,74 @@ const Edit = () => {
                 </div>
               </div>
             </form>
-            <div className="flex flex-col justify-center px-2 xl:pr-40 lg:pr-20 items-center w-full lg:pb-0 pb-10">
+            <Drawer>
+              <DrawerTrigger className="md:hidden z-50 fixed bottom-10 flex w-full justify-center">
+                <Button
+                  className="rounded-full px-10 backdrop-blur-sm"
+                  variant={"secondary"}
+                >
+                  Preview
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <div className="flex px-8 my-20 flex-col justify-center xl:pr-40 lg:pr-20 items-center w-full">
+                  <Avatar className="w-40 h-40">
+                    <AvatarImage
+                      className="object-cover"
+                      src={image || undefined}
+                    />
+                    <AvatarFallback> {previewProfile.username}</AvatarFallback>
+                  </Avatar>
+                  <div className="max-w-xl flex flex-col justify-center items-center lg:mx-8 mt-3">
+                    <p className="sm:max-w-md my-3 text-center">
+                      {previewProfile.bio}
+                    </p>
+                    <div className="flex w-full justify-end items-center max-w-md">
+                      <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
+                      <div className="md:text-xl text-lg">
+                        {previewProfile.name}
+                      </div>
+                    </div>
+                    <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
+                      <div className="flex flex-col">
+                        <div className="flex flex-wrap">
+                          {previewProfile.links.map(
+                            (
+                              link: string,
+                              index: React.Key | null | undefined
+                            ) => (
+                              <div key={index}>
+                                <Link
+                                  href={addHttpPrefix(link)}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {getIconForUrl(link)}
+                                </Link>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div className="flex mt-4 space-x-4 w-full">
+                <AlertDialog>
+                  <AlertDialogTrigger className="w-full">
+                    <Button className="w-full rounded-full">
+                      <QrCode />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <Qr id={previewProfile.username} />
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div> */}
+                  </div>
+                </div>
+              </DrawerContent>
+            </Drawer>
+            <div className="md:flex hidden flex-col justify-center px-2 xl:pr-40 lg:pr-20 items-center w-full lg:pb-0 pb-10">
               <div className="lg:hidden">
                 <h1 className="text-2xl font-bold">Preview</h1>
                 <div className="sm:w-96 w-60 rounded-full h-1 mt-3 mb-10 bg-gradient-to-r to-background from-[#8ebec0] mr-20 via-[#f8914c]" />
