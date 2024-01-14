@@ -15,7 +15,7 @@ import Link from "next/link";
 
 import { QrCode, Pencil, Save, Plus, Minus } from "lucide-react";
 import Qr from "@/components/qr";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { useGetUserID } from "../../hooks/useGetUserID";
@@ -158,8 +158,8 @@ const ProfilePage = () => {
         image.src = event.target.result as string;
         image.onload = () => {
           const canvas = document.createElement("canvas");
-          const maxWidth = 500; // set your desired maximum width
-          const maxHeight = 500; // set your desired maximum height
+          const maxWidth = 500;
+          const maxHeight = 500;
           let width = image.width;
           let height = image.height;
 
@@ -254,8 +254,11 @@ const ProfilePage = () => {
         const updatedProfile = {
           ...selectedProfile,
           links: allLinks.map(addHttpPrefix),
-          imageUrl: image,
         };
+
+        if (image) {
+          updatedProfile.imageUrl = image;
+        }
 
         await axios.put(
           `${server}/profiles/${selectedProfile?._id}`,
@@ -379,7 +382,7 @@ const ProfilePage = () => {
             </DrawerContent>
           </Drawer>
           <form onSubmit={handleSave}>
-            <div className="flex lg:mx-20 mx-8 py-40 flex-col items-center min-h-screen">
+            <div className="flex lg:mx-20 mx-8 py-36 flex-col items-center min-h-screen">
               <div className="max-w-xl w-full flex flex-col mx-8 mt-3">
                 <div className="text-2xl mb-5 font-semibold">
                   <p>Profile</p>
@@ -503,7 +506,7 @@ const ProfilePage = () => {
               </div>
             </div>
           </form>
-          <div className="md:flex hidden w-full justify-center items-center">
+          <div className="md:flex fixed w-1/2 hidden right-0 justify-center items-center">
             {profiles
               .filter((profile) => profile.userOwner === userID)
               .slice(0, 1)
