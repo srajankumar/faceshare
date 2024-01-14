@@ -158,18 +158,46 @@ const Edit = () => {
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   function convertToBase64(e: any) {
-    var reader = new FileReader();
+    const reader = new FileReader();
+    const image = new Image();
+
     reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      const result = reader.result;
-      if (typeof result === "string" || result === null) {
-        setImage(result);
-      } else {
-        console.error("Unsupported FileReader result type:", typeof result);
+
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      if (event.target && event.target.result) {
+        image.src = event.target.result as string;
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          const maxWidth = 500; // set your desired maximum width
+          const maxHeight = 500; // set your desired maximum height
+          let width = image.width;
+          let height = image.height;
+
+          // Resize the image if it exceeds the maximum dimensions
+          if (width > maxWidth || height > maxHeight) {
+            const ratio = Math.min(maxWidth / width, maxHeight / height);
+            width *= ratio;
+            height *= ratio;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            ctx.drawImage(image, 0, 0, width, height);
+
+            // Convert canvas content to base64
+            const base64 = canvas.toDataURL("image/jpeg", 0.7); // Adjust the quality as needed
+
+            setImage(base64);
+          }
+        };
       }
     };
+
     reader.onerror = (error) => {
-      console.log("Error: ", error);
+      console.error("Error: ", error);
     };
   }
 

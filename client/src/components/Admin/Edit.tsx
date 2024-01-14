@@ -136,15 +136,60 @@ const getIconForUrl = (url: string) => {
   }
 };
 
-const ProfilePage: React.FC = () => {
+const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const [additionalLinks, setAdditionalLinks] = useState<string[]>([]);
+  const [image, setImage] = React.useState<string | null>(null);
 
   const userID = useGetUserID();
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
+
+  function convertToBase64(e: any) {
+    const reader = new FileReader();
+    const image = new Image();
+
+    reader.readAsDataURL(e.target.files[0]);
+
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      if (event.target && event.target.result) {
+        image.src = event.target.result as string;
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          const maxWidth = 500; // set your desired maximum width
+          const maxHeight = 500; // set your desired maximum height
+          let width = image.width;
+          let height = image.height;
+
+          // Resize the image if it exceeds the maximum dimensions
+          if (width > maxWidth || height > maxHeight) {
+            const ratio = Math.min(maxWidth / width, maxHeight / height);
+            width *= ratio;
+            height *= ratio;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            ctx.drawImage(image, 0, 0, width, height);
+
+            // Convert canvas content to base64
+            const base64 = canvas.toDataURL("image/jpeg", 0.7); // Adjust the quality as needed
+
+            setImage(base64);
+          }
+        };
+      }
+    };
+
+    reader.onerror = (error) => {
+      console.error("Error: ", error);
+    };
+  }
 
   const handleAdditionalLinkChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -209,6 +254,7 @@ const ProfilePage: React.FC = () => {
         const updatedProfile = {
           ...selectedProfile,
           links: allLinks.map(addHttpPrefix),
+          imageUrl: image,
         };
 
         await axios.put(
@@ -281,7 +327,10 @@ const ProfilePage: React.FC = () => {
                   <div className="my-20" key={profile._id}>
                     <div className="className flex flex-col justify-center items-center ">
                       <Avatar className="w-40 h-40">
-                        <AvatarImage src={profile.imageUrl} />
+                        <AvatarImage
+                          src={profile.imageUrl}
+                          className="object-cover"
+                        />
                         <AvatarFallback>{profile.username}</AvatarFallback>
                       </Avatar>
                       <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
@@ -331,27 +380,12 @@ const ProfilePage: React.FC = () => {
           </Drawer>
           <form onSubmit={handleSave}>
             <div className="flex lg:mx-20 mx-8 py-40 flex-col items-center min-h-screen">
-              {/* <Avatar className="w-40 h-40">
-                <AvatarImage src={selectedProfile?.imageUrl} />
-                <AvatarFallback>{selectedProfile?.username}</AvatarFallback>
-              </Avatar> */}
               <div className="max-w-xl w-full flex flex-col mx-8 mt-3">
                 <div className="text-2xl mb-5 font-semibold">
                   <p>Profile</p>
                   <div className="w-full mt-2 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
                 </div>
-                <div className="flex flex-col w-full mb-2">
-                  <Label className="pb-2">Bio</Label>
-                  <Textarea
-                    id="bio"
-                    name="bio"
-                    value={selectedProfile?.bio}
-                    onChange={handleChange}
-                    className="w-full"
-                    placeholder="Some cool bio"
-                  />
-                </div>
-                <div className="flex w-full flex-col my-2">
+                <div className="flex w-full flex-col my-2 pb-2">
                   <Label className="mb-2">Name</Label>
                   <Input
                     type="text"
@@ -363,6 +397,28 @@ const ProfilePage: React.FC = () => {
                     placeholder="Full Name"
                   />
                 </div>
+
+                <div className="flex flex-col w-full mb-2">
+                  <Label className="pb-2">Bio</Label>
+                  <Textarea
+                    id="bio"
+                    name="bio"
+                    value={selectedProfile?.bio}
+                    onChange={handleChange}
+                    className="w-full"
+                    placeholder="Some cool bio"
+                  />
+                </div>
+
+                <div className="flex w-full flex-col my-2">
+                  <Label className="mb-2">Image</Label>
+                  <Input
+                    accept="image/*"
+                    type="file"
+                    onChange={convertToBase64}
+                  />
+                </div>
+
                 <div className="mt-2 w-full flex flex-wrap items-center">
                   <div className="flex flex-wrap w-full flex-col">
                     <div className="flex justify-center items-center flex-col mb-2">
@@ -458,7 +514,10 @@ const ProfilePage: React.FC = () => {
                 >
                   <div className="flex flex-col justify-center items-center">
                     <Avatar className="w-40 h-40">
-                      <AvatarImage src={profile.imageUrl} />
+                      <AvatarImage
+                        src={profile.imageUrl}
+                        className="object-cover"
+                      />
                       <AvatarFallback>{profile.username}</AvatarFallback>
                     </Avatar>
                     <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
