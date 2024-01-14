@@ -51,7 +51,7 @@ function Navbar() {
             alt="icon"
             width={500}
             height={500}
-            className="w-10 h-10"
+            className="w-10 h-10 py-1 pr-2"
           ></Image>
           <p className="font-semibold">Face Share</p>{" "}
         </Link>

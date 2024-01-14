@@ -83,7 +83,7 @@ function Navbar() {
               alt="icon"
               width={500}
               height={500}
-              className="w-10 h-10"
+              className="w-10 h-10 py-1 pr-2"
             ></Image>
             <p className="font-semibold">Face Share</p>{" "}
           </Link>
@@ -121,7 +121,7 @@ function Navbar() {
             alt="icon"
             width={500}
             height={500}
-            className="w-10 h-10"
+            className="w-10 h-10 py-1 pr-2"
           ></Image>
           <p className="font-semibold">Face Share</p>{" "}
         </Link>
@@ -141,9 +141,9 @@ function Navbar() {
                   alt="icon"
                   width={500}
                   height={500}
-                  className="w-16 h-16"
+                  className="w-10 h-10 py-1 pr-2"
                 ></Image>
-                <p className="font-semibold text-2xl">Face Share</p>{" "}
+                <p className="font-semibold text-xl">Face Share</p>{" "}
               </div>
             </SheetHeader>
             <div className="grid gap-5 py-4">

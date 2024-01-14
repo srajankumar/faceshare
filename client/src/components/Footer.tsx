@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 
 const Footer = () => {
   return (
-    <nav className="w-full z-50 backdrop-blur-md flex items-center py-5 pb-10 px-8">
+    <nav className="w-full z-40 backdrop-blur-md flex items-center py-5 pb-10 px-8">
       <div className="flex lg:container sm:flex-row flex-col items-center w-full justify-center">
         <div className="flex items-center space-x-3">
           <p className="text-sm text-primary/50">
