@@ -456,7 +456,7 @@ const ProfilePage: React.FC = () => {
                   key={profile._id}
                   className="flex justify-center items-center min-h-screen"
                 >
-                  <div className="flex py-20 lg:border-4 lg:border-[#1E1E1E] rounded-xl flex-col justify-center items-center">
+                  <div className="flex flex-col justify-center items-center">
                     <Avatar className="w-40 h-40">
                       <AvatarImage src={profile.imageUrl} />
                       <AvatarFallback>{profile.username}</AvatarFallback>
