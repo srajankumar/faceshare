@@ -83,9 +83,9 @@ function Navbar() {
               alt="icon"
               width={500}
               height={500}
-              className="w-10 h-10 py-1 pr-2"
+              className="w-7 h-7"
             ></Image>
-            <p className="font-semibold">Face Share</p>{" "}
+            <p className="font-semibold pl-1">Face Share</p>{" "}
           </Link>
           <div className="flex gap-5">
             <Link
@@ -121,9 +121,9 @@ function Navbar() {
             alt="icon"
             width={500}
             height={500}
-            className="w-10 h-10 py-1 pr-2"
+            className="w-7 h-7"
           ></Image>
-          <p className="font-semibold">Face Share</p>{" "}
+          <p className="font-semibold pl-1">Face Share</p>{" "}
         </Link>
         <Sheet>
           <SheetTrigger asChild>
@@ -141,9 +141,9 @@ function Navbar() {
                   alt="icon"
                   width={500}
                   height={500}
-                  className="w-10 h-10 py-1 pr-2"
+                  className="w-8 h-8"
                 ></Image>
-                <p className="font-semibold text-xl">Face Share</p>{" "}
+                <p className="font-semibold text-xl pl-1">Face Share</p>{" "}
               </div>
             </SheetHeader>
             <div className="grid gap-5 py-4">

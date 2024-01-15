@@ -401,13 +401,10 @@ const Edit = () => {
           redirect()
         ) : (
           <div className="container relative min-h-[100dvh] items-center flex flex-col lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-            <form
-              onSubmit={onSubmit}
-              className="xl:px-40 lg:px-20 lg:py-36 py-36"
-            >
+            <form onSubmit={onSubmit} className="xl:px-40 lg:px-20 py-32">
               <div>
                 <h1 className="text-2xl font-bold">Add your profile</h1>
-                <div className="sm:w-96 w-60 rounded-full h-1 mt-3 mb-10 bg-gradient-to-r to-background from-[#8ebec0] mr-20 via-[#f8914c]" />
+                <div className="w-full rounded-full h-1 mt-3 mb-10 bg-gradient-to-r to-background from-[#8ebec0] mr-20 via-[#f8914c]" />
               </div>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
