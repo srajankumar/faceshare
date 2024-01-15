@@ -1,4 +1,5 @@
 "use client";
+import { useCookies } from "react-cookie";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   AlertDialog,
@@ -8,6 +9,17 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useToast } from "@/components/ui/use-toast";
+
+import { useGetUserID } from "@/hooks/useGetUserID";
+
+import axios from "axios";
 
 import Link from "next/link";
 
@@ -120,9 +132,14 @@ const getIconForUrl = (url: string) => {
 };
 
 export default function Username({ params }: { params: { username: string } }) {
+  const { toast } = useToast();
   const [profileData, setProfileData] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [savedProfiles, setSavedProfiles] = useState<string[]>([]);
+  const [cookies] = useCookies(["access_token"]);
+
+  const userID = useGetUserID();
 
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -151,7 +168,19 @@ export default function Username({ params }: { params: { username: string } }) {
       }
     };
 
+    const fetchSavedProfile = async () => {
+      try {
+        const response = await axios.get(
+          `${serverUrl}/profiles/savedProfiles/ids/${userID}`
+        );
+        setSavedProfiles(response.data.savedProfiles);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     fetchData();
+    fetchSavedProfile();
   }, [params.username]);
 
   if (loading) {
@@ -172,7 +201,6 @@ export default function Username({ params }: { params: { username: string } }) {
   if (notFound) {
     return (
       <div className="flex min-h-screen justify-center items-center">
-        {" "}
         <div className="flex flex-col justify-center items-center">
           <div className="text-2xl">Profile of {params.username} not found</div>
           <Link href="/" className="mt-4">
@@ -193,6 +221,52 @@ export default function Username({ params }: { params: { username: string } }) {
     }
     return link.trim();
   };
+
+  const saveProfile = async (profileID: any) => {
+    try {
+      const response = await axios.put(
+        `${serverUrl}/profiles`,
+        {
+          profileID,
+          userID,
+        },
+        { headers: { authorization: "iwajfm" } }
+      );
+      setSavedProfiles(response.data.savedProfiles);
+      toast({
+        title: "Profile saved!",
+        variant: "success",
+      });
+    } catch (err: any) {
+      if (err.response && err.response.status === 401) {
+        // Unauthorized error
+        toast({
+          title: "Authorization Error",
+          description:
+            "You are not authorized to perform this action. Please log in.",
+          variant: "destructive",
+        });
+      } else if (err.response && err.response.status === 403) {
+        // Forbidden error
+        toast({
+          title: "Access Denied!",
+          description: "Forbidden request. Please try again.",
+          variant: "destructive",
+        });
+      } else {
+        // Other errors
+        toast({
+          title: "Error saving profile",
+          description:
+            "An error occurred while saving the profile. Please try again later.",
+          variant: "destructive",
+        });
+      }
+      console.log(err);
+    }
+  };
+
+  const isProfileSaved = (id: string) => savedProfiles.includes(id);
 
   return (
     <div>
@@ -230,11 +304,32 @@ export default function Username({ params }: { params: { username: string } }) {
               </div>
               <div className="flex mt-4 space-x-4 w-full">
                 <AlertDialog>
-                  <AlertDialogTrigger className="w-full">
-                    <Button className="w-full rounded-full">
-                      <QrCode />
-                    </Button>
-                  </AlertDialogTrigger>
+                  <div className="flex w-full gap-3">
+                    <AlertDialogTrigger className="w-full">
+                      <Button className="w-full rounded-full">
+                        <QrCode />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <button
+                      className="cursor-pointer hover:scale-110 transition-all duration-200"
+                      disabled={isProfileSaved(profileData._id)}
+                      onClick={() => saveProfile(profileData._id)}
+                    >
+                      {isProfileSaved(profileData._id) ? (
+                        <img
+                          src="/saved.png"
+                          className="h-10 w-full"
+                          alt="star"
+                        />
+                      ) : (
+                        <img
+                          src="/save.png"
+                          className="h-10 w-full"
+                          alt="star"
+                        />
+                      )}
+                    </button>
+                  </div>
                   <AlertDialogContent>
                     <Qr id={profileData.username} />
                     <AlertDialogCancel>Cancel</AlertDialogCancel>

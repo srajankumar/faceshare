@@ -5,6 +5,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import Logout from "../Logout";
 import { Skeleton } from "@/components/ui/skeleton";
+
+import { useGetUserID } from "@/hooks/useGetUserID";
+
 interface Profile {
   userOwner: string | null;
   _id: string;
@@ -21,64 +24,36 @@ interface ProfilesGridProps {
 
 const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
   const [loading, setLoading] = useState(true);
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [savedProfiles, setSavedProfiles] = useState<Profile[]>([]);
+
+  const userID = useGetUserID();
+
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   useEffect(() => {
-    const fetchProfiles = async () => {
+    const fetchSavedProfile = async () => {
       try {
-        const response = await axios.get<Profile[]>(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/profiles`
+        const response = await axios.get(
+          `${serverUrl}/profiles/savedProfiles/${userID}`
         );
-        setProfiles(response.data);
+        setSavedProfiles(response.data.savedProfiles);
         setLoading(false);
-      } catch (error) {
-        console.error("Error fetching profiles:", error);
-        setLoading(false);
+      } catch (err) {
+        console.log(err);
       }
     };
 
-    fetchProfiles();
+    fetchSavedProfile();
   }, []);
-
-  // Filter out the selected profile
-  const filteredProfiles = selectedProfileId
-    ? profiles.filter((profile) => profile._id !== selectedProfileId)
-    : profiles;
-
-  // Remove profiles with duplicate usernames, keeping only the first occurrence
-  const uniqueUsernames = new Set<string>();
-  const uniqueProfiles = filteredProfiles.filter((profile) => {
-    if (uniqueUsernames.has(profile.username)) {
-      return false;
-    }
-    uniqueUsernames.add(profile.username);
-    return true;
-  });
-
-  // Filter profiles based on the search query
-  const filteredSearchProfiles = uniqueProfiles.filter((profile) =>
-    profile.username.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="flex flex-col items-center p-8 min-h-[100dvh]">
       <h1 className="md:text-5xl text-4xl md:mb-20 mb-10 md:mt-32 mt-24 sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text">
         Your Vault of Saved Faces
       </h1>
-
-      {/* <div className="flex w-full md:mb-20 mb-10 max-w-xl">
-        <Input
-          type="text"
-          placeholder="Search by username"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="py-2 px-5 border rounded-md"
-        />
-      </div> */}
       {!loading ? (
         <div className="w-full justify-center items-center max-w-7xl md:flex flex-wrap">
-          {filteredSearchProfiles.map((profile) => (
+          {savedProfiles.map((profile) => (
             <Link
               key={profile._id}
               className="w-fit m-5 hover:scale-[102%] transition-all duration-200"

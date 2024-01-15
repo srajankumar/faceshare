@@ -9,8 +9,8 @@ const Create = () => {
                 Create a cool Profile in minutes{" "}
               </h1>
               <p className="mt-6 text-lg leading-8 text-primary/50">
-                Connect your TikTok, Instagram, Twitter, website, store, videos,
-                music, podcast, events, and more.
+                Connect your Instagram, Twitter, Linkedin, GitHub, Spotify,
+                website, podcast, and more.
               </p>
             </div>
           </div>

@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { ProfileModel } from "../models/Profiles.js";
 import { UserModel } from "../models/Users.js";
+import { verifyToken } from "./users.js";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const profile = new ProfileModel(req.body);
   try {
     const response = await profile.save();
@@ -48,7 +49,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/", verifyToken, async (req, res) => {
   try {
     const profile = await ProfileModel.findById(req.body.profileID);
     const user = await UserModel.findById(req.body.userID);
@@ -66,18 +67,18 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.get("/savedProfiles/ids", async (req, res) => {
+router.get("/savedProfiles/ids/:userID", async (req, res) => {
   try {
-    const user = await UserModel.findById(req.body.userID);
+    const user = await UserModel.findById(req.params.userID);
     res.json({ savedProfiles: user?.savedProfiles });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-router.get("/savedProfiles", async (req, res) => {
+router.get("/savedProfiles/:userID", async (req, res) => {
   try {
-    const user = await UserModel.findById(req.body.userID);
+    const user = await UserModel.findById(req.params.userID);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
