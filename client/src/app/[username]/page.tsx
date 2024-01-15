@@ -26,6 +26,7 @@ import Link from "next/link";
 import { QrCode } from "lucide-react";
 import Qr from "@/components/qr";
 import React, { useEffect, useState } from "react";
+import Navbar from "@/components/Navbar";
 
 interface Profile {
   userOwner: string | null;
@@ -257,6 +258,7 @@ export default function Username({ params }: { params: { username: string } }) {
 
   return (
     <div>
+      <Navbar />
       {profileData && (
         <>
           <div className="flex flex-col justify-center items-center min-h-[100dvh]">
