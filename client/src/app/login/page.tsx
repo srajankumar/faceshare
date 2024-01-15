@@ -54,7 +54,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative min-h-[100dvh] flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div className="relative hidden h-full flex-col bg-muted text-white lg:flex dark:border-r">
           <Image
             quality={100}
