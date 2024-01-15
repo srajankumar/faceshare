@@ -86,7 +86,10 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
             >
               <div className="flex border hover:border-primary/50 transition-all duration-200 rounded-2xl h-40 md:w-80 flex-col justify-center items-center">
                 <Avatar className="w-20 h-20">
-                  <AvatarImage src={profile.imageUrl} />
+                  <AvatarImage
+                    className="object-cover"
+                    src={profile.imageUrl}
+                  />
                   <AvatarFallback>{profile.username}</AvatarFallback>
                 </Avatar>
                 <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">

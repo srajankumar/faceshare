@@ -36,6 +36,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 interface Profile {
   name: string;
@@ -396,153 +397,225 @@ const Edit = () => {
 
   return (
     <div>
-      <div className="flex flex-col w-full items-center">
-        {existingProfile ? (
-          redirect()
-        ) : (
-          <div className="container relative min-h-[100dvh] items-center flex flex-col lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-            <form onSubmit={onSubmit} className="xl:px-40 lg:px-20 py-32">
-              <div>
-                <h1 className="text-2xl font-bold">Add your profile</h1>
-                <div className="w-full rounded-full h-1 mt-3 mb-10 bg-gradient-to-r to-background from-[#8ebec0] mr-20 via-[#f8914c]" />
-              </div>
-              <div className="grid w-full items-center gap-4">
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Name</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    onChange={handleChange}
-                    placeholder="Full Name"
-                    disabled={isLoading}
-                    onKeyPress={handleKeyPress}
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Bio</Label>
-                  <Textarea
-                    name="bio"
-                    id="bio"
-                    onChange={handleChange}
-                    placeholder="Some cool bio"
-                    disabled={isLoading}
-                    onKeyPress={handleKeyPress}
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Image</Label>
-                  <div className="flex pt-2 space-x-10 justify-center items-center">
-                    <Input
-                      accept="image/*"
-                      type="file"
-                      onChange={convertToBase64}
-                      disabled={isLoading}
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Links</Label>
-                  <div className="flex flex-col space-y-4">
-                    <div className="space-y-3">
-                      {profile.links.map((link, index) => (
-                        <div key={index} className="relative">
-                          <Input
-                            key={index}
-                            type="text"
-                            name="links"
-                            placeholder={`Link ${index + 1}`}
-                            value={link}
-                            disabled={isLoading}
-                            onChange={(event) => handleLinkChange(event, index)}
-                            className={`${
-                              !isValidLinks &&
-                              !/^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/\S*)?$/.test(
-                                link.trim()
-                              )
-                                ? "border-destructive"
-                                : ""
-                            }`}
-                          ></Input>
-                          <Button
-                            variant={"destructive"}
-                            className="w-6 h-6 p-2 absolute top-2 right-2 rounded-full"
-                            type="button"
-                            onClick={() => removeLink(index)}
-                          >
-                            <Minus className="w-10 h-10" />
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                    <Button
-                      className="w-8 h-8 p-2 mr-4 rounded-full"
-                      type="button"
-                      onClick={addLink}
-                      disabled={isLoading}
-                    >
-                      <Plus className="w-10 h-10" />
-                    </Button>
-                  </div>
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Button disabled={isLoading || !isValidLinks}>
-                    {isLoading && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="mr-2 h-4 w-4 animate-spin"
-                      >
-                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-                      </svg>
-                    )}
-                    Submit
+      {existingProfile ? (
+        redirect()
+      ) : (
+        <div className="flex justify-center items-center w-full">
+          <div className="w-full xl:mx-20">
+            <div className="grid md:grid-cols-2">
+              <Drawer>
+                <DrawerTrigger className="lg:hidden z-50 fixed bottom-10 flex w-full justify-center">
+                  <Button
+                    className="rounded-full px-10 backdrop-blur-sm"
+                    variant={"secondary"}
+                  >
+                    Preview
                   </Button>
-                </div>
-              </div>
-            </form>
-            <Drawer>
-              <DrawerTrigger className="md:hidden z-50 fixed bottom-10 flex w-full justify-center">
-                <Button
-                  className="rounded-full px-10 backdrop-blur-sm"
-                  variant={"secondary"}
-                >
-                  Preview
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent>
-                <div className="flex px-8 my-20 flex-col justify-center xl:pr-40 lg:pr-20 items-center w-full">
-                  <Avatar className="w-40 h-40">
-                    <AvatarImage
-                      className="object-cover"
-                      src={image || undefined}
-                    />
-                    <AvatarFallback> {previewProfile.username}</AvatarFallback>
-                  </Avatar>
-                  <div className="max-w-xl flex flex-col justify-center items-center lg:mx-8 mt-3">
-                    <p className="sm:max-w-md my-3 text-center">
-                      {previewProfile.bio}
-                    </p>
-                    <div className="flex w-full justify-end items-center max-w-md">
-                      <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
-                      <div className="md:text-xl text-lg">
-                        {previewProfile.name}
+                </DrawerTrigger>
+                <DrawerContent>
+                  <div className="flex px-8 my-20 flex-col justify-center xl:pr-40 lg:pr-20 items-center w-full">
+                    <Avatar className="w-40 h-40">
+                      <AvatarImage
+                        className="object-cover"
+                        src={image || undefined}
+                      />
+                      <AvatarFallback>{previewProfile.username}</AvatarFallback>
+                    </Avatar>
+                    <div className="max-w-xl flex flex-col justify-center items-center lg:mx-8 mt-3">
+                      <p className="sm:max-w-md my-3 text-center">
+                        {previewProfile.bio}
+                      </p>
+                      <div className="flex w-full justify-end items-center max-w-md">
+                        <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
+                        <div className="md:text-xl text-lg">
+                          {previewProfile.name}
+                        </div>
+                      </div>
+                      <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
+                        <div className="flex flex-col">
+                          <div className="flex flex-wrap">
+                            {previewProfile.links.map(
+                              (
+                                link: string,
+                                index: React.Key | null | undefined
+                              ) => (
+                                <div key={index}>
+                                  <Link
+                                    href={addHttpPrefix(link)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {getIconForUrl(link)}
+                                  </Link>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className="flex mt-4 space-x-4 w-full">
+                <AlertDialog>
+                  <AlertDialogTrigger className="w-full">
+                    <Button className="w-full rounded-full">
+                      <QrCode />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <Qr id={previewProfile.username} />
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div> */}
+                    </div>
+                  </div>
+                </DrawerContent>
+              </Drawer>
+              <form onSubmit={onSubmit}>
+                <div className="flex lg:mx-20 mx-8 py-32 flex-col items-center min-h-[100dvh]">
+                  <div className="max-w-xl w-full flex flex-col mx-8 my-3">
+                    <div className="text-2xl mb-5 font-semibold">
+                      <p>Add your profile</p>
+                      <div className="w-full mt-2 rounded-full h-1 mr-2 bg-gradient-to-r from-[#8ebec0] via-[#f8914c] to-background" />
+                    </div>
+                    <div className="flex w-full flex-col my-2 pb-2">
+                      <Label className="mb-2">Name</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        onChange={handleChange}
+                        placeholder="Full Name"
+                        className="w-full"
+                        disabled={isLoading}
+                        onKeyPress={handleKeyPress}
+                      />
+                    </div>
+                    <div className="flex flex-col w-full mb-2">
+                      <Label className="pb-2">Bio</Label>
+                      <Textarea
+                        name="bio"
+                        id="bio"
+                        onChange={handleChange}
+                        placeholder="Some cool bio"
+                        className="w-full"
+                        disabled={isLoading}
+                        onKeyPress={handleKeyPress}
+                      />
+                    </div>
+                    <div className="flex w-full flex-col my-2">
+                      <Label className="mb-2">Image</Label>
+                      <Input
+                        accept="image/*"
+                        type="file"
+                        onChange={convertToBase64}
+                        disabled={isLoading}
+                      />
+                    </div>
+                    <div className="mt-2 w-full flex flex-wrap items-center">
+                      <div className="flex flex-wrap w-full flex-col">
+                        <div className="flex justify-center items-center flex-col mb-2">
+                          {profile.links.map((link, index) => (
+                            <div
+                              key={index}
+                              className="flex w-full relative items-center"
+                            >
+                              {getIconForUrl(link)}
+                              <Input
+                                key={index}
+                                type="text"
+                                name="links"
+                                placeholder={`Link ${index + 1}`}
+                                value={link}
+                                disabled={isLoading}
+                                onChange={(event) =>
+                                  handleLinkChange(event, index)
+                                }
+                                className={`ml-2 w-full ${
+                                  !isValidLinks &&
+                                  !/^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/\S*)?$/.test(
+                                    link.trim()
+                                  )
+                                    ? "border-destructive"
+                                    : ""
+                                }`}
+                              ></Input>
+
+                              <Button
+                                variant={"destructive"}
+                                className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
+                                type="button"
+                                onClick={() => removeLink(index)}
+                              >
+                                <Minus className="w-10 h-10" />
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                          <div className="flex flex-col space-y-4">
+                            <div className="flex pb-4 justify-center items-center">
+                              <Label htmlFor="name">Add more links</Label>
+
+                              <Button
+                                className="w-8 h-8 p-2 ml-4 rounded-full"
+                                type="button"
+                                onClick={addLink}
+                                disabled={isLoading}
+                              >
+                                <Plus className="w-10 h-10" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <Button
+                          disabled={isLoading || !isValidLinks}
+                          className="w-full"
+                        >
+                          {isLoading && (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="mr-2 h-4 w-4 animate-spin"
+                            >
+                              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                            </svg>
+                          )}
+                          Submit
+                        </Button>
                       </div>
                     </div>
-                    <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
-                      <div className="flex flex-col">
-                        <div className="flex flex-wrap">
-                          {previewProfile.links.map(
-                            (
-                              link: string,
-                              index: React.Key | null | undefined
-                            ) => (
+                  </div>
+                </div>
+              </form>
+              <div className="md:flex fixed w-1/2 hidden right-0 justify-center items-center">
+                <div className="flex justify-center items-center min-h-[100dvh]">
+                  <div className="flex flex-col justify-center items-center">
+                    <Avatar className="w-40 h-40">
+                      <AvatarImage
+                        src={image || undefined}
+                        className="object-cover"
+                      />
+                      <AvatarFallback>{previewProfile.username}</AvatarFallback>
+                    </Avatar>
+                    <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
+                      <p className="sm:max-w-md my-3 text-center">
+                        {previewProfile.bio}
+                      </p>
+                      <div className="flex w-full justify-end items-center max-w-md">
+                        <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
+                        <div className="text-xl">{previewProfile.name}</div>
+                      </div>
+                      <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
+                        <div className="flex flex-col">
+                          <div className="flex flex-wrap">
+                            {previewProfile.links.map((link, index) => (
                               <div key={index}>
                                 <Link
                                   href={addHttpPrefix(link)}
@@ -552,87 +625,18 @@ const Edit = () => {
                                   {getIconForUrl(link)}
                                 </Link>
                               </div>
-                            )
-                          )}
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
-                    {/* <div className="flex mt-4 space-x-4 w-full">
-                <AlertDialog>
-                  <AlertDialogTrigger className="w-full">
-                    <Button className="w-full rounded-full">
-                      <QrCode />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <Qr id={previewProfile.username} />
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </div> */}
                   </div>
                 </div>
-              </DrawerContent>
-            </Drawer>
-            <div className="md:flex hidden flex-col justify-center px-2 xl:pr-40 lg:pr-20 items-center w-full lg:pb-0 pb-10">
-              <div className="lg:hidden">
-                <h1 className="text-2xl font-bold">Preview</h1>
-                <div className="sm:w-96 w-60 rounded-full h-1 mt-3 mb-10 bg-gradient-to-r to-background from-[#8ebec0] mr-20 via-[#f8914c]" />
-              </div>
-              <Avatar className="w-40 h-40">
-                <AvatarImage
-                  className="object-cover"
-                  src={image || undefined}
-                />
-                <AvatarFallback> {previewProfile.username}</AvatarFallback>
-              </Avatar>
-              <div className="max-w-xl flex flex-col justify-center items-center lg:mx-8 mt-3">
-                <p className="sm:max-w-md my-3 text-center">
-                  {previewProfile.bio}
-                </p>
-                <div className="flex w-full justify-end items-center max-w-md">
-                  <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
-                  <div className="md:text-xl text-lg">
-                    {previewProfile.name}
-                  </div>
-                </div>
-                <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
-                  <div className="flex flex-col">
-                    <div className="flex flex-wrap">
-                      {previewProfile.links.map(
-                        (link: string, index: React.Key | null | undefined) => (
-                          <div key={index}>
-                            <Link
-                              href={addHttpPrefix(link)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {getIconForUrl(link)}
-                            </Link>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                </div>
-                {/* <div className="flex mt-4 space-x-4 w-full">
-                <AlertDialog>
-                  <AlertDialogTrigger className="w-full">
-                    <Button className="w-full rounded-full">
-                      <QrCode />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <Qr id={previewProfile.username} />
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </div> */}
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

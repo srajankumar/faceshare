@@ -386,7 +386,7 @@ const ProfilePage = () => {
               </Drawer>
               <form onSubmit={handleSave}>
                 <div className="flex lg:mx-20 mx-8 py-32 md:pt-32 md:pb-10 flex-col items-center min-h-[100dvh]">
-                  <div className="max-w-xl w-full flex flex-col mx-8 mt-3">
+                  <div className="max-w-xl w-full flex flex-col mx-8 my-3">
                     <div className="text-2xl mb-5 font-semibold">
                       <p>Profile</p>
                       <div className="w-full mt-2 rounded-full h-1 mr-2 bg-gradient-to-r from-[#8ebec0] via-[#f8914c] to-background" />
