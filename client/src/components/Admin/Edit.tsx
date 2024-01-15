@@ -382,7 +382,7 @@ const ProfilePage = () => {
             </DrawerContent>
           </Drawer>
           <form onSubmit={handleSave}>
-            <div className="flex lg:mx-20 mx-8 py-36 flex-col items-center min-h-screen">
+            <div className="flex lg:mx-20 mx-8 py-36 flex-col items-center min-h-[100dvh]">
               <div className="max-w-xl w-full flex flex-col mx-8 mt-3">
                 <div className="text-2xl mb-5 font-semibold">
                   <p>Profile</p>
@@ -513,7 +513,7 @@ const ProfilePage = () => {
               .map((profile) => (
                 <div
                   key={profile._id}
-                  className="flex justify-center items-center min-h-screen"
+                  className="flex justify-center items-center min-h-[100dvh]"
                 >
                   <div className="flex flex-col justify-center items-center">
                     <Avatar className="w-40 h-40">
@@ -569,7 +569,7 @@ const ProfilePage = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full h-screen justify-center items-center">
+        <div className="flex flex-col w-full h-[100dvh] justify-center items-center">
           <div className="max-w-xl flex flex-col justify-center items-center">
             <Skeleton className="w-40 mb-6 h-40 rounded-full" />
             <Skeleton className="w-80 mb-3 h-5 rounded-xl" />

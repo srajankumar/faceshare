@@ -370,7 +370,7 @@ const Edit = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col w-full h-screen justify-center items-center">
+      <div className="flex flex-col w-full h-[100dvh] justify-center items-center">
         <div className="max-w-xl flex flex-col justify-center items-center">
           <Skeleton className="w-40 mb-6 h-40 rounded-full" />
           <Skeleton className="w-80 mb-3 h-5 rounded-xl" />
@@ -400,7 +400,7 @@ const Edit = () => {
         {existingProfile ? (
           redirect()
         ) : (
-          <div className="container relative min-h-screen items-center flex flex-col lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+          <div className="container relative min-h-[100dvh] items-center flex flex-col lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
             <form
               onSubmit={onSubmit}
               className="xl:px-40 lg:px-20 lg:py-36 py-36"

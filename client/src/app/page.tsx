@@ -10,7 +10,7 @@ import Find from "@/components/Main/Find";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-[100dvh]">
       <Loading />
       <Navbar />
       <Hero />

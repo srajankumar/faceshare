@@ -156,7 +156,7 @@ export default function Username({ params }: { params: { username: string } }) {
 
   if (loading) {
     return (
-      <div className="flex flex-col w-full h-screen justify-center items-center">
+      <div className="flex flex-col w-full h-[100dvh] justify-center items-center">
         <div className="max-w-xl flex flex-col justify-center items-center">
           <Skeleton className="w-40 mb-6 h-40 rounded-full" />
           <Skeleton className="w-80 mb-3 h-5 rounded-xl" />
@@ -198,7 +198,7 @@ export default function Username({ params }: { params: { username: string } }) {
     <div>
       {profileData && (
         <>
-          <div className="flex flex-col justify-center items-center min-h-screen">
+          <div className="flex flex-col justify-center items-center min-h-[100dvh]">
             <Avatar className="w-40 h-40">
               <AvatarImage src={profileData.imageUrl} />
               <AvatarFallback>{profileData.username}</AvatarFallback>
