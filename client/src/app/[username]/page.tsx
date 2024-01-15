@@ -230,7 +230,7 @@ export default function Username({ params }: { params: { username: string } }) {
           profileID,
           userID,
         },
-        { headers: { authorization: "iwajfm" } }
+        { headers: { authorization: cookies.access_token } }
       );
       setSavedProfiles(response.data.savedProfiles);
       toast({
@@ -238,30 +238,17 @@ export default function Username({ params }: { params: { username: string } }) {
         variant: "success",
       });
     } catch (err: any) {
-      if (err.response && err.response.status === 401) {
+      if (err.response && err.response.status === 403) {
         // Unauthorized error
         toast({
           title: "Authorization Error",
-          description:
-            "You are not authorized to perform this action. Please log in.",
-          variant: "destructive",
-        });
-      } else if (err.response && err.response.status === 403) {
-        // Forbidden error
-        toast({
-          title: "Access Denied!",
-          description: "Forbidden request. Please try again.",
-          variant: "destructive",
-        });
-      } else {
-        // Other errors
-        toast({
-          title: "Error saving profile",
-          description:
-            "An error occurred while saving the profile. Please try again later.",
           variant: "destructive",
         });
       }
+      toast({
+        title: "Please login to star this face.",
+        variant: "destructive",
+      });
       console.log(err);
     }
   };

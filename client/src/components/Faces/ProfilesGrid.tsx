@@ -7,6 +7,7 @@ import Logout from "../Logout";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { useGetUserID } from "@/hooks/useGetUserID";
+import { Button } from "../ui/button";
 
 interface Profile {
   userOwner: string | null;
@@ -51,7 +52,7 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
       <h1 className="md:text-5xl text-4xl md:mb-20 mb-10 md:mt-32 mt-24 sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text">
         Your Vault of Saved Faces
       </h1>
-      {!loading ? (
+      {!loading && savedProfiles.length > 0 ? (
         <div className="w-full justify-center items-center max-w-7xl md:flex flex-wrap">
           {savedProfiles.map((profile) => (
             <Link
@@ -77,6 +78,15 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
               </div>
             </Link>
           ))}
+        </div>
+      ) : !loading && savedProfiles.length === 0 ? (
+        <div className="flex flex-col justify-center items-center w-full md:mb-20 mb-10 max-w-xl">
+          <div className="pt-2 mt-40 md:mt-32 text-primary/50 mb-5 px-5">
+            You haven&apos;t saved any faces yet.
+          </div>
+          <Link href="/search">
+            <Button>Search Faces</Button>
+          </Link>
         </div>
       ) : (
         <div className="w-full justify-center items-center max-w-7xl md:flex flex-wrap">

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 import { useGetUserID } from "@/hooks/useGetUserID";
 import { useGetUsername } from "@/hooks/useGetUsername";
 import { useState, useEffect, ChangeEvent } from "react";
@@ -155,6 +156,7 @@ const Edit = () => {
   const [count, setCount] = React.useState(0);
   const [image, setImage] = React.useState<string | null>(null);
   const { toast } = useToast();
+  const [cookies] = useCookies(["access_token"]);
 
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -327,23 +329,32 @@ const Edit = () => {
 
     try {
       const updatedProfile = { ...profile, imageUrl: image };
-      await axios.post(`${serverUrl}/profiles`, updatedProfile);
+      await axios.post(`${serverUrl}/profiles`, updatedProfile, {
+        headers: { authorization: cookies.access_token },
+      });
       toast({
         title: "Profile Added!",
         variant: "success",
       });
-
       setTimeout(() => {
         setExistingProfile(profile);
       }, 1000);
-    } catch (err) {
-      console.error(err);
-      toast({
-        title: "Oops! Failed to add profile details",
-        description: "Please try again.",
-        variant: "destructive",
-      });
+    } catch (err: any) {
+      if (err.response && err.response.status === 403) {
+        // Unauthorized error
+        toast({
+          title: "Authorization Error",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Oops! Failed to add profile details",
+          description: "Please try again.",
+          variant: "destructive",
+        });
+      }
       setIsLoading(false);
+      console.error(err);
     }
   };
 
