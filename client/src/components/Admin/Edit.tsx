@@ -516,63 +516,60 @@ const ProfilePage = () => {
                   .filter((profile) => profile.userOwner === userID)
                   .slice(0, 1)
                   .map((profile) => (
-                    <div className="w-80 border-4 border-[#1e1e1e] rounded-2xl">
+                    <div
+                      key={profile._id}
+                      className="w-80 border-4 border-[#1e1e1e] rounded-2xl"
+                    >
                       <AspectRatio
                         className="flex justify-center items-center"
                         ratio={9 / 16}
                       >
-                        <div key={profile._id}>
-                          <div className="flex flex-col justify-center items-center">
-                            <Avatar className="w-40 h-40">
-                              <AvatarImage
-                                src={profile.imageUrl}
-                                className="object-cover"
-                              />
-                              <AvatarFallback>
-                                {profile.username}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
-                              <p className="sm:max-w-md my-3 text-center">
-                                {profile.bio}
-                              </p>
-                              <div className="flex w-full justify-end items-center max-w-md">
-                                <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
-                                <div className="text-xl">{profile.name}</div>
-                              </div>
-                              <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
-                                <div className="flex flex-col">
-                                  <div className="flex flex-wrap justify-center">
-                                    {profile.links.map((link, index) => (
-                                      <div key={index}>
-                                        <Link
-                                          href={addHttpPrefix(link)}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                        >
-                                          {getIconForUrl(link)}
-                                        </Link>
-                                      </div>
-                                    ))}
-                                  </div>
+                        <div className="flex flex-col justify-center items-center">
+                          <Avatar className="w-40 h-40">
+                            <AvatarImage
+                              src={profile.imageUrl}
+                              className="object-cover"
+                            />
+                            <AvatarFallback>{profile.username}</AvatarFallback>
+                          </Avatar>
+                          <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
+                            <p className="sm:max-w-md my-3 text-center">
+                              {profile.bio}
+                            </p>
+                            <div className="flex w-full justify-end items-center max-w-md">
+                              <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
+                              <div className="text-xl">{profile.name}</div>
+                            </div>
+                            <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
+                              <div className="flex flex-col">
+                                <div className="flex flex-wrap justify-center">
+                                  {profile.links.map((link, index) => (
+                                    <div key={index}>
+                                      <Link
+                                        href={addHttpPrefix(link)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        {getIconForUrl(link)}
+                                      </Link>
+                                    </div>
+                                  ))}
                                 </div>
                               </div>
+                            </div>
 
-                              <div className="flex mt-4 space-x-4 w-full">
-                                <AlertDialog>
-                                  <AlertDialogTrigger className="w-full">
-                                    <Button className="w-full rounded-full">
-                                      <QrCode />
-                                    </Button>
-                                  </AlertDialogTrigger>
-                                  <AlertDialogContent>
-                                    <Qr id={profile.username} />
-                                    <AlertDialogCancel>
-                                      Cancel
-                                    </AlertDialogCancel>
-                                  </AlertDialogContent>
-                                </AlertDialog>
-                              </div>
+                            <div className="flex mt-4 space-x-4 w-full">
+                              <AlertDialog>
+                                <AlertDialogTrigger className="w-full">
+                                  <Button className="w-full rounded-full">
+                                    <QrCode />
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <Qr id={profile.username} />
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                </AlertDialogContent>
+                              </AlertDialog>
                             </div>
                           </div>
                         </div>
