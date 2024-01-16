@@ -43,7 +43,7 @@ function Navbar() {
   }, [userID]);
   return (
     <nav className="fixed w-full z-50 flex items-center py-4 px-8 bottom-0">
-      <div className="flex lg:container items-center w-full justify-between">
+      <div className="flex my-2 lg:container items-center w-full justify-between">
         {existingProfile ? (
           <Link href="/admin">
             <Button variant={"outline"}>Back</Button>

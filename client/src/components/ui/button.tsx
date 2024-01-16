@@ -11,6 +11,10 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-gradient-to-r from-[#8ebec0] to-[#f8914c] font-bold shadow-sm text-secondary md:hover:scale-[102%] transition-all duration-200",
+        vicecity:
+          "bg-gradient-to-r from-[#8ebec0] via-[#c06ca0] to-[#34499c] font-bold shadow-sm text-secondary md:hover:scale-[102%] transition-all duration-200",
+        coastal:
+          "bg-gradient-to-r from-yellow-200 via-blue-500 to-blue-800 font-bold shadow-sm text-secondary md:hover:scale-[102%] transition-all duration-200",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:

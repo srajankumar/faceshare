@@ -7,9 +7,10 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import Link from "next/link";
 
@@ -19,7 +20,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { useGetUserID } from "../../hooks/useGetUserID";
-import { Label } from "../ui/label";
+import { Label } from "@/components/ui/label";
 
 import {
   Drawer,
@@ -31,7 +32,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import Footer from "../Footer";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Admin/Navbar";
 
 interface Profile {
   userOwner: string | null;
@@ -312,6 +314,7 @@ const ProfilePage = () => {
 
   return (
     <div>
+      <Navbar />
       {!loading ? (
         <div className="flex justify-center items-center w-full">
           <div className="w-full">
@@ -322,76 +325,167 @@ const ProfilePage = () => {
                     className="rounded-full px-10 backdrop-blur-sm"
                     variant={"secondary"}
                   >
-                    Preview
+                    Select
                   </Button>
                 </DrawerTrigger>
                 <DrawerContent>
-                  {profiles
-                    .filter((profile) => profile.userOwner === userID)
-                    .slice(0, 1)
-                    .map((profile) => (
-                      <div className="my-20" key={profile._id}>
-                        <div className="className flex flex-col justify-center items-center ">
-                          <Avatar className="w-40 h-40">
-                            <AvatarImage
-                              src={profile.imageUrl}
-                              className="object-cover"
+                  <ScrollArea className="h-[500px] w-full rounded-md">
+                    <form onSubmit={handleSave}>
+                      <div className="flex xl:px-10 lg:mx-20 mx-8 py-10 flex-col items-center">
+                        <div className="max-w-xl w-full flex flex-col mx-8 my-3">
+                          <div className="text-2xl mb-5 font-semibold">
+                            <p>Select Appearance</p>
+                            <div className="w-full mt-2 rounded-full h-1 mr-2 bg-gradient-to-r from-[#8ebec0] via-[#f8914c] to-background" />
+                          </div>
+                          {/* <div className="flex w-full flex-col my-2 pb-2">
+                            <Label className="mb-2">Name</Label>
+                            <Input
+                              type="text"
+                              id="name"
+                              name="name"
+                              value={selectedProfile?.name}
+                              onChange={handleChange}
+                              className="w-full"
+                              placeholder="Full Name"
                             />
-                            <AvatarFallback>{profile.username}</AvatarFallback>
-                          </Avatar>
-                          <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
-                            <p className="sm:max-w-md my-3 text-center">
-                              {profile.bio}
-                            </p>
-                            <div className="flex w-full justify-end items-center max-w-md">
-                              <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
-                              <div className="text-xl">{profile.name}</div>
-                            </div>
-                            <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
-                              <div className="flex flex-col">
-                                <div className="flex flex-wrap justify-center">
-                                  {profile.links.map((link, index) => (
-                                    <div key={index}>
-                                      <Link
-                                        href={addHttpPrefix(link)}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        {getIconForUrl(link)}
-                                      </Link>
-                                    </div>
-                                  ))}
+                          </div>
+                          <div className="flex flex-col w-full mb-2">
+                            <Label className="pb-2">Bio</Label>
+                            <Textarea
+                              id="bio"
+                              name="bio"
+                              value={selectedProfile?.bio}
+                              onChange={handleChange}
+                              className="w-full"
+                              placeholder="Some cool bio"
+                            />
+                          </div>
+                          <div className="flex w-full flex-col my-2">
+                            <Label className="mb-2">Image</Label>
+                            <Input
+                              accept="image/*"
+                              type="file"
+                              onChange={convertToBase64}
+                            />
+                          </div>
+                          <div className="mt-2 w-full flex flex-wrap items-center">
+                            <div className="flex flex-wrap w-full flex-col">
+                              <div className="flex justify-center items-center flex-col mb-2">
+                                {selectedProfile?.links.map((link, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex w-full relative items-center"
+                                  >
+                                    {getIconForUrl(link)}
+                                    <Input
+                                      type="text"
+                                      name={`links[${index}]`}
+                                      value={link}
+                                      onChange={(event) =>
+                                        handleChangeLink(event, index)
+                                      }
+                                      className="ml-2 w-full"
+                                    />
+                                    <Button
+                                      variant={"destructive"}
+                                      className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
+                                      type="button"
+                                      onClick={() => {
+                                        const newLinks = [
+                                          ...selectedProfile?.links,
+                                        ];
+                                        newLinks.splice(index, 1);
+                                        setSelectedProfile((prevProfile) => ({
+                                          ...(prevProfile as Profile),
+                                          links: newLinks,
+                                        }));
+                                      }}
+                                    >
+                                      <Minus className="w-10 h-10" />
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="flex justify-center items-center flex-col mb-2">
+                                {additionalLinks.map((link, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex w-full items-center relative"
+                                  >
+                                    {getIconForUrl(link)}
+                                    <Input
+                                      type="text"
+                                      name={`additionalLinks[${index}]`}
+                                      placeholder={`Link ${index + 1}`}
+                                      value={link}
+                                      onChange={(event) =>
+                                        handleAdditionalLinkChange(event, index)
+                                      }
+                                      className="ml-2 w-full"
+                                    />
+                                    <Button
+                                      variant={"destructive"}
+                                      className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
+                                      type="button"
+                                      onClick={() =>
+                                        removeAdditionalLink(index)
+                                      }
+                                    >
+                                      <Minus className="w-10 h-10" />
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="flex flex-col space-y-1.5">
+                                <div className="flex flex-col space-y-4">
+                                  <div className="flex pb-4 justify-center items-center">
+                                    <Label htmlFor="name">Add more links</Label>
+                                    <Button
+                                      className="w-8 h-8 p-2 ml-4 rounded-full"
+                                      type="button"
+                                      onClick={addAdditionalLink}
+                                    >
+                                      <Plus className="w-10 h-10" />
+                                    </Button>
+                                  </div>
                                 </div>
                               </div>
+                              <Button className="w-full" type="submit">
+                                Save
+                              </Button>
                             </div>
-
-                            <div className="flex mt-4 space-x-4 w-full">
-                              <AlertDialog>
-                                <AlertDialogTrigger className="w-full">
-                                  <Button className="w-full rounded-full">
-                                    <QrCode />
-                                  </Button>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                  <Qr id={profile.username} />
-                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                </AlertDialogContent>
-                              </AlertDialog>
-                            </div>
+                          </div> */}
+                          <div className="gap-10">
+                            <Button
+                              disabled
+                              className="select-none mt-4 mb-8 w-full"
+                            >
+                              {"Default (Selected)"}
+                            </Button>
+                            <Button
+                              variant={"vicecity"}
+                              className="w-full mb-8"
+                            >
+                              {"Vice City (Coming soon)"}
+                            </Button>
+                            <Button variant={"coastal"} className="w-full mb-8">
+                              {"Coastal (Coming soon)"}
+                            </Button>
                           </div>
                         </div>
                       </div>
-                    ))}
+                    </form>
+                  </ScrollArea>
                 </DrawerContent>
               </Drawer>
-              <form onSubmit={handleSave}>
-                <div className="flex xl:px-10 lg:mx-20 mx-8 pt-24 pb-28 md:pt-32 md:pb-10 flex-col items-center min-h-[100dvh]">
+              <form className="md:flex hidden" onSubmit={handleSave}>
+                <div className="flex xl:px-10 lg:mx-20 mx-8 py-32 md:pt-32 md:pb-20 flex-col items-center min-h-[100dvh]">
                   <div className="max-w-xl w-full flex flex-col mx-8 my-3">
                     <div className="text-2xl mb-5 font-semibold">
-                      <p>Edit Profile</p>
+                      <p>Select Appearance</p>
                       <div className="w-full mt-2 rounded-full h-1 mr-2 bg-gradient-to-r from-[#8ebec0] via-[#f8914c] to-background" />
                     </div>
-                    <div className="flex w-full flex-col my-2 pb-2">
+                    {/* <div className="flex w-full flex-col my-2 pb-2">
                       <Label className="mb-2">Name</Label>
                       <Input
                         type="text"
@@ -403,7 +497,6 @@ const ProfilePage = () => {
                         placeholder="Full Name"
                       />
                     </div>
-
                     <div className="flex flex-col w-full mb-2">
                       <Label className="pb-2">Bio</Label>
                       <Textarea
@@ -415,7 +508,6 @@ const ProfilePage = () => {
                         placeholder="Some cool bio"
                       />
                     </div>
-
                     <div className="flex w-full flex-col my-2">
                       <Label className="mb-2">Image</Label>
                       <Input
@@ -424,7 +516,6 @@ const ProfilePage = () => {
                         onChange={convertToBase64}
                       />
                     </div>
-
                     <div className="mt-2 w-full flex flex-wrap items-center">
                       <div className="flex flex-wrap w-full flex-col">
                         <div className="flex justify-center items-center flex-col mb-2">
@@ -507,11 +598,22 @@ const ProfilePage = () => {
                           Save
                         </Button>
                       </div>
+                    </div> */}
+                    <div className="gap-10">
+                      <Button disabled className="select-none mt-4 mb-8 w-full">
+                        {"Default (Selected)"}
+                      </Button>
+                      <Button variant={"vicecity"} className="w-full mb-8">
+                        {"Vice City (Coming soon)"}
+                      </Button>
+                      <Button variant={"coastal"} className="w-full mb-8">
+                        {"Coastal (Coming soon)"}
+                      </Button>
                     </div>
                   </div>
                 </div>
               </form>
-              <div className="md:flex min-h-[100dvh] fixed w-1/2 hidden right-0 justify-center items-center">
+              <div className="flex min-h-[100dvh] md:fixed md:w-1/2 right-0 justify-center items-center">
                 {profiles
                   .filter((profile) => profile.userOwner === userID)
                   .slice(0, 1)

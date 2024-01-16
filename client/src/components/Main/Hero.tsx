@@ -13,10 +13,10 @@ const Hero = () => {
     <main className="hero flex px-8 justify-center items-center pt-40 pb-20">
       <div className="mx-auto max-w-2xl">
         {/* <div className="mb-10 flex justify-center">
-        <div className="relative rounded-full px-5 py-1 bg-foreground/10 text-sm leading-6 text-primary ring-1 ring-border">
-          {"View public profiles ->"}
-        </div>
-      </div> */}
+          <div className="relative rounded-full px-5 py-1 bg-foreground/10 text-sm leading-6 text-primary ring-1 ring-border">
+            {"View public profiles ->"}
+          </div>
+        </div> */}
         <div className="text-center">
           <h1 className="text-4xl sm:leading-[3.5rem] sm:text-5xl font-semibold">
             An Open Source Linktree Substitute

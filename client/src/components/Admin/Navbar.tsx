@@ -13,6 +13,7 @@ import {
   LogOut,
   Github,
   User,
+  Palette,
 } from "lucide-react";
 
 import { useCookies } from "react-cookie";
@@ -89,6 +90,13 @@ function Navbar() {
           </Link>
           <div className="flex gap-5">
             <Link
+              href="/appearance"
+              className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
+            >
+              <Palette className="w-5 h-5" />
+              <p>Appearance</p>
+            </Link>
+            <Link
               href="/search"
               className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
             >
@@ -114,7 +122,7 @@ function Navbar() {
           <Logout />
         </div>
       </div>
-      <div className="flex md:hidden justify-between items-center w-full">
+      <div className="flex md:hidden my-2 justify-between items-center w-full">
         <Link className="flex mr-3 items-center space-x-1" href="/admin">
           <Image
             src="/globe.png"
@@ -123,7 +131,7 @@ function Navbar() {
             height={500}
             className="w-7 h-7"
           ></Image>
-          <p className="font-semibold pl-1">Face Share</p>{" "}
+          {/* <p className="font-semibold pl-1">Face Share</p>{" "} */}
         </Link>
         <Sheet>
           <SheetTrigger asChild>
@@ -131,10 +139,6 @@ function Navbar() {
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              {/* <SheetTitle>Edit profile</SheetTitle>
-              <SheetDescription>
-                Make changes to your profile here. Click save when you're done.
-              </SheetDescription> */}
               <div className="flex my-5 justify-center items-center space-x-1">
                 <Image
                   src="/globe.png"
@@ -155,6 +159,13 @@ function Navbar() {
                 <p>Home</p>
               </Link>
               <Link
+                href="/appearance"
+                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+              >
+                <Palette className="w-7 h-7" />
+                <p>Appearance</p>
+              </Link>
+              <Link
                 href="/search"
                 className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
               >
@@ -165,7 +176,7 @@ function Navbar() {
                 href="/faces"
                 className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
               >
-                <User className="w-5 h-5" />
+                <User className="w-7 h-7" />
                 <p>Faces</p>
               </Link>
               <Link
@@ -178,17 +189,12 @@ function Navbar() {
               </Link>
               <div
                 onClick={logout}
-                className="text-primary/70 absolute bottom-0 right-0 m-5 bg-red-900 hover:bg-red-950 w-[87%] hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 text-lg"
+                className="text-red-500 absolute bottom-0 right-0 m-5 w-[87%] hover:bg-destructive px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 text-lg"
               >
                 <LogOut className="w-7 h-7" />
                 <p>Logout</p>
               </div>
             </div>
-            {/* <SheetFooter>
-              <SheetClose asChild>
-                <Button type="submit">Save changes</Button>
-              </SheetClose>
-            </SheetFooter> */}
           </SheetContent>
         </Sheet>
       </div>

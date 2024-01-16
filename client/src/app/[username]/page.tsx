@@ -263,7 +263,10 @@ export default function Username({ params }: { params: { username: string } }) {
         <>
           <div className="flex flex-col justify-center items-center min-h-[100dvh]">
             <Avatar className="w-40 h-40">
-              <AvatarImage src={profileData.imageUrl} />
+              <AvatarImage
+                src={profileData.imageUrl}
+                className="object-cover"
+              />
               <AvatarFallback>{profileData.username}</AvatarFallback>
             </Avatar>
             <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
@@ -274,7 +277,7 @@ export default function Username({ params }: { params: { username: string } }) {
               </div>
               <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
                 <div className="flex flex-col">
-                  <div className="flex flex-wrap">
+                  <div className="flex flex-wrap justify-center">
                     {profileData.links.map(
                       (link: string, index: React.Key | null | undefined) => (
                         <div key={index}>

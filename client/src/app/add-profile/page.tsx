@@ -444,7 +444,7 @@ const Edit = () => {
                       </div>
                       <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
                         <div className="flex flex-col">
-                          <div className="flex flex-wrap">
+                          <div className="flex flex-wrap justify-center">
                             {previewProfile.links.map(
                               (
                                 link: string,
@@ -464,19 +464,6 @@ const Edit = () => {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="flex mt-4 space-x-4 w-full">
-                <AlertDialog>
-                  <AlertDialogTrigger className="w-full">
-                    <Button className="w-full rounded-full">
-                      <QrCode />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <Qr id={previewProfile.username} />
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </div> */}
                     </div>
                   </div>
                 </DrawerContent>
@@ -625,7 +612,7 @@ const Edit = () => {
                       </div>
                       <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
                         <div className="flex flex-col">
-                          <div className="flex flex-wrap">
+                          <div className="flex flex-wrap justify-center">
                             {previewProfile.links.map((link, index) => (
                               <div key={index}>
                                 <Link
