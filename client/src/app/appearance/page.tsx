@@ -627,7 +627,7 @@ const ProfilePage = () => {
                         ratio={9 / 16}
                       >
                         <div className="flex flex-col justify-center items-center">
-                          <Avatar className="w-40 h-40">
+                          <Avatar className="w-36 h-36">
                             <AvatarImage
                               src={profile.imageUrl}
                               className="object-cover"
@@ -635,12 +635,12 @@ const ProfilePage = () => {
                             <AvatarFallback>{profile.username}</AvatarFallback>
                           </Avatar>
                           <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
-                            <p className="sm:max-w-md my-3 text-center">
+                            <p className="sm:max-w-md text-xs my-3 text-center">
                               {profile.bio}
                             </p>
                             <div className="flex w-full justify-end items-center max-w-md">
-                              <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
-                              <div className="text-xl">{profile.name}</div>
+                              <div className="w-28 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
+                              <div>{profile.name}</div>
                             </div>
                             <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
                               <div className="flex flex-col">

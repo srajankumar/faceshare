@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { Eye, EyeOff } from "lucide-react";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -17,6 +18,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [, setCookies] = useCookies(["access_token", "username"]);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -89,7 +95,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               onChange={(event) => setUsername(event.target.value)}
             />
           </div>
-          <div className="grid gap-1">
+          <div className="grid gap-1 relative">
             <Label className="sr-only" htmlFor="password">
               Password
             </Label>
@@ -97,7 +103,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               required
               id="password"
               placeholder="Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               autoCapitalize="none"
               autoComplete="password"
               autoCorrect="off"
@@ -105,6 +111,20 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
+            <button
+              type="button"
+              disabled={isLoading}
+              className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? (
+                <Eye className={`w-5 h-5 ${isLoading ? "text-input" : ""}`} />
+              ) : (
+                <EyeOff
+                  className={`w-5 h-5 ${isLoading ? "text-input" : ""}`}
+                />
+              )}
+            </button>
           </div>
           <Button type="submit" disabled={isLoading}>
             {isLoading && (
