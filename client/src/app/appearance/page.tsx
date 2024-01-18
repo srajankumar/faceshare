@@ -684,9 +684,9 @@ const ProfilePage = () => {
                 <div className="md:w-1 rounded-b-full md:h-1/3 md:mr-2 bg-gradient-to-b from-[#8ebec0] to-background" />
               </div>
             </div>
-            <div className="md:flex hidden">
+            {/* <div className="md:flex hidden">
               <Footer />
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (

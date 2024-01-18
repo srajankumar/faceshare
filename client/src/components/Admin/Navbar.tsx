@@ -14,6 +14,8 @@ import {
   Github,
   User,
   Palette,
+  Save,
+  Edit,
 } from "lucide-react";
 
 import { useCookies } from "react-cookie";
@@ -90,6 +92,13 @@ function Navbar() {
           </Link>
           <div className="flex gap-5">
             <Link
+              href="/edit"
+              className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
+            >
+              <Edit className="w-5 h-5" />
+              <p>Edit</p>
+            </Link>
+            <Link
               href="/appearance"
               className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
             >
@@ -129,74 +138,40 @@ function Navbar() {
             alt="icon"
             width={500}
             height={500}
-            className="w-7 h-7"
+            className="w-5 h-5"
           ></Image>
           {/* <p className="font-semibold pl-1">Face Share</p>{" "} */}
         </Link>
-        <Sheet>
-          <SheetTrigger asChild>
-            <AlignRight className="w-8 h-8 focus:rotate-90" />
-          </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <div className="flex my-5 justify-center items-center space-x-1">
-                <Image
-                  src="/globe.png"
-                  alt="icon"
-                  width={500}
-                  height={500}
-                  className="w-8 h-8"
-                ></Image>
-                <p className="font-semibold text-xl pl-1">Face Share</p>{" "}
-              </div>
-            </SheetHeader>
-            <div className="grid gap-5 py-4">
-              <Link
-                href="/admin"
-                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
-              >
-                <Home className="w-7 h-7" />
-                <p>Home</p>
-              </Link>
-              <Link
-                href="/appearance"
-                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
-              >
-                <Palette className="w-7 h-7" />
-                <p>Appearance</p>
-              </Link>
-              <Link
-                href="/search"
-                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
-              >
-                <Search className="w-7 h-7" />
-                <p>Search</p>
-              </Link>
-              <Link
-                href="/faces"
-                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
-              >
-                <User className="w-7 h-7" />
-                <p>Faces</p>
-              </Link>
-              <Link
-                href="https://github.com/srajankumar/faceshare/stargazers"
-                target="_blank"
-                className="text-primary/70 hover:bg-primary-foreground px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
-              >
-                <Github className="w-7 h-7" />
-                <p>Star on GitHub</p>
-              </Link>
-              <div
-                onClick={logout}
-                className="text-red-500 absolute bottom-0 right-0 m-5 w-[87%] hover:bg-destructive px-3 py-4 rounded-md hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 text-lg"
-              >
-                <LogOut className="w-7 h-7" />
-                <p>Logout</p>
-              </div>
-            </div>
-          </SheetContent>
-        </Sheet>
+        <Link
+          href="/edit"
+          className="text-primary/70 flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+        >
+          <Edit className="w-5 h-5" />
+        </Link>
+        <Link
+          href="/appearance"
+          className="text-primary/70 flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+        >
+          <Palette className="w-5 h-5" />
+        </Link>
+        <Link
+          href="/search"
+          className="text-primary/70 flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+        >
+          <Search className="w-5 h-5" />
+        </Link>
+        <Link
+          href="/faces"
+          className="text-primary/70 flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+        >
+          <Save className="w-5 h-5" />
+        </Link>
+        <div
+          onClick={logout}
+          className="text-red-500 bottom-0 right-0 ml-3 rounded-md hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 text-lg"
+        >
+          <LogOut className="w-5 h-5" />
+        </div>
       </div>
     </nav>
   );

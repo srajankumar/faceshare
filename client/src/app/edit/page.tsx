@@ -13,7 +13,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 import Link from "next/link";
 
-import { QrCode, Pencil, Save, Plus, Minus } from "lucide-react";
+import { QrCode, Pencil, Save, Plus, Minus, Eye } from "lucide-react";
 import Qr from "@/components/qr";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -32,6 +32,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Admin/Navbar";
 
 interface Profile {
   userOwner: string | null;
@@ -328,6 +329,7 @@ const ProfilePage = () => {
 
   return (
     <div>
+      <Navbar />
       {!loading ? (
         <div className="flex justify-center items-center w-full">
           <div className="w-full">
@@ -338,6 +340,7 @@ const ProfilePage = () => {
                     className="rounded-full px-10 backdrop-blur-sm"
                     variant={"secondary"}
                   >
+                    <Eye className="w-5 h-5 mr-2" />
                     Preview
                   </Button>
                 </DrawerTrigger>
@@ -401,7 +404,7 @@ const ProfilePage = () => {
                 </DrawerContent>
               </Drawer>
               <form onSubmit={handleSave}>
-                <div className="flex xl:px-10 lg:mx-20 mx-8 pt-24 pb-28 md:pt-32 md:pb-10 flex-col items-center min-h-[100dvh]">
+                <div className="flex xl:px-10 lg:mx-20 mx-8 pt-24 pb-28 md:pt-32 md:pb-20 flex-col items-center min-h-[100dvh]">
                   <div className="max-w-xl w-full flex flex-col mx-8 my-3">
                     <div className="text-2xl mb-5 font-semibold">
                       <p>Edit Profile</p>
@@ -598,9 +601,9 @@ const ProfilePage = () => {
                 <div className="md:w-1 rounded-b-full md:h-1/3 md:mr-2 bg-gradient-to-b from-[#8ebec0] to-background" />
               </div>
             </div>
-            <div className="md:flex hidden">
+            {/* <div className="md:flex hidden">
               <Footer />
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (
