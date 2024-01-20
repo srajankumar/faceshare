@@ -77,7 +77,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="fixed w-full z-50 backdrop-blur-md flex items-center py-4 px-8">
+    <nav className="fixed w-full z-50 backdrop-blur-md flex items-center py-5 px-8">
       <div className="hidden md:flex lg:container items-center w-full justify-between">
         <div className="flex items-center gap-x-3">
           <Link className="flex mr-3 items-center space-x-1" href="/admin">
