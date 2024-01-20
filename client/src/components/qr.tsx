@@ -1,77 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import Image from "next/image";
-// import { Skeleton } from "@/components/ui/skeleton";
-// import { Button } from "./ui/button";
-
-// const Qr = ({ id }: { id: string }) => {
-//   const [qrCodeImage, setQrCodeImage] = useState("");
-
-//   useEffect(() => {
-//     const generateQRCode = async () => {
-//       try {
-//         const response = await axios.get(
-//           `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://faceshare.vercel.app/${id}&color=fff&bgcolor=000000`,
-//           {
-//             responseType: "arraybuffer", // Ensure binary data is correctly received
-//           }
-//         );
-
-//         const base64Image = Buffer.from(response.data, "binary").toString(
-//           "base64"
-//         );
-//         setQrCodeImage(base64Image);
-//       } catch (error) {
-//         console.error("Error generating QR code:", error);
-//       }
-//     };
-
-//     generateQRCode();
-//   }, [id]);
-
-//   const handleDownload = () => {
-//     // Create an anchor element
-//     const downloadLink = document.createElement("a");
-
-//     // Set the href attribute with the data URL of the QR code image
-//     downloadLink.href = `data:image/png;base64,${qrCodeImage}`;
-
-//     // Set the download attribute with the desired file name
-//     downloadLink.download = "faceshare_qr.png";
-
-//     // Append the link to the body and trigger the click event
-//     document.body.appendChild(downloadLink);
-//     downloadLink.click();
-
-//     // Remove the link from the DOM
-//     document.body.removeChild(downloadLink);
-//   };
-
-//   return (
-//     <div className="flex flex-col justify-center items-center">
-//       <div>
-//         {qrCodeImage ? (
-//           <Image
-//             width={250}
-//             height={250}
-//             src={`data:image/png;base64,${qrCodeImage}`}
-//             alt={id}
-//             className="w-60 h-60"
-//           />
-//         ) : (
-//           <Skeleton className="w-60 h-60" />
-//         )}
-//       </div>
-//       <p className="mt-5 text-nowrap">faceshare.vercel.app/{id}</p>
-//       <Button className="mt-4 w-full" onClick={handleDownload}>
-//         Download
-//       </Button>
-//     </div>
-//   );
-// };
-
-// export default Qr;
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NextImage from "next/image";
@@ -117,7 +43,6 @@ const Qr = ({ id }: { id: string }) => {
 
     const downloadContainer = document.createElement("div");
 
-    // Create a new HTML template for download
     const downloadTemplate = `
     <html lang="en">
   <head>
@@ -218,7 +143,7 @@ const Qr = ({ id }: { id: string }) => {
         link.href = dataUrl;
 
         // Set the download attribute with the desired file name
-        link.download = "faceshare_template.png";
+        link.download = `${id}_faceshare.png`;
 
         // Append the link to the body and trigger the click event
         document.body.appendChild(link);
