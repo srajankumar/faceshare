@@ -1,4 +1,14 @@
+import React from "react";
+import { motion, useInView } from "framer-motion";
+
 const Share = () => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref) as boolean;
+
+  const FADE_DOWN_ANIMATION_VARIANTS = {
+    hidden: { opacity: 0, x: -10 },
+    show: { opacity: 1, x: 0, transition: { type: "spring" } },
+  };
   return (
     <div className="overflow-hidden py-10 sm:py-20">
       <div className="mx-auto max-w-7xl px-8">
@@ -12,14 +22,35 @@ const Share = () => {
           />
           <div className="lg:pl-8 lg:mr-32 flex items-center lg:pt-4">
             <div className="lg:max-w-lg">
-              <h1 className="text-4xl select-none sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text">
-                Share it with your friends
-              </h1>
-              <p className="mt-6 text-lg leading-8 text-primary/50">
-                Effortlessly share your personalized online hub with friends
-                through a QR code, simplifying connectivity and ensuring
-                seamless access to all your important links.
-              </p>
+              <motion.div
+                initial="hidden"
+                ref={ref}
+                animate={isInView ? "show" : "hidden"}
+                viewport={{ once: true }}
+                variants={{
+                  hidden: {},
+                  show: {
+                    transition: {
+                      staggerChildren: 0.15,
+                    },
+                  },
+                }}
+              >
+                <motion.h1
+                  className="text-4xl select-none sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text"
+                  variants={FADE_DOWN_ANIMATION_VARIANTS}
+                >
+                  Share it with your friends
+                </motion.h1>
+                <motion.h1
+                  className="mt-6 text-lg leading-8 text-primary/50"
+                  variants={FADE_DOWN_ANIMATION_VARIANTS}
+                >
+                  Effortlessly share your personalized online hub with friends
+                  through a QR code, simplifying connectivity and ensuring
+                  seamless access to all your important links.
+                </motion.h1>
+              </motion.div>
             </div>
           </div>
         </div>
