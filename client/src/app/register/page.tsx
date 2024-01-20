@@ -61,8 +61,9 @@ export default function Login() {
             priority
             src="/register.jpg"
             className="relative bg-black object-cover w-full h-full z-20"
-            layout="fill"
-            alt=""
+            width={500}
+            height={500}
+            alt="register-image"
           ></Image>
         </div>
         <div className="lg:p-8">

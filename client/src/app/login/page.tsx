@@ -61,8 +61,9 @@ export default function Login() {
             priority
             src="/login.jpg"
             className="relative bg-black object-cover w-full h-full z-20"
-            layout="fill"
-            alt=""
+            width={500}
+            height={500}
+            alt="login-image"
           ></Image>
         </div>
         <div className="lg:p-8">
