@@ -4,7 +4,7 @@
 
 ## About
 
-An Open Source Linktree Substitute. Build your awesome profile and easily share it with your connections for free! Create a standout online presence that reflects your uniqueness.
+Build your awesome profile and easily share it with your connections for free! Create a standout online presence that reflects your uniqueness.
 
 ## Features
 
