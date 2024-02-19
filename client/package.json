@@ -1,5 +1,6 @@
 {
-  "name": "face-share",
+  "name": "faceshare-client",
+  "author": "srajankumar",
   "version": "0.1.0",
   "private": true,
   "scripts": {

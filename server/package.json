@@ -1,5 +1,6 @@
 {
-  "name": "server",
+  "name": "faceshare-server",
+  "author": "srajankumar",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

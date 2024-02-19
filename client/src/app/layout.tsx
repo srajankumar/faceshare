@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     "linktree",
+    "Face Share",
+    "srajan faceshare",
+    "srajan",
     "faceshare",
     "faceshare app",
     "face share",
