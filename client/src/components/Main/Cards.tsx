@@ -23,7 +23,7 @@ const Cards = () => {
           </motion.div>
         </AnimatePresence>
       </motion.div>
-      <p className="max-w-2xl md:pt-10 leading-[2.5rem] text-2xl sm:text-3xl text-center">
+      <p className="max-w-2xl md:pt-10 md:leading-[2.5rem] text-lg sm:text-3xl text-center">
         Your all-in-one solution to showcase all your important links in one
         place.
       </p>

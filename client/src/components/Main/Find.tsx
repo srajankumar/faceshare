@@ -30,18 +30,16 @@ const Find = () => {
                 }}
               >
                 <motion.h1
-                  className="text-4xl select-none sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text"
+                  className="md:text-4xl text-3xl select-none sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text"
                   variants={FADE_DOWN_ANIMATION_VARIANTS}
                 >
-                  Explore and connect with ease
+                  Search and connect.
                 </motion.h1>
                 <motion.h1
-                  className="mt-6 text-lg leading-8 text-primary/50"
+                  className="mt-6 md:text-lg leading-8 text-primary/50"
                   variants={FADE_DOWN_ANIMATION_VARIANTS}
                 >
-                  Search and connect with like-minded individuals, building your
-                  online presence within a network of shared interests and
-                  passions.
+                  Find familiar faces and make friends online with ease.
                 </motion.h1>
               </motion.div>
             </div>

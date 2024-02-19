@@ -36,16 +36,17 @@ const Hero = () => {
               },
             }}
           >
-            <div className="text-4xl sm:leading-[3.5rem] sm:text-5xl font-semibold">
+            <div className="text-3xl sm:leading-[3.5rem] sm:text-5xl font-semibold">
               <motion.h1 variants={FADE_DOWN_ANIMATION_VARIANTS}>
-                An Open Source Linktree Substitute
+                A Link in Bio.
+              </motion.h1>
+              <motion.h1 variants={FADE_DOWN_ANIMATION_VARIANTS}>
+                But Rich and Beautiful.
               </motion.h1>
             </div>
             <div className="mt-3 md:text-lg md:leading-8 leading-6 text-primary/50">
               <motion.p variants={FADE_DOWN_ANIMATION_VARIANTS}>
-                Build your awesome profile and easily share it with your
-                connections for free! Create a standout online presence that
-                reflects your uniqueness.
+                Your personal page to show everything you are and create.
               </motion.p>
             </div>
             <div className="mt-5 flex items-center justify-center gap-x-6">

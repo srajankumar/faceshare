@@ -37,18 +37,17 @@ const Share = () => {
                 }}
               >
                 <motion.h1
-                  className="text-4xl select-none sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text"
+                  className="md:text-4xl text-3xl select-none sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text"
                   variants={FADE_DOWN_ANIMATION_VARIANTS}
                 >
-                  Share it with your friends
+                  One tap share.
                 </motion.h1>
                 <motion.h1
-                  className="mt-6 text-lg leading-8 text-primary/50"
+                  className="mt-6 md:text-lg leading-8 text-primary/50"
                   variants={FADE_DOWN_ANIMATION_VARIANTS}
                 >
                   Effortlessly share your personalized online hub with friends
-                  through a QR code, simplifying connectivity and ensuring
-                  seamless access to all your important links.
+                  through a QR code.
                 </motion.h1>
               </motion.div>
             </div>
