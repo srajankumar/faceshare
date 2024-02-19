@@ -26,6 +26,24 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
 
+  const validateUsername = (input: string) => {
+    if (!/^[a-zA-Z0-9_]*$/.test(input)) {
+      setError("Username can only contain letters, numbers, and underscores.");
+      return false;
+    }
+    setError(null);
+    return true;
+  };
+
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (!validateUsername(value)) {
+      setUsername(value.replace(/[^a-zA-Z0-9_]/g, ""));
+    } else {
+      setUsername(value);
+    }
+  };
+
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
@@ -92,8 +110,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               autoCorrect="off"
               disabled={isLoading}
               value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              onChange={handleUsernameChange}
             />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
           <div className="grid gap-1 relative">
             <Label className="sr-only" htmlFor="password">
