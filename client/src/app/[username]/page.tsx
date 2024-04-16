@@ -172,7 +172,7 @@ export default function Username({ params }: { params: { username: string } }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${serverUrl}/profiles?username=${params.username}`
+          `/api/profiles?username=${params.username}`
         );
         const data = await response.json();
 
@@ -196,7 +196,7 @@ export default function Username({ params }: { params: { username: string } }) {
     const fetchSavedProfile = async () => {
       try {
         const response = await axios.get(
-          `${serverUrl}/profiles/savedProfiles/ids/${userID}`
+          `/api/profiles/savedProfiles/ids/${userID}`
         );
         setSavedProfiles(response.data.savedProfiles);
       } catch (err) {
