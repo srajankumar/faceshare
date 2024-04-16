@@ -45,20 +45,20 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
     fetchProfiles();
   }, []);
 
-  // Filter out the selected profile
-  const filteredProfiles = selectedProfileId
-    ? profiles.filter((profile) => profile._id !== selectedProfileId)
-    : profiles;
+  // // Filter out the selected profile
+  // const filteredProfiles = selectedProfileId
+  //   ? profiles.filter((profile) => profile._id !== selectedProfileId)
+  //   : profiles;
 
-  // Remove profiles with duplicate usernames, keeping only the first occurrence
-  const uniqueUsernames = new Set<string>();
-  const uniqueProfiles = filteredProfiles.filter((profile) => {
-    if (uniqueUsernames.has(profile.username)) {
-      return false;
-    }
-    uniqueUsernames.add(profile.username);
-    return true;
-  });
+  // // Remove profiles with duplicate usernames, keeping only the first occurrence
+  // const uniqueUsernames = new Set<string>();
+  // const uniqueProfiles = filteredProfiles.filter((profile) => {
+  //   if (uniqueUsernames.has(profile.username)) {
+  //     return false;
+  //   }
+  //   uniqueUsernames.add(profile.username);
+  //   return true;
+  // });
 
   return (
     <div className="flex flex-col items-center p-8 min-h-[100dvh]">
@@ -68,7 +68,7 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
 
       {!loading ? (
         <div className="w-full justify-center items-center max-w-7xl md:flex flex-wrap">
-          {uniqueProfiles.map((profile) => (
+          {profiles.map((profile) => (
             <Link
               key={profile._id}
               className="w-fit m-5 hover:scale-[102%] transition-all duration-200"
