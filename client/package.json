@@ -28,6 +28,7 @@
     "embla-carousel-react": "^8.0.0-rc17",
     "framer-motion": "^10.16.16",
     "lucide-react": "^0.303.0",
+    "mongoose": "^8.0.3",
     "next": "14.0.4",
     "react": "^18",
     "react-cookie": "^7.0.0",

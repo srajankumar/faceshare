@@ -12,7 +12,7 @@ export default function Loading() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${server}/profiles`);
+        const response = await fetch(`${server}/`);
         if (response.ok && isMounted) {
           setLoading(false);
           toast({
