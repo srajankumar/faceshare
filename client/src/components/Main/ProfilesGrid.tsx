@@ -23,18 +23,18 @@ interface ProfilesGridProps {
 const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
   const [loading, setLoading] = useState(true);
   const [profiles, setProfiles] = useState<Profile[]>([]);
-
   const { toast } = useToast();
 
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const response = await axios.get<Profile[]>("/api/profiles");
-        setProfiles(response.data);
+        const response = await axios.get("/api/profiles");
+        const responseData = response.data.response;
+        setProfiles(responseData);
         setLoading(false);
       } catch (error) {
         toast({
-          title: "Some error has occured",
+          title: "Some error has occurred",
           description: "Please try again after some time",
           variant: "destructive",
         });
