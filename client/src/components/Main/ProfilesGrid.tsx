@@ -45,21 +45,6 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
     fetchProfiles();
   }, []);
 
-  // // Filter out the selected profile
-  // const filteredProfiles = selectedProfileId
-  //   ? profiles.filter((profile) => profile._id !== selectedProfileId)
-  //   : profiles;
-
-  // // Remove profiles with duplicate usernames, keeping only the first occurrence
-  // const uniqueUsernames = new Set<string>();
-  // const uniqueProfiles = filteredProfiles.filter((profile) => {
-  //   if (uniqueUsernames.has(profile.username)) {
-  //     return false;
-  //   }
-  //   uniqueUsernames.add(profile.username);
-  //   return true;
-  // });
-
   return (
     <div className="flex flex-col items-center p-8 min-h-[100dvh]">
       <h1 className="md:text-5xl text-4xl md:mb-20 mb-10 md:mt-32 mt-24 sm:leading-[3.5rem] font-bold bg-gradient-to-r from-[#8ebec0] to-[#f8914c] text-transparent bg-clip-text">
