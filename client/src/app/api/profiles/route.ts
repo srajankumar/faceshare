@@ -1,17 +1,26 @@
-import { NextResponse } from "next/server";
-import connect from "../../../../db";
-import { ProfileModel } from "../../../../models/Profiles.js";
+//app\api\products\route.js
+import connectMongoDB from "@/lib/db";
+import { ProfileModel } from "@/models/Profiles";
+import { NextResponse, NextRequest } from "next/server";
 
 export async function GET() {
+  await connectMongoDB();
   try {
-    await connect();
-    const profiles = await ProfileModel.find({});
-    return new NextResponse(JSON.stringify(profiles), {
-      status: 200,
-    });
-  } catch (error) {
-    return new NextResponse("Error in fetching profiles" + error, {
-      status: 500,
-    });
+    const response = await ProfileModel.find({});
+    return NextResponse.json({ response });
+  } catch (err) {
+    return NextResponse.json({ error: err }, { status: 500 });
+  }
+}
+
+export async function POST(req: NextRequest) {
+  await connectMongoDB();
+
+  const profile = new ProfileModel(req.body);
+  try {
+    const response = await profile.save();
+    return NextResponse.json({ response });
+  } catch (err) {
+    return NextResponse.json({ error: err }, { status: 500 });
   }
 }
