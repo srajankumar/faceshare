@@ -29,8 +29,7 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
     const fetchProfiles = async () => {
       try {
         const response = await axios.get("/api/profiles");
-        const responseData = response.data.response;
-        setProfiles(responseData);
+        setProfiles(response.data);
         setLoading(false);
       } catch (error) {
         toast({
