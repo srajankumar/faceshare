@@ -50,9 +50,15 @@ const Hero = () => {
               </motion.p>
             </div>
             <div className="mt-5 flex items-center justify-center gap-x-6">
-              <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS}>
+              <motion.div
+                className="flex gap-3"
+                variants={FADE_DOWN_ANIMATION_VARIANTS}
+              >
                 <Link href="/login">
                   <Button>{"Get Started -> "}</Button>
+                </Link>
+                <Link href="/face">
+                  <Button variant={"ghost"}>{"View Faces -> "}</Button>
                 </Link>
               </motion.div>
             </div>
