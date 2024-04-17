@@ -123,7 +123,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               value={username}
               onChange={handleUsernameChange}
             />
-            {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
           <div className="grid gap-1 relative">
             <Label className="sr-only" htmlFor="password">
