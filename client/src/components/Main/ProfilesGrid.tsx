@@ -32,7 +32,6 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
         setLoading(false);
       } catch (error) {
         console.error("Error fetching profiles:", error);
-        setLoading(false);
       }
     };
 
