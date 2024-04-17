@@ -1,19 +1,3 @@
-// "use client";
-
-// import Edit from "@/components/Admin/Edit";
-// import Navbar from "@/components/Admin/Navbar";
-
-// const Home = () => {
-//   return (
-//     <div>
-//       <Navbar />
-//       <Edit />
-//     </div>
-//   );
-// };
-
-// export default Home;
-
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -24,31 +8,16 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 import Link from "next/link";
 
-import { QrCode, Pencil, Save, Plus, Minus } from "lucide-react";
+import { QrCode } from "lucide-react";
 import Qr from "@/components/qr";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Input } from "@/components/ui/input";
 import { useGetUserID } from "../../hooks/useGetUserID";
-import { Label } from "@/components/ui/label";
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Admin/Navbar";
 import { useGetUsername } from "@/hooks/useGetUsername";
 
@@ -160,76 +129,12 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
-  const [additionalLinks, setAdditionalLinks] = useState<string[]>([]);
   const [image, setImage] = React.useState<string | null>(null);
 
   const userID = useGetUserID();
   const username = useGetUsername();
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
-
-  function convertToBase64(e: any) {
-    const reader = new FileReader();
-    const image = new Image();
-
-    reader.readAsDataURL(e.target.files[0]);
-
-    reader.onload = (event: ProgressEvent<FileReader>) => {
-      if (event.target && event.target.result) {
-        image.src = event.target.result as string;
-        image.onload = () => {
-          const canvas = document.createElement("canvas");
-          const maxWidth = 500;
-          const maxHeight = 500;
-          let width = image.width;
-          let height = image.height;
-
-          // Resize the image if it exceeds the maximum dimensions
-          if (width > maxWidth || height > maxHeight) {
-            const ratio = Math.min(maxWidth / width, maxHeight / height);
-            width *= ratio;
-            height *= ratio;
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            ctx.drawImage(image, 0, 0, width, height);
-
-            // Convert canvas content to base64
-            const base64 = canvas.toDataURL("image/jpeg", 0.7); // Adjust the quality as needed
-
-            setImage(base64);
-          }
-        };
-      }
-    };
-
-    reader.onerror = (error) => {
-      console.error("Error: ", error);
-    };
-  }
-
-  const handleAdditionalLinkChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const newLinks = [...additionalLinks];
-    newLinks[index] = event.target.value;
-    setAdditionalLinks(newLinks);
-  };
-
-  const addAdditionalLink = () => {
-    setAdditionalLinks([...additionalLinks, ""]);
-  };
-
-  const removeAdditionalLink = (index: number) => {
-    const newLinks = [...additionalLinks];
-    newLinks.splice(index, 1);
-    setAdditionalLinks(newLinks);
-  };
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -263,62 +168,6 @@ const ProfilePage = () => {
     fetchProfiles();
   }, [server, userID]);
 
-  const handleSave = async () => {
-    try {
-      if (selectedProfile) {
-        const filteredLinks = selectedProfile?.links.filter(
-          (link) => link.trim() !== ""
-        );
-
-        const allLinks = [...filteredLinks, ...additionalLinks];
-
-        const updatedProfile = {
-          ...selectedProfile,
-          links: allLinks.map(addHttpPrefix),
-        };
-
-        if (image) {
-          updatedProfile.imageUrl = image;
-        }
-
-        await axios.put(
-          `${server}/profiles/${selectedProfile?._id}`,
-          updatedProfile
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleChangeLink = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    if (!selectedProfile) {
-      return;
-    }
-    const newLinks = [...selectedProfile?.links];
-    newLinks[index] = event.target.value;
-
-    setSelectedProfile((prevProfile) => ({
-      ...(prevProfile as Profile),
-      links: newLinks,
-    }));
-  };
-
-  const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLTextAreaElement>
-      | React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = event.target;
-    setSelectedProfile((prevProfile) => ({
-      ...prevProfile!,
-      [name]: value,
-    }));
-  };
-
   const addHttpPrefix = (link: string): string => {
     if (
       !link.startsWith("https://") &&
@@ -337,7 +186,7 @@ const ProfilePage = () => {
         <div className="flex justify-center items-center w-full">
           <div className="w-full">
             <div className="grid md:grid-cols-2">
-              <form className="md:flex hidden" onSubmit={handleSave}>
+              <div className="md:flex hidden">
                 <div className="flex xl:px-10 justify-center lg:mx-20 mx-5 py-32 md:pt-32 md:pb-20 flex-col items-center min-h-[100dvh]">
                   <div className="max-w-xl w-full flex flex-col mx-8 my-3">
                     <div className="text-2xl mb-5 font-semibold">
@@ -355,7 +204,7 @@ const ProfilePage = () => {
                     </p>
                   </div>
                 </div>
-              </form>
+              </div>
               <div className="flex min-h-[100dvh] md:fixed md:w-1/2 right-0 justify-center items-center">
                 {profiles
                   .filter((profile) => profile.userOwner === userID)
@@ -427,9 +276,6 @@ const ProfilePage = () => {
                 <div className="md:w-1 rounded-b-full md:h-1/3 md:mr-2 bg-gradient-to-b from-[#8ebec0] to-background" />
               </div>
             </div>
-            {/* <div className="md:flex hidden">
-              <Footer />
-            </div> */}
           </div>
         </div>
       ) : (
