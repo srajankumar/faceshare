@@ -355,7 +355,7 @@ const ProfilePage = () => {
                             />
                             <AvatarFallback>{profile.username}</AvatarFallback>
                           </Avatar>
-                          <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
+                          <div className="max-w-xl flex flex-col justify-center items-center mx-5 mt-3">
                             <p className="sm:max-w-md my-3 text-center">
                               {profile.bio}
                             </p>

@@ -441,7 +441,7 @@ const Edit = () => {
                   </Button>
                 </DrawerTrigger>
                 <DrawerContent>
-                  <div className="flex px-8 my-20 flex-col justify-center xl:pr-40 lg:pr-20 items-center w-full">
+                  <div className="flex px-5 my-20 flex-col justify-center xl:pr-40 lg:pr-20 items-center w-full">
                     <Avatar className="w-40 h-40">
                       <AvatarImage
                         className="object-cover"

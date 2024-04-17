@@ -306,7 +306,7 @@ export default function Username({ params }: { params: { username: string } }) {
                 </Avatar>
               </DialogContent>
             </Dialog>
-            <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
+            <div className="max-w-xl flex flex-col justify-center items-center mx-5 mt-3">
               <p className="sm:max-w-md my-3 text-center">{profileData.bio}</p>
               <div className="flex w-full justify-end items-center max-w-md">
                 <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />

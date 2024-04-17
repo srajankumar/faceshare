@@ -42,7 +42,7 @@ function Navbar() {
     fetchProfiles();
   }, [userID]);
   return (
-    <nav className="fixed w-full z-50 backdrop-blur-md flex items-center py-5 px-8">
+    <nav className="fixed w-full z-50 backdrop-blur-md flex items-center py-5 px-5">
       <div className="flex lg:container items-center w-full justify-between">
         <Link className="flex items-center space-x-1" href="/">
           {/* <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-background via-[#8ebec0] to-[#f8914c]"></div> */}

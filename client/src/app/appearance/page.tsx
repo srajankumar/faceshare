@@ -331,130 +331,12 @@ const ProfilePage = () => {
                 <DrawerContent>
                   <ScrollArea className="h-[500px] w-full rounded-md">
                     <form onSubmit={handleSave}>
-                      <div className="flex xl:px-10 lg:mx-20 mx-8 py-10 flex-col items-center">
+                      <div className="flex xl:px-10 lg:mx-20 mx-5 py-10 flex-col items-center">
                         <div className="max-w-xl w-full flex flex-col mx-8 my-3">
                           <div className="text-2xl mb-5 font-semibold">
                             <p>Select Appearance</p>
                             <div className="w-full mt-2 rounded-full h-1 mr-2 bg-gradient-to-r from-[#8ebec0] via-[#f8914c] to-background" />
                           </div>
-                          {/* <div className="flex w-full flex-col my-2 pb-2">
-                            <Label className="mb-2">Name</Label>
-                            <Input
-                              type="text"
-                              id="name"
-                              name="name"
-                              value={selectedProfile?.name}
-                              onChange={handleChange}
-                              className="w-full"
-                              placeholder="Full Name"
-                            />
-                          </div>
-                          <div className="flex flex-col w-full mb-2">
-                            <Label className="pb-2">Bio</Label>
-                            <Textarea
-                              id="bio"
-                              name="bio"
-                              value={selectedProfile?.bio}
-                              onChange={handleChange}
-                              className="w-full"
-                              placeholder="Some cool bio"
-                            />
-                          </div>
-                          <div className="flex w-full flex-col my-2">
-                            <Label className="mb-2">Image</Label>
-                            <Input
-                              accept="image/*"
-                              type="file"
-                              onChange={convertToBase64}
-                            />
-                          </div>
-                          <div className="mt-2 w-full flex flex-wrap items-center">
-                            <div className="flex flex-wrap w-full flex-col">
-                              <div className="flex justify-center items-center flex-col mb-2">
-                                {selectedProfile?.links.map((link, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex w-full relative items-center"
-                                  >
-                                    {getIconForUrl(link)}
-                                    <Input
-                                      type="text"
-                                      name={`links[${index}]`}
-                                      value={link}
-                                      onChange={(event) =>
-                                        handleChangeLink(event, index)
-                                      }
-                                      className="ml-2 w-full"
-                                    />
-                                    <Button
-                                      variant={"destructive"}
-                                      className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
-                                      type="button"
-                                      onClick={() => {
-                                        const newLinks = [
-                                          ...selectedProfile?.links,
-                                        ];
-                                        newLinks.splice(index, 1);
-                                        setSelectedProfile((prevProfile) => ({
-                                          ...(prevProfile as Profile),
-                                          links: newLinks,
-                                        }));
-                                      }}
-                                    >
-                                      <Minus className="w-10 h-10" />
-                                    </Button>
-                                  </div>
-                                ))}
-                              </div>
-                              <div className="flex justify-center items-center flex-col mb-2">
-                                {additionalLinks.map((link, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex w-full items-center relative"
-                                  >
-                                    {getIconForUrl(link)}
-                                    <Input
-                                      type="text"
-                                      name={`additionalLinks[${index}]`}
-                                      placeholder={`Link ${index + 1}`}
-                                      value={link}
-                                      onChange={(event) =>
-                                        handleAdditionalLinkChange(event, index)
-                                      }
-                                      className="ml-2 w-full"
-                                    />
-                                    <Button
-                                      variant={"destructive"}
-                                      className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
-                                      type="button"
-                                      onClick={() =>
-                                        removeAdditionalLink(index)
-                                      }
-                                    >
-                                      <Minus className="w-10 h-10" />
-                                    </Button>
-                                  </div>
-                                ))}
-                              </div>
-                              <div className="flex flex-col space-y-1.5">
-                                <div className="flex flex-col space-y-4">
-                                  <div className="flex pb-4 justify-center items-center">
-                                    <Label htmlFor="name">Add more links</Label>
-                                    <Button
-                                      className="w-8 h-8 p-2 ml-4 rounded-full"
-                                      type="button"
-                                      onClick={addAdditionalLink}
-                                    >
-                                      <Plus className="w-10 h-10" />
-                                    </Button>
-                                  </div>
-                                </div>
-                              </div>
-                              <Button className="w-full" type="submit">
-                                Save
-                              </Button>
-                            </div>
-                          </div> */}
                           <div className="gap-10">
                             <Button
                               disabled
@@ -485,120 +367,6 @@ const ProfilePage = () => {
                       <p>Select Appearance</p>
                       <div className="w-full mt-2 rounded-full h-1 mr-2 bg-gradient-to-r from-[#8ebec0] via-[#f8914c] to-background" />
                     </div>
-                    {/* <div className="flex w-full flex-col my-2 pb-2">
-                      <Label className="mb-2">Name</Label>
-                      <Input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={selectedProfile?.name}
-                        onChange={handleChange}
-                        className="w-full"
-                        placeholder="Full Name"
-                      />
-                    </div>
-                    <div className="flex flex-col w-full mb-2">
-                      <Label className="pb-2">Bio</Label>
-                      <Textarea
-                        id="bio"
-                        name="bio"
-                        value={selectedProfile?.bio}
-                        onChange={handleChange}
-                        className="w-full"
-                        placeholder="Some cool bio"
-                      />
-                    </div>
-                    <div className="flex w-full flex-col my-2">
-                      <Label className="mb-2">Image</Label>
-                      <Input
-                        accept="image/*"
-                        type="file"
-                        onChange={convertToBase64}
-                      />
-                    </div>
-                    <div className="mt-2 w-full flex flex-wrap items-center">
-                      <div className="flex flex-wrap w-full flex-col">
-                        <div className="flex justify-center items-center flex-col mb-2">
-                          {selectedProfile?.links.map((link, index) => (
-                            <div
-                              key={index}
-                              className="flex w-full relative items-center"
-                            >
-                              {getIconForUrl(link)}
-                              <Input
-                                type="text"
-                                name={`links[${index}]`}
-                                value={link}
-                                onChange={(event) =>
-                                  handleChangeLink(event, index)
-                                }
-                                className="ml-2 w-full"
-                              />
-                              <Button
-                                variant={"destructive"}
-                                className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
-                                type="button"
-                                onClick={() => {
-                                  const newLinks = [...selectedProfile?.links];
-                                  newLinks.splice(index, 1);
-                                  setSelectedProfile((prevProfile) => ({
-                                    ...(prevProfile as Profile),
-                                    links: newLinks,
-                                  }));
-                                }}
-                              >
-                                <Minus className="w-10 h-10" />
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="flex justify-center items-center flex-col mb-2">
-                          {additionalLinks.map((link, index) => (
-                            <div
-                              key={index}
-                              className="flex w-full items-center relative"
-                            >
-                              {getIconForUrl(link)}
-                              <Input
-                                type="text"
-                                name={`additionalLinks[${index}]`}
-                                placeholder={`Link ${index + 1}`}
-                                value={link}
-                                onChange={(event) =>
-                                  handleAdditionalLinkChange(event, index)
-                                }
-                                className="ml-2 w-full"
-                              />
-                              <Button
-                                variant={"destructive"}
-                                className="w-6 absolute right-3 z- h-6 p-2 rounded-full"
-                                type="button"
-                                onClick={() => removeAdditionalLink(index)}
-                              >
-                                <Minus className="w-10 h-10" />
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                        <div className="flex flex-col space-y-1.5">
-                          <div className="flex flex-col space-y-4">
-                            <div className="flex pb-4 justify-center items-center">
-                              <Label htmlFor="name">Add more links</Label>
-                              <Button
-                                className="w-8 h-8 p-2 ml-4 rounded-full"
-                                type="button"
-                                onClick={addAdditionalLink}
-                              >
-                                <Plus className="w-10 h-10" />
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                        <Button className="w-full" type="submit">
-                          Save
-                        </Button>
-                      </div>
-                    </div> */}
                     <div className="gap-10">
                       <Button disabled className="select-none mt-4 mb-8 w-full">
                         {"Default (Selected)"}
@@ -684,9 +452,6 @@ const ProfilePage = () => {
                 <div className="md:w-1 rounded-b-full md:h-1/3 md:mr-2 bg-gradient-to-b from-[#8ebec0] to-background" />
               </div>
             </div>
-            {/* <div className="md:flex hidden">
-              <Footer />
-            </div> */}
           </div>
         </div>
       ) : (

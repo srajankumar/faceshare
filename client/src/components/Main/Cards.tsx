@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const Cards = () => {
   return (
-    <div className="flex flex-col mb-10 md:mb-10 w-full justify-center items-center px-8">
+    <div className="flex flex-col mb-10 md:mb-10 w-full justify-center items-center px-5">
       <motion.div
         className="rounded-md"
         initial={{ y: 100, opacity: 0 }} // Image starts from 100px below and fully transparent
