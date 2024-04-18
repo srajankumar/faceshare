@@ -38,6 +38,7 @@ Build your awesome profile and easily share it with your connections for free! C
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 ![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-%23000000.svg?style=for-the-badge)
 ![Figma](https://img.shields.io/badge/Figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ## Contributors
 
