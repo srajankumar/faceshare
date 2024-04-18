@@ -23,6 +23,15 @@ Build your awesome profile and easily share it with your connections for free! C
   <img src="/assets/mockup.png" alt="mockup-image"/>
 </div>
 
+## Installation
+
+```bash
+  docker compose build
+```
+```bash
+  docker compose up
+```
+
 ## Tech Stacks
 
 ![Next.js](https://img.shields.io/badge/Next.js-%23000000.svg?style=for-the-badge&logo=next.js&logoColor=white)
