@@ -12,15 +12,3 @@ export async function GET() {
     return NextResponse.json({ error: err }, { status: 500 });
   }
 }
-
-export async function POST(req: NextRequest) {
-  await connectMongoDB();
-
-  const profile = new ProfileModel(req.body);
-  try {
-    const response = await profile.save();
-    return NextResponse.json(response);
-  } catch (err) {
-    return NextResponse.json({ error: err }, { status: 500 });
-  }
-}

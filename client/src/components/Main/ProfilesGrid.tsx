@@ -24,10 +24,14 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const nextServerUrl = process.env.NEXT_PUBLIC_NEXT_SERVER_URL;
+
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const response = await axios.get<Profile[]>("/api/profiles");
+        const response = await axios.get<Profile[]>(
+          `${nextServerUrl}/api/profiles"`
+        );
         setProfiles(response.data);
         setLoading(false);
       } catch (error) {

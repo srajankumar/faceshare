@@ -167,12 +167,13 @@ export default function Username({ params }: { params: { username: string } }) {
   const userID = useGetUserID();
 
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  const nextServerUrl = process.env.NEXT_PUBLIC_NEXT_SERVER_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `/api/profiles?username=${params.username}`
+          `${nextServerUrl}/api/profiles?username=${params.username}`
         );
         const data = await response.json();
 
@@ -196,7 +197,7 @@ export default function Username({ params }: { params: { username: string } }) {
     const fetchSavedProfile = async () => {
       try {
         const response = await axios.get(
-          `/api/profiles/savedProfiles/ids/${userID}`
+          `${serverUrl}/profiles/savedProfiles/ids/${userID}`
         );
         setSavedProfiles(response.data.savedProfiles);
       } catch (err) {
@@ -250,7 +251,7 @@ export default function Username({ params }: { params: { username: string } }) {
   const saveProfile = async (profileID: any) => {
     try {
       const response = await axios.put(
-        `${serverUrl}/profiles`,
+        `${nextServerUrl}/profiles`,
         {
           profileID,
           userID,
