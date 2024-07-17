@@ -4,6 +4,7 @@ import * as React from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useGetUserID } from "@/hooks/useGetUserID";
+import { useRouter } from "next/navigation";
 import { useGetUsername } from "@/hooks/useGetUsername";
 import { useState, useEffect, ChangeEvent } from "react";
 
@@ -171,6 +172,7 @@ const Edit = () => {
   const [count, setCount] = React.useState(0);
   const [image, setImage] = React.useState<string | null>(null);
   const [cookies] = useCookies(["access_token"]);
+  const router = useRouter();
 
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -219,6 +221,10 @@ const Edit = () => {
   }
 
   useEffect(() => {
+    if (userID == null) {
+      router.push("/");
+    }
+
     const fetchProfiles = async () => {
       try {
         const response = await axios.get(`${serverUrl}/profiles`);

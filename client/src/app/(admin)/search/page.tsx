@@ -8,7 +8,7 @@ const All = () => {
     <div>
       <Navbar />
       <ProfilesGrid selectedProfileId={null} />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

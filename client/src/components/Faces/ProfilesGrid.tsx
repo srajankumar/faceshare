@@ -7,6 +7,8 @@ import Logout from "../Logout";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { useGetUserID } from "@/hooks/useGetUserID";
+import { useRouter } from "next/navigation";
+
 import { Button } from "../ui/button";
 
 interface Profile {
@@ -28,10 +30,15 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
   const [savedProfiles, setSavedProfiles] = useState<Profile[]>([]);
 
   const userID = useGetUserID();
+  const router = useRouter();
 
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
   useEffect(() => {
+    if (userID == null) {
+      router.push("/");
+    }
+
     const fetchSavedProfile = async () => {
       try {
         const response = await axios.get(

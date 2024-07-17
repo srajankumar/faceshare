@@ -5,6 +5,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import Logout from "../Logout";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetUserID } from "@/hooks/useGetUserID";
+import { useRouter } from "next/navigation";
+
 interface Profile {
   userOwner: string | null;
   _id: string;
@@ -23,8 +26,14 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
   const [loading, setLoading] = useState(true);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const userID = useGetUserID();
+  const router = useRouter();
 
   useEffect(() => {
+    if (userID == null) {
+      router.push("/");
+    }
+
     const fetchProfiles = async () => {
       try {
         const response = await axios.get<Profile[]>(

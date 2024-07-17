@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/add-profile/page.tsx"
+    "src/app/(admin)/add-profile/page.tsx"
   ],
   "exclude": ["node_modules"]
 }
