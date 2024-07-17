@@ -92,7 +92,7 @@ function Navbar() {
             ></Image>
             <p className="font-semibold pl-1">Face Share</p>{" "}
           </Link>
-          <div className="flex gap-5">
+          <div className="flex gap-3">
             <Link
               href="/edit"
               className={`${
@@ -169,8 +169,7 @@ function Navbar() {
             width={500}
             height={500}
             className="w-5 h-5"
-          ></Image>
-          {/* <p className="font-semibold pl-1">Face Share</p>{" "} */}
+          />
         </Link>
         <Link
           href="/edit"
@@ -178,7 +177,10 @@ function Navbar() {
             pathname == "/edit" ? "text-primary" : "text-primary/70"
           } flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg`}
         >
-          <Button variant={pathname == "/edit" ? "secondary" : "ghost"}>
+          <Button
+            size={"icon"}
+            variant={pathname == "/edit" ? "secondary" : "ghost"}
+          >
             <Edit className="w-5 h-5" />
           </Button>
         </Link>
@@ -188,7 +190,10 @@ function Navbar() {
             pathname == "/appearance" ? "text-primary" : "text-primary/70"
           } flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg`}
         >
-          <Button variant={pathname == "/appearance" ? "secondary" : "ghost"}>
+          <Button
+            size={"icon"}
+            variant={pathname == "/appearance" ? "secondary" : "ghost"}
+          >
             <Palette className="w-5 h-5" />
           </Button>
         </Link>
@@ -198,7 +203,10 @@ function Navbar() {
             pathname == "/search" ? "text-primary" : "text-primary/70"
           } flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg`}
         >
-          <Button variant={pathname == "/search" ? "secondary" : "ghost"}>
+          <Button
+            size={"icon"}
+            variant={pathname == "/search" ? "secondary" : "ghost"}
+          >
             <Search className="w-5 h-5" />
           </Button>
         </Link>
@@ -208,8 +216,10 @@ function Navbar() {
             pathname == "/faces" ? "text-primary" : "text-primary/70"
           } flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg`}
         >
-          {" "}
-          <Button variant={pathname == "/faces" ? "secondary" : "ghost"}>
+          <Button
+            size={"icon"}
+            variant={pathname == "/faces" ? "secondary" : "ghost"}
+          >
             <Save className="w-5 h-5" />
           </Button>
         </Link>

@@ -98,7 +98,9 @@ const ProfilesGrid: React.FC<ProfilesGridProps> = ({ selectedProfileId }) => {
                     className="object-cover"
                     src={profile.imageUrl}
                   />
-                  <AvatarFallback>{profile.username}</AvatarFallback>
+                  <AvatarFallback>
+                    <div className="bg-gradient-to-tr from-background to-[#8ebec0] w-20 h-20" />
+                  </AvatarFallback>
                 </Avatar>
                 <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
                   <div className="flex w-full justify-end items-center max-w-md">

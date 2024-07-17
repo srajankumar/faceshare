@@ -418,7 +418,7 @@ const ProfilePage = () => {
                 </DrawerContent>
               </Drawer>
               <form onSubmit={handleSave}>
-                <div className="flex xl:px-10 lg:mx-20 mx-5 pt-24 pb-28 md:pt-32 md:pb-20 flex-col items-center min-h-[100dvh]">
+                <div className="flex xl:px-10 lg:mx-20 mx-5 pt-[7.2rem] pb-28 md:pt-32 md:pb-20 flex-col items-center min-h-[100dvh]">
                   <div className="max-w-xl w-full flex flex-col mx-8 my-3">
                     <div className="text-2xl mb-5 font-semibold">
                       <p>Edit Profile</p>
