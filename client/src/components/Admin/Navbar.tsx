@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 import { useCookies } from "react-cookie";
+import { usePathname } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -67,6 +68,7 @@ const GitHubStarButton: React.FC<GitHubStarButtonProps> = ({ owner, repo }) => {
 
 function Navbar() {
   const [cookies, setCookies] = useCookies(["access_token", "username"]);
+  const pathname = usePathname();
 
   const logout = () => {
     setCookies("access_token", "");
@@ -77,8 +79,8 @@ function Navbar() {
   };
 
   return (
-    <nav className="fixed w-full z-50 backdrop-blur-md flex items-center py-5 px-5">
-      <div className="hidden md:flex lg:container items-center w-full justify-between">
+    <nav className="fixed w-full z-50 bg-background backdrop-blur-md flex items-center py-5 px-5">
+      <div className="hidden lg:flex lg:container items-center w-full justify-between">
         <div className="flex items-center gap-x-3">
           <Link className="flex mr-3 items-center space-x-1" href="/admin">
             <Image
@@ -93,31 +95,59 @@ function Navbar() {
           <div className="flex gap-5">
             <Link
               href="/edit"
-              className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
+              className={`${
+                pathname == "/edit" ? "text-primary" : "text-primary/70"
+              } transition-all duration-300 flex items-center text-sm`}
             >
-              <Edit className="w-5 h-5" />
-              <p>Edit</p>
+              <Button
+                className="flex gap-2"
+                variant={pathname == "/edit" ? "secondary" : "ghost"}
+              >
+                <Edit className="w-5 h-5" />
+                <p>Edit</p>
+              </Button>
             </Link>
             <Link
               href="/appearance"
-              className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
+              className={`${
+                pathname == "/appearance" ? "text-primary" : "text-primary/70"
+              } transition-all duration-300 flex items-center text-sm`}
             >
-              <Palette className="w-5 h-5" />
-              <p>Appearance</p>
+              <Button
+                className="flex gap-2"
+                variant={pathname == "/appearance" ? "secondary" : "ghost"}
+              >
+                <Palette className="w-5 h-5" />
+                <p>Appearance</p>
+              </Button>
             </Link>
             <Link
               href="/search"
-              className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
+              className={`${
+                pathname == "/search" ? "text-primary" : "text-primary/70"
+              } transition-all duration-300 flex items-center text-sm`}
             >
-              <Search className="w-5 h-5" />
-              <p>Search</p>
+              <Button
+                className="flex gap-2"
+                variant={pathname == "/search" ? "secondary" : "ghost"}
+              >
+                <Search className="w-5 h-5" />
+                <p>Search</p>
+              </Button>
             </Link>
             <Link
               href="/faces"
-              className="text-primary/70 hover:text-primary transition-all duration-300 flex items-center gap-2 text-sm"
+              className={`${
+                pathname == "/faces" ? "text-primary" : "text-primary/70"
+              } transition-all duration-300 flex items-center text-sm`}
             >
-              <User className="w-5 h-5" />
-              <p>Faces</p>
+              <Button
+                className="flex gap-2"
+                variant={pathname == "/faces" ? "secondary" : "ghost"}
+              >
+                <User className="w-5 h-5" />
+                <p>Faces</p>
+              </Button>
             </Link>
           </div>
         </div>
@@ -131,7 +161,7 @@ function Navbar() {
           <Logout />
         </div>
       </div>
-      <div className="flex md:hidden my-2 justify-between items-center w-full">
+      <div className="flex lg:hidden justify-between items-center w-full">
         <Link className="flex mr-3 items-center space-x-1" href="/admin">
           <Image
             src="/globe.png"
@@ -144,31 +174,48 @@ function Navbar() {
         </Link>
         <Link
           href="/edit"
-          className="text-primary/70 flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+          className={`${
+            pathname == "/edit" ? "text-primary" : "text-primary/70"
+          } flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg`}
         >
-          <Edit className="w-5 h-5" />
+          <Button variant={pathname == "/edit" ? "secondary" : "ghost"}>
+            <Edit className="w-5 h-5" />
+          </Button>
         </Link>
         <Link
           href="/appearance"
-          className="text-primary/70 flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+          className={`${
+            pathname == "/appearance" ? "text-primary" : "text-primary/70"
+          } flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg`}
         >
-          <Palette className="w-5 h-5" />
+          <Button variant={pathname == "/appearance" ? "secondary" : "ghost"}>
+            <Palette className="w-5 h-5" />
+          </Button>
         </Link>
         <Link
           href="/search"
-          className="text-primary/70 flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+          className={`${
+            pathname == "/search" ? "text-primary" : "text-primary/70"
+          } flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg`}
         >
-          <Search className="w-5 h-5" />
+          <Button variant={pathname == "/search" ? "secondary" : "ghost"}>
+            <Search className="w-5 h-5" />
+          </Button>
         </Link>
         <Link
           href="/faces"
-          className="text-primary/70 flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg"
+          className={`${
+            pathname == "/faces" ? "text-primary" : "text-primary/70"
+          } flex-col px-3 rounded-md hover:text-primary transition-all duration-300 flex items-center gap-2 text-lg`}
         >
-          <Save className="w-5 h-5" />
+          {" "}
+          <Button variant={pathname == "/faces" ? "secondary" : "ghost"}>
+            <Save className="w-5 h-5" />
+          </Button>
         </Link>
         <div
           onClick={logout}
-          className="text-red-500 bottom-0 right-0 ml-3 rounded-md hover:text-primary transition-all duration-300 flex items-center justify-center gap-2 text-lg"
+          className="text-red-500 bottom-0 right-0 ml-3 rounded-md transition-all duration-300 flex items-center justify-center gap-2 text-lg"
         >
           <LogOut className="w-5 h-5" />
         </div>

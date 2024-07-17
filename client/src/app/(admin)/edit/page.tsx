@@ -360,7 +360,7 @@ const ProfilePage = () => {
                     .slice(0, 1)
                     .map((profile) => (
                       <div className="my-20" key={profile._id}>
-                        <div className="className flex flex-col justify-center items-center ">
+                        <div className="className flex flex-col justify-center items-center">
                           <Avatar className="w-40 h-40">
                             <AvatarImage
                               src={selectedProfile?.imageUrl}
@@ -418,7 +418,7 @@ const ProfilePage = () => {
                 </DrawerContent>
               </Drawer>
               <form onSubmit={handleSave}>
-                <div className="flex xl:px-10 lg:mx-20 mx-8 pt-24 pb-28 md:pt-32 md:pb-20 flex-col items-center min-h-[100dvh]">
+                <div className="flex xl:px-10 lg:mx-20 mx-5 pt-24 pb-28 md:pt-32 md:pb-20 flex-col items-center min-h-[100dvh]">
                   <div className="max-w-xl w-full flex flex-col mx-8 my-3">
                     <div className="text-2xl mb-5 font-semibold">
                       <p>Edit Profile</p>
