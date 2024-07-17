@@ -6,6 +6,7 @@ import Image from "next/image";
 import axios from "axios";
 import { useGetUserID } from "@/hooks/useGetUserID";
 import { useState, useEffect, ChangeEvent } from "react";
+import { Github } from "lucide-react";
 
 interface Profile {
   name: string;
@@ -66,6 +67,14 @@ function Navbar() {
             </Link>
             <Link href="/login">
               <Button>Sign In</Button>
+            </Link>
+            <Link
+              href="https://github.com/srajankumar/faceshare"
+              target="_blank"
+            >
+              <Button variant={"outline"} size={"icon"}>
+                <Github className="w-5 h-5" />
+              </Button>
             </Link>
           </div>
         )}
