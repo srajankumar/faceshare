@@ -410,7 +410,9 @@ const ProfilePage = () => {
                               src={profile.imageUrl}
                               className="object-cover"
                             />
-                            <AvatarFallback>{profile.username}</AvatarFallback>
+                            <AvatarFallback>
+                              <div className="bg-gradient-to-tr from-background to-[#8ebec0] w-36 h-36" />
+                            </AvatarFallback>
                           </Avatar>
                           <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
                             <p className="sm:max-w-md text-xs my-3 text-center">

@@ -284,7 +284,9 @@ export default function Username({ params }: { params: { username: string } }) {
                     src={profileData.imageUrl}
                     className="object-cover"
                   />
-                  <AvatarFallback>{profileData.username}</AvatarFallback>
+                  <AvatarFallback>
+                    <div className="bg-gradient-to-tr from-background to-[#8ebec0] w-40 h-40" />
+                  </AvatarFallback>
                 </Avatar>
               </DialogTrigger>
               <DialogContent className="p-0 w-auto h-auto bg-transparent border-0">
@@ -293,7 +295,9 @@ export default function Username({ params }: { params: { username: string } }) {
                     src={profileData.imageUrl}
                     className="object-cover"
                   />
-                  <AvatarFallback>{profileData.username}</AvatarFallback>
+                  <AvatarFallback>
+                    <div className="bg-gradient-to-tr from-background to-[#8ebec0] w-60 h-60" />
+                  </AvatarFallback>
                 </Avatar>
               </DialogContent>
             </Dialog>

@@ -367,7 +367,7 @@ const ProfilePage = () => {
                               className="object-cover"
                             />
                             <AvatarFallback>
-                              {selectedProfile?.username}
+                              <div className="bg-gradient-to-tr from-background to-[#8ebec0] w-20 h-20" />
                             </AvatarFallback>
                           </Avatar>
                           <div className="max-w-xl flex flex-col justify-center items-center mx-5 mt-3">
@@ -568,7 +568,7 @@ const ProfilePage = () => {
                               className="object-cover"
                             />
                             <AvatarFallback>
-                              {selectedProfile?.username}
+                              <div className="bg-gradient-to-tr from-background to-[#8ebec0] w-32 h-32" />
                             </AvatarFallback>
                           </Avatar>
                           <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">

@@ -437,7 +437,9 @@ const Edit = () => {
                         className="object-cover"
                         src={image || undefined}
                       />
-                      <AvatarFallback>{previewProfile.username}</AvatarFallback>
+                      <AvatarFallback>
+                        <div className="bg-gradient-to-tr from-background to-[#8ebec0] w-40 h-40" />
+                      </AvatarFallback>
                     </Avatar>
                     <div className="max-w-xl flex flex-col justify-center items-center lg:mx-8 mt-3">
                       <p className="sm:max-w-md my-3 text-center">
@@ -607,7 +609,9 @@ const Edit = () => {
                         src={image || undefined}
                         className="object-cover"
                       />
-                      <AvatarFallback>{previewProfile.username}</AvatarFallback>
+                      <AvatarFallback>
+                        <div className="bg-gradient-to-tr from-background to-[#8ebec0] w-40 h-40" />
+                      </AvatarFallback>
                     </Avatar>
                     <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
                       <p className="sm:max-w-md my-3 text-center">
