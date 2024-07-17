@@ -259,7 +259,8 @@ const ProfilePage = () => {
     fetchProfiles();
   }, [server, userID]);
 
-  const handleSave = async () => {
+  const handleSave = async (e: any) => {
+    e.preventDefault();
     try {
       if (selectedProfile) {
         const filteredLinks = selectedProfile?.links.filter(
