@@ -54,12 +54,22 @@ function Navbar() {
             height={500}
             className="w-7 h-7"
           ></Image>
-          <p className="font-semibold pl-1">Face Share</p>{" "}
+          <p className="font-semibold pl-1 md:flex hidden">Face Share</p>{" "}
         </Link>
         {existingProfile ? (
-          <Link href="/admin">
-            <Button>My Face</Button>
-          </Link>
+          <div className="flex gap-x-3">
+            <Link href="/admin">
+              <Button>My Face</Button>
+            </Link>
+            <Link
+              href="https://github.com/srajankumar/faceshare"
+              target="_blank"
+            >
+              <Button variant={"outline"} size={"icon"}>
+                <Github className="w-5 h-5" />
+              </Button>
+            </Link>
+          </div>
         ) : (
           <div className="flex gap-x-3">
             <Link href="/register">
