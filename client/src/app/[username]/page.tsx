@@ -250,7 +250,7 @@ export default function Username({ params }: { params: { username: string } }) {
   const saveProfile = async (profileID: any) => {
     try {
       const response = await axios.put(
-        `${nextServerUrl}/profiles`,
+        `${serverUrl}/profiles`,
         {
           profileID,
           userID,

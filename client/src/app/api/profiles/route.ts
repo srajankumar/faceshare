@@ -1,4 +1,3 @@
-//app\api\products\route.js
 import connectMongoDB from "@/lib/db";
 import { ProfileModel } from "@/models/Profiles";
 import { NextResponse, NextRequest } from "next/server";
