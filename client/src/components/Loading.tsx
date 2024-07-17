@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 export default function Loading() {
   const [loading, setLoading] = useState(true);
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
-  const { toast } = useToast();
 
   useEffect(() => {
     let isMounted = true;
@@ -15,21 +14,14 @@ export default function Loading() {
         const response = await fetch(`${server}/profiles`);
         if (response.ok && isMounted) {
           setLoading(false);
-          toast({
-            title: "Server connected!",
-            description: "The app is now successfully connected to the server.",
-          });
+          toast.success("Connected to server successfully.");
         } else {
+          // toast.error("Server connection failed. Please try agian later.");
           console.error("Failed to fetch data from the server");
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-        toast({
-          title: "Oops! Something went wrong.",
-          description:
-            "We encountered an issue while fetching data. Please try again later.",
-          variant: "destructive",
-        });
+        toast.error("Server connection failed. Please try agian later.");
       }
     };
 

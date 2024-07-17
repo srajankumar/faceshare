@@ -43,13 +43,8 @@ export default function Login() {
     fetchProfiles();
   }, [userID]);
 
-  const redirect = () => {
-    window.location.href = "/admin";
-    return null;
-  };
-
   if (existingProfile) {
-    redirect();
+    window.location.href = "/admin";
   }
 
   return (

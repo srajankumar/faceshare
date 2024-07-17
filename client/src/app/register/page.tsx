@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { UserAuthForm } from "@/components/Register/user-auth-form";
-
 import axios from "axios";
 import { useGetUserID } from "@/hooks/useGetUserID";
 import { useState, useEffect, ChangeEvent } from "react";
@@ -43,13 +42,8 @@ export default function Login() {
     fetchProfiles();
   }, [userID]);
 
-  const redirect = () => {
-    window.location.href = "/admin";
-    return null;
-  };
-
   if (existingProfile) {
-    redirect();
+    window.location.href = "/admin";
   }
 
   return (

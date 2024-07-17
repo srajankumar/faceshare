@@ -20,6 +20,7 @@ import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { useGetUserID } from "../../hooks/useGetUserID";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 import {
   Drawer,
@@ -159,7 +160,6 @@ const ProfilePage = () => {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const [additionalLinks, setAdditionalLinks] = useState<string[]>([]);
   const [image, setImage] = React.useState<string | null>(null);
-
   const userID = useGetUserID();
 
   const server = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -282,9 +282,12 @@ const ProfilePage = () => {
           `${server}/profiles/${selectedProfile?._id}`,
           updatedProfile
         );
+
+        toast.success("Profile updated successfully.");
       }
     } catch (err) {
       console.error(err);
+      toast.success("Profile update failed. Please try again.");
     }
   };
 
@@ -354,23 +357,27 @@ const ProfilePage = () => {
                         <div className="className flex flex-col justify-center items-center ">
                           <Avatar className="w-40 h-40">
                             <AvatarImage
-                              src={profile.imageUrl}
+                              src={selectedProfile?.imageUrl}
                               className="object-cover"
                             />
-                            <AvatarFallback>{profile.username}</AvatarFallback>
+                            <AvatarFallback>
+                              {selectedProfile?.username}
+                            </AvatarFallback>
                           </Avatar>
                           <div className="max-w-xl flex flex-col justify-center items-center mx-5 mt-3">
                             <p className="sm:max-w-md my-3 text-center">
-                              {profile.bio}
+                              {selectedProfile?.bio}
                             </p>
                             <div className="flex w-full justify-end items-center max-w-md">
                               <div className="w-40 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
-                              <div className="text-xl">{profile.name}</div>
+                              <div className="text-xl">
+                                {selectedProfile?.name}
+                              </div>
                             </div>
                             <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
                               <div className="flex flex-col">
                                 <div className="flex flex-wrap justify-center">
-                                  {profile.links.map((link, index) => (
+                                  {selectedProfile?.links.map((link, index) => (
                                     <div key={index}>
                                       <Link
                                         href={addHttpPrefix(link)}
@@ -526,6 +533,10 @@ const ProfilePage = () => {
                         <Button className="w-full" type="submit">
                           Save
                         </Button>
+                        {/* <p className="text-xs text-primary/50 mt-5">
+                          If changes are not visible immediately, please reload
+                          the page.
+                        </p> */}
                       </div>
                     </div>
                   </div>
@@ -547,23 +558,25 @@ const ProfilePage = () => {
                         <div className="flex flex-col justify-center items-center">
                           <Avatar className="w-32 h-32">
                             <AvatarImage
-                              src={profile.imageUrl}
+                              src={selectedProfile?.imageUrl}
                               className="object-cover"
                             />
-                            <AvatarFallback>{profile.username}</AvatarFallback>
+                            <AvatarFallback>
+                              {selectedProfile?.username}
+                            </AvatarFallback>
                           </Avatar>
                           <div className="max-w-xl flex flex-col justify-center items-center mx-8 mt-3">
                             <p className="sm:max-w-md text-xs my-3 text-center">
-                              {profile.bio}
+                              {selectedProfile?.bio}
                             </p>
                             <div className="flex w-full justify-end items-center max-w-md">
                               <div className="w-28 rounded-full h-1 mr-2 bg-gradient-to-r from-background via-[#8ebec0] to-[#f8914c]" />
-                              <div>{profile.name}</div>
+                              <div>{selectedProfile?.name}</div>
                             </div>
                             <div className="mt-2 sm:max-w-md flex flex-wrap items-center space-x-10">
                               <div className="flex flex-col">
                                 <div className="flex flex-wrap justify-center">
-                                  {profile.links.map((link, index) => (
+                                  {selectedProfile?.links.map((link, index) => (
                                     <div key={index}>
                                       <Link
                                         href={addHttpPrefix(link)}
@@ -602,9 +615,6 @@ const ProfilePage = () => {
                 <div className="md:w-1 rounded-b-full md:h-1/3 md:mr-2 bg-gradient-to-b from-[#8ebec0] to-background" />
               </div>
             </div>
-            {/* <div className="md:flex hidden">
-              <Footer />
-            </div> */}
           </div>
         </div>
       ) : (

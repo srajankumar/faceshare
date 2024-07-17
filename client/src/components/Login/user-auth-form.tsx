@@ -6,13 +6,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -55,12 +54,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       });
 
       if (!response.data.token) {
-        toast({
-          title: "Login Failed",
-          description:
-            "The entered username or password is incorrect. Please try again.",
-          variant: "destructive",
-        });
+        toast.error("Username or password is incorrect.");
         setIsLoading(false);
       } else {
         setCookies("access_token", response.data.token);
@@ -68,10 +62,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
         window.localStorage.setItem("userID", response.data.userID);
         window.localStorage.setItem("username", username);
-        toast({
-          title: "Login Successful",
-          variant: "success",
-        });
+        toast.success("Login successful.");
 
         setUsername("");
         setPassword("");
@@ -82,12 +73,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       }
     } catch (err) {
       console.error(err);
-      setError("An error occurred. Please try again.");
-      toast({
-        title: "Login Failed",
-        description: "An error occurred. Please try again.",
-        variant: "destructive",
-      });
+      toast.error("Login failed. Please try again.");
       setIsLoading(false);
     }
   };

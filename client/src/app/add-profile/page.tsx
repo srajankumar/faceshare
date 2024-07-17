@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -170,7 +170,6 @@ const Edit = () => {
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
   const [image, setImage] = React.useState<string | null>(null);
-  const { toast } = useToast();
   const [cookies] = useCookies(["access_token"]);
 
   const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -319,11 +318,7 @@ const Edit = () => {
     );
 
     if (!areAllLinksValid) {
-      toast({
-        title: "Invalid links",
-        description: "Please make sure all links are valid.",
-        variant: "destructive",
-      });
+      toast.error("Invalid links.");
 
       // Find the first invalid link and set focus
       const firstInvalidIndex = profile.links.findIndex(
@@ -349,26 +344,15 @@ const Edit = () => {
       await axios.post(`${serverUrl}/profiles`, updatedProfile, {
         headers: { authorization: cookies.access_token },
       });
-      toast({
-        title: "Profile Added!",
-        variant: "success",
-      });
+      toast.success("Profile successfully added.");
       setTimeout(() => {
         setExistingProfile(profile);
       }, 1000);
     } catch (err: any) {
       if (err.response && err.response.status === 403) {
-        // Unauthorized error
-        toast({
-          title: "Authorization Error",
-          variant: "destructive",
-        });
+        toast.error("Authorization error.");
       } else {
-        toast({
-          title: "Oops! Failed to add profile details",
-          description: "Please try again.",
-          variant: "destructive",
-        });
+        toast.error("Failed to add profile details. Please try again.");
       }
       setIsLoading(false);
       console.error(err);

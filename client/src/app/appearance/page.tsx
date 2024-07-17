@@ -35,6 +35,8 @@ import {
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Admin/Navbar";
 
+import { toast } from "sonner";
+
 interface Profile {
   userOwner: string | null;
   _id: string;
@@ -245,7 +247,9 @@ const ProfilePage = () => {
     fetchProfiles();
   }, [server, userID]);
 
-  const handleSave = async () => {
+  const handleSave = async (e: any) => {
+    e.preventDefault();
+    toast.info("Feature Coming Soon.");
     try {
       if (selectedProfile) {
         const filteredLinks = selectedProfile?.links.filter(

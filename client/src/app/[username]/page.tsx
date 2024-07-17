@@ -24,7 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 import { useGetUserID } from "@/hooks/useGetUserID";
 
@@ -157,7 +157,6 @@ const getIconForUrl = (url: string) => {
 };
 
 export default function Username({ params }: { params: { username: string } }) {
-  const { toast } = useToast();
   const [profileData, setProfileData] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -259,22 +258,13 @@ export default function Username({ params }: { params: { username: string } }) {
         { headers: { authorization: cookies.access_token } }
       );
       setSavedProfiles(response.data.savedProfiles);
-      toast({
-        title: "Profile saved!",
-        variant: "success",
-      });
+      toast.success("Profile saved.");
     } catch (err: any) {
       if (err.response && err.response.status === 403) {
         // Unauthorized error
-        toast({
-          title: "Authorization Error",
-          variant: "destructive",
-        });
+        toast.error("Authorization Error.");
       }
-      toast({
-        title: "Please login to star this face.",
-        variant: "destructive",
-      });
+      toast.error("Please login to star this face.");
       console.log(err);
     }
   };

@@ -6,13 +6,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -63,13 +62,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       const isUsernameAvailable = await checkUsernameAvailability(username);
 
       if (!isUsernameAvailable) {
-        setError("Username already exists. Please choose a different one.");
-        toast({
-          title: "Registration Failed",
-          description:
-            "Username already exists. Please choose a different one.",
-          variant: "destructive",
-        });
+        setError("Username already exists.");
+        toast.error("Username already exists.");
         setIsLoading(false);
         return;
       }
@@ -79,11 +73,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         password,
       });
 
-      toast({
-        title: "Registration Completed",
-        description: "Redirecting to login page.",
-        variant: "success",
-      });
+      toast.success("Registration success. Redirecting to login.");
 
       setUsername("");
       setPassword("");
@@ -94,11 +84,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     } catch (err) {
       console.error(err);
       setError("An error occurred during registration. Please try again.");
-      toast({
-        title: "Registration Failed",
-        description: "An error occurred during registration. Please try again.",
-        variant: "destructive",
-      });
+      toast.error("Registration failed. Please try again.");
       setIsLoading(false);
     }
   }
