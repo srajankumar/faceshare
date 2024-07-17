@@ -277,7 +277,7 @@ const ProfilePage = () => {
           updatedProfile.imageUrl = image;
         }
 
-        await axios.put(
+        await axios.patch(
           `${server}/profiles/${selectedProfile?._id}`,
           updatedProfile
         );

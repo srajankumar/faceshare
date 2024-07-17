@@ -7,14 +7,14 @@ const Footer = () => {
         <div className="flex items-center space-x-3">
           <p className="text-sm text-primary/50">
             <span className="select-none">
-              © {new Date().getFullYear()} Face Share -
+              © {new Date().getFullYear()} - Face Share by
             </span>
             <Link
-              href="https://srajan.vercel.app/"
+              href="https://srajan.vercel.app"
               target="_blank"
               className="underline ml-1 underline-offset-4 hover:text-primary"
             >
-              srajan
+              Srajan Kumar
             </Link>
           </p>
         </div>

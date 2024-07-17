@@ -25,22 +25,63 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+// router.put("/:id", async (req, res) => {
+//   const profileID = req.params.id;
+//   const updatedData = req.body;
+
+//   try {
+//     // Find the existing profile by ID
+//     const existingProfile = await ProfileModel.findById(profileID);
+
+//     if (!existingProfile) {
+//       return res.status(404).json({ error: "Profile not found" });
+//     }
+
+//     // Update the profile data with the new data
+//     Object.assign(existingProfile, updatedData);
+
+//     // Save the updated profile
+//     const updatedProfile = await existingProfile.save();
+
+//     res.json(updatedProfile);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+router.patch("/:id", async (req, res) => {
   const profileID = req.params.id;
   const updatedData = req.body;
 
   try {
-    // Find the existing profile by ID
     const existingProfile = await ProfileModel.findById(profileID);
 
     if (!existingProfile) {
       return res.status(404).json({ error: "Profile not found" });
     }
 
-    // Update the profile data with the new data
-    Object.assign(existingProfile, updatedData);
+    if (updatedData.name) {
+      existingProfile.name = updatedData.name;
+    }
 
-    // Save the updated profile
+    if (updatedData.bio) {
+      existingProfile.bio = updatedData.bio;
+    }
+
+    if (updatedData.imageUrl) {
+      existingProfile.imageUrl = updatedData.imageUrl;
+    }
+
+    if (updatedData.links && Array.isArray(updatedData.links)) {
+      existingProfile.links = updatedData.links;
+    }
+
+    // for changing username (feature)
+
+    // if (updatedData.username) {
+    //   existingProfile.username = updatedData.username;
+    // }
+
     const updatedProfile = await existingProfile.save();
 
     res.json(updatedProfile);
