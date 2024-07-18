@@ -172,7 +172,8 @@ export default function Username({ params }: { params: { username: string } }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${nextServerUrl}/api/profiles?username=${params.username}`
+          // `${nextServerUrl}/api/profiles?username=${params.username}`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/profiles?username=${params.username}`
         );
         const data = await response.json();
 

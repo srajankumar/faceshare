@@ -93,6 +93,15 @@ router.get("/savedProfiles/ids/:userID", async (req, res) => {
   }
 });
 
+router.get("/savedProfiles/ids/:userID", async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.userID);
+    res.json({ savedProfiles: user?.savedProfiles });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/savedProfiles/:userID", async (req, res) => {
   try {
     const user = await UserModel.findById(req.params.userID);
