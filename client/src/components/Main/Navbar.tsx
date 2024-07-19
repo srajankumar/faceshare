@@ -82,7 +82,7 @@ function Navbar() {
               href="https://github.com/srajankumar/faceshare"
               target="_blank"
             >
-              <Button variant={"outline"} size={"icon"}>
+              <Button variant={"ghost"} size={"icon"}>
                 <Github className="w-5 h-5" />
               </Button>
             </Link>
