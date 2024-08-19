@@ -9,8 +9,18 @@ import { profilesRouter } from "./routes/profiles.js";
 
 const app = express();
 
+const corsOptions = {
+  origin: ["http://localhost:3000", "https://faceshare.vercel.app"],
+  methods: "*",
+  credentials: true,
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
+
+app.get("/", (req, res) => {
+  res.send("Hello Face Share Developer!");
+});
 
 app.use("/auth", userRouter);
 app.use("/profiles", profilesRouter);
