@@ -4,13 +4,15 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
+const PORT = process.env.PORT;
+
 import { userRouter } from "./routes/users.js";
 import { profilesRouter } from "./routes/profiles.js";
 
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://faceshare.vercel.app"],
+  origin: [process.env.DEV_CLIENT, process.env.PROD_CLIENT],
   methods: "*",
   credentials: true,
 };
@@ -29,4 +31,4 @@ const mongo = process.env.MONGODB_URI;
 
 mongoose.connect(mongo);
 
-app.listen(3001, () => console.log("Server Started!"));
+app.listen(PORT, () => console.log("Server Started at " + PORT));
