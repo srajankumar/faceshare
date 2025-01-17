@@ -15,7 +15,8 @@ const corsOptions = {
   origin: [
     process.env.DEV_CLIENT,
     process.env.PROD_CLIENT,
-    "https://renderup.vercel.app",
+    "https://srajan.vercel.app",
+    "https://srajan.tech",
   ],
   methods: "*",
   credentials: true,
