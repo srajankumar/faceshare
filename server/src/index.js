@@ -12,7 +12,11 @@ import { profilesRouter } from "./routes/profiles.js";
 const app = express();
 
 const corsOptions = {
-  origin: [process.env.DEV_CLIENT, process.env.PROD_CLIENT],
+  origin: [
+    process.env.DEV_CLIENT,
+    process.env.PROD_CLIENT,
+    "https://renderup.vercel.app",
+  ],
   methods: "*",
   credentials: true,
 };
