@@ -17,10 +17,10 @@ Build your awesome profile and easily share it with your connections for free! C
 - **Explore and connecet with ease**  
   Search and connect with like-minded individuals, building your online presence within a network of shared interests and passions 🌟
 
-## Mockups
+## Mockup
 
 <div align="center">
-  <img src="/assets/mockup.png" alt="mockup-image"/>
+  <img src="/assets/mockup.png" alt="mockup"/>
 </div>
 
 ## Installation
@@ -28,6 +28,7 @@ Build your awesome profile and easily share it with your connections for free! C
 ```bash
   docker compose build
 ```
+
 ```bash
   docker compose up
 ```
